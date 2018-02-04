@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/dom15.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Titel</title>
+  </head>
+  <body>
+    <h1>DOM examples</h1>
+    <button id="myBtn" onclick=load_file()>Load an external html file and display it</button><br><br>
+    <p>Testing DOM - does not work with local files</p>
+    <script>
+      function load_file() {
+        jQuery.get('https://raw.githubusercontent.com/bunkahle/Transcrypt-Examples/master/dom/dom1a.html', function(data) {
+        dom15.process_Text(data);
+        });
+      }
+    </script>
+
+  </body>
+</html>
+
+
+
+
