@@ -10,4 +10,4 @@ def MouseOver():
     document.getElementById("target-area").style.backgroundColor = "red"
 
 def MouseOut():
-	document.getElementById("target-area").style.backgroundColor = "white"
+    document.getElementById("target-area").style.backgroundColor = "white"
