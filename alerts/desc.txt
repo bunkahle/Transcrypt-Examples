@@ -1,1 +1,1 @@
-Examples for alert boxes
+Examples for alert boxes and prompts
