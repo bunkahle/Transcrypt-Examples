@@ -8,7 +8,7 @@ class TestSystem:
         if entry == "":
             alert("Nothing has been entered")
         if entry is None:
-            alert("None")
+            alert("None - Cancel has been pressed")
         alert("Entry was:"+entry)
         return entry
 
