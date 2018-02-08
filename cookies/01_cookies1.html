@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/cookies1.js"></script>
+    <title>Cookies</title>
+  </head>
+  <body>
+  	<h2>Cookie demo</h2>
+  	<p>Click on the buttons to test cookies!</p>
+	<p>
+		<div id = "setcookie">...</div>
+		<button onclick="cookies1.testSystem.setCookie('username','TestUser',30)">Set a test cookie</button>
+	</p>
+  <p>
+    <div id = "showcookie">...</div>
+    <button onclick="cookies1.testSystem.show_cookies()">Show cookies</button>
+  </p>
+  <p>
+    <div id = "deleteCookie">...</div>
+    <button onclick="cookies1.testSystem.deleteCookie('username')">Delete username cookie</button>
+  </p>
+  <p>
+    <div id = "cookie_individual">...</div>
+    <button onclick="cookies1.testSystem.set_name()">Set individual name and time cookie for username</button>
+  </p>
+  <p>
+    <div id = "cookie_new">...</div>
+    <button onclick="cookies1.testSystem.create_cookie()">Create your own individual cookie</button>
+  </p>
+  <p>
+    <div id = "checkCookie">...</div>
+    <button onclick="cookies1.testSystem.checkCookie()">Greet cookie</button>
+  </p>
+  
+  </body>
+</html>
+
+
+
+
