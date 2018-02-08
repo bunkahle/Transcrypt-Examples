@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+    #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 class TestSystem:
@@ -20,7 +20,8 @@ class TestSystem:
         document.write("<p>Note that writeln() adds a new line after each statement:</p>")
         document.writeln("Hello World!<br>")
         document.writeln("Have a nice day!<br>")
-        document.write("Check the sourcecode for line breaks!")
+        document.writeln("Check the sourcecode for line breaks!<br><br>")
+        document.writeln(Date())
         document.write('    <button onclick="window.history.back();">Go Back</button>')
         document.write(self.footer)
 
