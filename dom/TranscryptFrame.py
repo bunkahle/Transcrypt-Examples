@@ -8,7 +8,7 @@ Originally created by Andreas Bunkahle 2018
 You can import this library with 
 import TranscryptFrame as tf
 
-and use it in your Python/Transcrypt frames like this
+and use it in your Python/Transcrypt scripts like this
 
 myElement = tf.doc_id("intro")
 tf.doc_id("demo").innerHTML = "The text from the intro paragraph is " + myElement.innerHTML
