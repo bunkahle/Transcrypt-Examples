@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/read_forms.js"></script>
+    <title>Read Form values</title>
+  </head>
+  <body onload="read_forms.testSystem.getParams()">
+  	<h1>Read Form values</h1>
+    <form id="frm1" action="08a_read_formvalues.html">
+      First name: <input type="text" name="fname" value="Monty"><br>
+      Last name: <input type="text" name="lname" value="Python"><br>
+      Language: <input type="text" name="lang" value="Python with Transcrypt"><br><br>
+      <input type="submit" name="submitbutton" value="Submit">
+    </form> 
+
+    <p>Click "Try it" to display the value of each element in the form directly read from the form.<br>
+       Click "Submit" to send the values of the form of each element to doc called by the form.</p>
+
+    <button onclick="read_forms.testSystem.displayFormValues()">Try it</button>
+
+    <p id="demo">Read directly from the form:</p>
+    <p id="submitted">Read from url line:</p>
+  </body>
+</html>
