@@ -16,6 +16,13 @@ tf.doc_id("demo").innerHTML = "The text from the intro paragraph is " + myElemen
 
 import time
 
+def isNaN(x):
+    try:
+        a = int(x)
+        return False
+    except:
+        return True
+
 def button_disable(butt):
     "Disable the button with id butt"
     document.getElementById(butt).disabled = True
