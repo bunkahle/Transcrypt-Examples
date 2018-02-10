@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/get_url_parameters2.js"></script>
+    <title>Get url parameters in the url line</title>
+  </head>
+  <body onload="get_url_parameters2.testSystem.getParams()">
+  	<h1>Get url parameters from the url line. </h1>
+    <p>Insert parameters like os=Win&lang=Python&framework=transcrypt and then press Enter or Insert<br> in order to put them behind the URL line and read them into your code.</p>
+    <input type="text" onkeydown="get_url_parameters2.testSystem.checkInput(event)" id="input-text" size="70" value=""/>
+    <button onclick="get_url_parameters2.testSystem.getInput()">Insert</button>
+    <p id=Input>Input:</p>
+  	<p id=Parameter>Parameter:</p>
+    <p id=Window></p>
+  </body>
+</html>
