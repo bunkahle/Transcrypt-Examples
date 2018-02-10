@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>Alerts and Prompts</title>
+
+<div class="document" id="alerts-and-prompts">
+<h1 class="title">Alerts and Prompts</h1>
+<h2 class="subtitle" id="preparation-of-html-files-to-run-transcrypted-python-code">Preparation of html files to run transcrypted Python code</h2>
+
+<p>In order to run Python code which has been &quot;transcrypted&quot; to Javascript,
+you need to include a text line starting with &lt;script&gt; into your html file which looks like this:</p>
+<pre class="literal-block">
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+  &lt;script src=&quot;__javascript__/alerts2.js&quot;&gt;&lt;/script&gt;
+  &lt;title&gt;Alert Demo&lt;/title&gt;
+&lt;/head&gt;
+</pre>
+<p>The part</p>
+<pre class="literal-block">
+&lt;script src=&quot;__javascript__/alerts2.js&quot;&gt;&lt;/script&gt;&quot;
+</pre>
+<p>links to the Javascript code which you have transcrypted by running transcrypt.exe like this:</p>
+<pre class="literal-block">
+transcrypt.exe alerts2.py
+</pre>
+<p>This generates a new directory in your working directory called __javascript__ and puts three files in it
+which later can be called as javascript code from the html file by putting in the script line:</p>
+<pre class="literal-block">
+&lt;script src=&quot;__javascript__/alerts2.js&quot;&gt;&lt;/script&gt;&quot;
+</pre>
+<p>Your Python/Javascript code can be called simply by inserting code like this:</p>
+<pre class="literal-block">
+&lt;button onclick=&quot;alerts2.alert_standard()&quot;&gt;Standard Test Message!&lt;/button&gt;
+</pre>
+<p>alert_standard() is a Python function in your code stored in alerts2.py.
+But let´s have a look on code samples to understand better.</p>
+<div class="section" id="alerts">
+<h1>Alerts</h1>
+<p>Alerts are little message boxes which pop up show message
+which can be confirmed. There are simply invoked by the function name &quot;alert&quot;.</p>
+<p>Our first code example <a class="reference external" href="alerts2.py">alerts2.py</a>:</p>
+<pre class="literal-block">
+def alert_standard():
+    testMessage = 'TestMessage'
+    alert(testMessage)
+
+def alert_text(text):
+    alert(text)
+</pre>
+<p>Except of the alert function this is pure Python.
+Now this is integrated into the <a class="reference external" href="alerts2.html">html code</a> like this:</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;script src=&quot;__javascript__/alerts2.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Alert Demo&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h2&gt;Hello Alert Demo&lt;/h2&gt;
+        &lt;p&gt;Click on the buttons to see alerts coming up!&lt;/p&gt;
+        &lt;p&gt;
+          &lt;button onclick=&quot;alerts2.alert_standard()&quot;&gt;Standard Test Message!&lt;/button&gt;
+    &lt;/p&gt;
+        &lt;p&gt;
+          &lt;button onclick=&quot;alerts2.alert_text('HTML defined text')&quot;&gt;Message defined in the HTML code&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>After we have transcrpyted the file with:</p>
+<pre class="literal-block">
+transcrypt.exe alerts2.py
+</pre>
+<p>We can load the html file <a class="reference external" href="alerts2.html">alerts2.html</a> into the browser and click onto the two buttons.
+Inside the html code the section 'onclick=&quot;alerts2.alert_standard()&quot;' looks for a
+function called alert_standard() in the transcrypted javascript source code alerts.js lying in
+the directory __javascript__ inside of our working directory. Make sure that your script line
+includes the right name of your code. If you have written python code called alerts2.py you
+should include the name &lt;script src=&quot;__javascript__/alerts2.js&quot;&gt;&lt;/script&gt; into your html file,
+e.g. in the header of the html file, and just replace the extension .py with .js.</p>
+<p>Clicking onto the first button displays an alert box with the standard message &quot;TestMessage&quot;.
+Clicking onto the 2nd button displays a message which has been defined in the html text.
+Change this text inside the html and another message will be displayed after reload of the webpage while the first button message
+can only be changed if you change the Python source code of alerts2.py and recompile it with
+transcrypt.exe and reload the html page again.</p>
+</div>
+<div class="section" id="id1">
+<h1>Alerts and Prompts</h1>
+<p>Another simple function in Javascript is &quot;prompt&quot; which can be used to get user input to
+process it programmatically. But beside defining simple functions inside your Python
+code you can also define classes in object oriented programming. Let´s have a look on a source
+code example called <a class="reference external" href="alerts3.py">alerts3.py</a>:</p>
+<pre class="literal-block">
+class TestSystem:
+
+    def __init__(self):
+        self.testMessage = 'TestMessage'
+
+    def alert_standard(self):
+        alert(self.testMessage)
+
+    def alert_text(self, text):
+        alert(text)
+
+    def prompt_text(self):
+        entry = prompt('Please enter any text','')
+        alert(entry)
+
+    def greet_name(self):
+        name = prompt('What is your name?','Transcrypt-User');
+        alert('Hallo, ' + name);
+
+testSystem = TestSystem()
+</pre>
+<p>The functions are now part of the class TestSystem. This class is invoked by calling it
+with the line testSystem = TestSystem(). We also see the new function prompt in the 3rd
+and 4th function inside of our code. The first argument is the text message displayed by
+the prompt, the 2nd argument can be a pre-defined answer and the function returns an user
+input. The appropriate <a class="reference external" href="alerts3.html">htmlcode</a> for this Python code looks like this:</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;de&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/alerts3.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Alerts and Prompts&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h2&gt;Alerts and Prompts&lt;/h2&gt;
+        &lt;p&gt;Click on the buttons to see alerts coming up!&lt;/p&gt;
+        &lt;p&gt;
+                &lt;button onclick=&quot;alerts3.testSystem.alert_standard()&quot;&gt;Standard Test Message!&lt;/button&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+                &lt;button onclick=&quot;alerts3.testSystem.alert_text('Different HTML defined text')&quot;&gt;Message defined in the HTML code&lt;/button&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+                &lt;button onclick=&quot;alerts3.testSystem.prompt_text()&quot;&gt;Get a prompt and display text entry&lt;/button&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+                &lt;button onclick=&quot;alerts3.testSystem.greet_name()&quot;&gt;Ask your name&lt;/button&gt;
+        &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>The python code <a class="reference external" href="alerts3.py">alerts3.py</a> gets transcrypted to <a class="reference external" href="__javascript__/alerts3.js">alerts3.js</a> inside the __javascript__ directory after running</p>
+<pre class="literal-block">
+transcrypt.exe alerts3.py
+</pre>
+<p>If we work with classes we need to call the functions inside the html text by also including the classname from inside the Python code,
+in our case: &quot;alerts3.testSystem.alert_standard()&quot; in contrast to &quot;alerts2.alert_standard()&quot; in the previous
+code example.</p>
+<p>But what happens if the user does not enter anything when prompted or presses cancel?</p>
+<p>Let us try this piece of code <a class="reference external" href="prompt1.py">prompt1.py</a>:</p>
+<pre class="literal-block">
+class TestSystem:
+
+    def __init__ (self):
+        self.testMessage = 'TestMessage'
+
+    def prompt_text(self):
+        entry = prompt('Please enter any text','')
+        if entry == &quot;&quot;:
+            alert(&quot;Nothing has been entered&quot;)
+        if entry is None:
+            alert(&quot;None - Cancel has been pressed&quot;)
+        alert(&quot;Entry was:&quot;+entry)
+        return entry
+
+    def prompt_test(self):
+        ret = self.prompt_text()
+        document.getElementById(&quot;result&quot;).innerHTML = &quot;Result of entry:&quot;+ret
+
+    def greet_name(self):
+        name = prompt('What is your name?','Transcrypt-User')
+        alert('Hello, ' + name)
+
+testSystem = TestSystem()
+</pre>
+<p>the web page <a class="reference external" href="prompt1.html">prompt1.html</a> looks like this:</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/prompt1.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Prompts&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h2&gt;Prompt demo&lt;/h2&gt;
+        &lt;p&gt;Click on the buttons to see prompts coming up!&lt;/p&gt;
+        &lt;p&gt;
+                &lt;button onclick=&quot;prompt1.testSystem.prompt_test()&quot;&gt;Get a prompt and display text entry&lt;/button&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+                &lt;button onclick=&quot;prompt1.testSystem.greet_name()&quot;&gt;Ask your name&lt;/button&gt;
+        &lt;/p&gt;
+        &lt;div id=&quot;result&quot;&gt;Result of entry:&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Clicking the first button also tries the possibility that the user is not entering anything. In this case
+an alert box comes up telling: &quot;Nothing has been entered&quot; because the return string in the variable entry
+will be empty. If the user has hit Cancel the variable entry will be returned as None. In any case the
+entry will be displayed by an alert box.</p>
+<p>Clicking the 2nd button will show a prompt which is asking for the name of the user. After the entry the user
+is greeted by Hello, &lt;Username&gt;. But what is more we also see the function</p>
+<pre class="literal-block">
+document.getElementById(&quot;result&quot;).innerHTML = &quot;Result of entry:&quot;+ret
+</pre>
+<p>This will take the user entry stored in the variable entry and insert it into the html text where we have the
+element with the id name &quot;result&quot;. This is the case after the last paragraph where we have an html element of the
+div type with id=&quot;result&quot;. The inner HTML text of this tag will be replaced with the new string &quot;Result of entry:&quot;+ret
+where ret holds the result of the entry of the user. In this case we have manipulated the contents of the html file
+for the first time. After calling the 2nd button and giving input to the prompt the html text will be changed
+according to the user input.</p>
+<p>document.getElementById(idname) is quite an often used function in Javascript but also for our Transcrypt/Python code
+in order to change and adjust the html text to the user input. What we alredy see now is the fact that Transcrypt
+is going to introduce more and more javascript functions seamlessly into our python code. We simply take the same
+functions by their names like alert, prompt, document.getElementsById and integrate them without any further requirements
+into our Python code. Elegant and intuitively! In case you are not sure if a certain javascript function exists
+just try it in your transcrypt code and see if the compiler transcrypt.exe is complaining or not.</p>
+</div>
+<div class="section" id="confirm">
+<h1>Confirm</h1>
+<p>Now let us build a more reasonable Python/Javascript application. We like to personalize the greeting of the user and we
+like to collect more data like the age of the user - maybe in order to decide if the webpages are appropriate for this
+age. We also introduce a new function called confirm which displays a message to confirm the next step.</p>
+<p>The procedure is to ask first the name and then the age. According to the age a certain message is displayed. If too
+young (&lt;21 years) we regret it otherwise the user is welcome. The code for this task looks like <a class="reference external" href="check_name_age.py">this</a></p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class TestSystem:
+
+    def __init__ (self):
+        self.askname = 'What is your name, dear?'
+        self.askage = 'And what is your age?'
+
+    def questions(self):
+        confirm(&quot;Are you ready?&quot;)
+        self.ask_name()
+        self.ask_age()
+        if int(self.age)&lt;21:
+            alert('Sorry, ' + self.name + &quot;, you're too young to enter with &quot; + self.age)
+        else:
+            alert('Welcome, ' + self.name)
+
+    def ask_name(self):
+        self.name = prompt(self.askname,'')
+
+    def ask_age(self):
+        self.age = prompt(&quot;Hello, &quot;+self.name+&quot;. &quot;+self.askage,'')
+
+testSystem = TestSystem()
+</pre>
+<p>the <a class="reference external" href="check_name_age.html">html text for this code is</a>:</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/check_name_age.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Check Name and Age&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h1&gt;Check Name and Age&lt;/h1&gt;
+        &lt;p&gt;To proceed click the button below&lt;/p&gt;
+        &lt;p&gt;
+                &lt;button onclick=&quot;check_name_age.testSystem.questions()&quot;&gt;Start query&lt;/button&gt;
+        &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>In case the user does not enter anything into the prompts we get an uncaught exception inside
+the javascript routine. If we want to debug the program we can press F12 inside the broswer while
+loading and executing the html file for displaying the web console. To avoid this exception we
+can also use the try except functions of python in our next <a class="reference external" href="check_name_age2.py">example</a>.</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class TestSystem:
+
+    def __init__ (self):
+        self.askname = 'What is your name, dear?'
+        self.askage = 'And what is your age?'
+
+    def questions(self):
+        confirm(&quot;Are you ready?&quot;)
+        self.ask_name()
+        self.ask_age()
+        try:
+            age = int(self.age)
+            if age&lt;21:
+                self.message = 'Sorry, ' + self.name + &quot;, you're too young to enter with &quot; + self.age
+            else:
+                self.message = 'Welcome, ' + self.name
+        except:
+            self.message = &quot;You are too silly to enter your age.&quot;
+        alert(self.message)
+
+    def ask_name(self):
+        self.name = prompt(self.askname,'')
+
+    def ask_age(self):
+        self.age = prompt(&quot;Hello, &quot;+self.name+&quot;. &quot;+self.askage,'')
+
+testSystem = TestSystem()
+</pre>
+<p>the html code <a class="reference external" href="check_name_age2.html">check_name_age2.html</a> for this just needs to be adjusted at the script line and with the button function:</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/check_name_age2.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Check Name and Age and Mind&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h1&gt;Check Name and Age and Mind&lt;/h1&gt;
+        &lt;p&gt;To proceed click the button below&lt;/p&gt;
+        &lt;p&gt;
+                &lt;button onclick=&quot;check_name_age2.testSystem.questions()&quot;&gt;Start query&lt;/button&gt;
+        &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>If the user enters anything but no numbers or nothing at all when asked for his or her age an exception
+is thrown and will be caught in the code by putting the message to &quot;You are too silly to enter your age.&quot;
+The web console now shows no exception anymore.</p>
+<p>We could have tackled this problem also in another way. The next code example introduces the function isNaN
+which is the abbreviation for Not a Number. If the input is not a number the return will be True otherwise False.
+In this case we can also find out if the input of the user for the age is reasonable or wrong.</p>
+<p><a class="reference external" href="check_name_age3.py">check_name_age3.py</a>.</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class TestSystem:
+
+    def __init__ (self):
+        self.askname = 'What is your name, dear?'
+        self.askage = 'And what is your age?'
+
+    def isNaN(self, x):
+        try:
+            a = int(x)
+            return False
+        except:
+            return True
+
+    def questions(self):
+        confirm(&quot;Are you ready?&quot;)
+        self.ask_name()
+        self.ask_age()
+        if self.isNaN(self.age):
+            self.message = &quot;You are too silly to enter your age.&quot;
+        elif int(self.age)&lt;21:
+            self.message = 'Sorry, ' + self.name + &quot;, you're too young to enter with &quot; + self.age
+        else:
+            self.message = 'Welcome, ' + self.name
+        alert(self.message)
+
+    def ask_name(self):
+        self.name = prompt(self.askname,'')
+
+    def ask_age(self):
+        self.age = prompt(&quot;Hello, &quot;+self.name+&quot;. &quot;+self.askage,'')
+
+testSystem = TestSystem()
+</pre>
+<p>and the html text for it: <a class="reference external" href="check_name_age3.html">check_name_age3.html</a>:</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/check_name_age3.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Check Name and Age and Mind&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h1&gt;Check Name and Age and Mind&lt;/h1&gt;
+        &lt;p&gt;To proceed click the button below&lt;/p&gt;
+        &lt;p&gt;
+                &lt;button onclick=&quot;check_name_age3.testSystem.questions()&quot;&gt;Start query&lt;/button&gt;
+        &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>We can also load scripts at the same time as the web page is loading. For this we include
+an option onload in the body tag <a class="reference external" href="check_name_age3.html">(check_name_age3.html)</a> :</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/check_name_age4.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Check Name and Age and Mind&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body onload=check_name_age4.testSystem.questions()&gt;
+        &lt;h1&gt;Check Name and Age and Mind&lt;/h1&gt;
+        &lt;p id=&quot;test&quot;&gt;Testing&lt;/p&gt;
+        &lt;p&gt;
+                &lt;div id = &quot;testmessage&quot;&gt;Immediate Test without button&lt;/div&gt;
+        &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Without having an button to start the query of the procedure starts when the webpage
+is loading. The appropriate code <a class="reference external" href="check_name_age4.py">check_name_age4.py</a> for this is:</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class TestSystem:
+
+    def __init__ (self):
+        self.askname = 'What is your name, dear?'
+        self.askage = 'And what is your age?'
+
+    def isNaN(self, x):
+        try:
+            a = int(x)
+            return False
+        except:
+            return True
+
+    def questions(self):
+        confirm(&quot;Are you ready?&quot;)
+        self.ask_name()
+        self.ask_age()
+        if self.isNaN(self.age):
+            self.message = &quot;You are too silly to enter your age.&quot;
+        elif int(self.age)&lt;21:
+            self.message = 'Sorry, ' + self.name + &quot;, you're too young to enter with &quot; + self.age
+        else:
+            self.message = 'Welcome, ' + self.name
+        alert(self.message)
+        document.getElementById(&quot;test&quot;).innerHTML = self.message
+
+    def ask_name(self):
+        self.name = prompt(self.askname,'')
+
+    def ask_age(self):
+        self.age = prompt(&quot;Hello, &quot;+self.name+&quot;. &quot;+self.askage,'')
+
+testSystem = TestSystem()
+</pre>
+</div>
+</div>
