@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>Cookies</title>
+
+<div class="document" id="cookies">
+<h1 class="title">Cookies</h1>
+
+<div class="section" id="what-are-cookies">
+<h1>What are cookies?</h1>
+<img alt="Cookies" class="align-center" src="https://upload.wikimedia.org/wikipedia/commons/f/f1/2ChocolateChipCookies.jpg" style="width: 160.0px; height: 106.5px;" />
+<p>Something to eat, or not ;-) ? On computer browsers cookies are little pieces of information
+stored on the side of the user's computer or browser. When a user visits a website repeatedly
+the website can find more information on the user and his behaviour when it has stored cookies
+on the side of the user's browser. After each call to the website the programming logic of the
+website (Javascript oder Transcrypt) could try to find out if a cookie has recently be stored
+and what kind of information was saved in the cookie.</p>
+<p>An online shop could store address data or a username in cookies or the website could store the
+number of calls to the website from the user in a cookie in the computer of the user.
+This makes it easy for websites to adjust to the personal needs of the user or offer anything
+which might be appropriate.</p>
+</div>
+<div class="section" id="how-are-cookies-built-up">
+<h1>How are cookies built up?</h1>
+<p>A cookie has three components: Its name, its contents and a expiration date.</p>
+<p>So let´s say we want to store the username of a user in a cookie and put it automatically back
+into a login form when the user comes back. The cookie could like this:</p>
+<pre class="literal-block">
+document.cookie = &quot;username=Bob Roberts; expires=Thu, 1 Mar 2018 12:00:00 UTC&quot;
+</pre>
+<p>With a path parameter, you can tell the browser what path the cookie belongs to. By default,
+the cookie belongs to the current page:</p>
+<pre class="literal-block">
+document.cookie = &quot;username=Bob Roberts; expires=Thu, 1 Mar 2018 12:00:00 UTC; path=/&quot;
+</pre>
+<p>So how do we set a cookie with Python/Transcrypt then?</p>
+<p>It is quite easy:</p>
+<pre class="literal-block">
+# we import the standard library time module from python
+import time
+
+def setCookie(cname, cvalue, exdays):
+&quot;This set a cookie with a certain cname with a value cvalue and a time in days exdays for the expiration date&quot;
+# get the current time in seconds since the epoch and add exdays multiplied with the seconds of a day
+    t = time.time() + (int(exdays)*24*60*60)
+    # console.log(t) # you can debug the time in the browser console (hit F12 to view it)
+    # time.gmtime gives something like:
+    # time.struct_time(tm_year=2018, tm_mon=2, tm_mday=11, tm_hour=22, tm_min=52, tm_sec=22, tm_wday=6, tm_yday=42, tm_isdst=0)
+    struc_time = time.gmtime(t)
+    # console.log(struc_time) # debugging
+    # set the struc_time to a string like: 'Sun, 11 Feb 2018 22:52:22 UTC'
+    expires = &quot;expires=&quot; + time.strftime(&quot;%a, %d %b %Y %H:%M:%S UTC&quot;, struc_time)
+    # console.log(expires) # debugging
+    # and finally set the cookie by setting document.cookie to its value
+    document.cookie = cname + &quot;=&quot; + cvalue + &quot;; &quot; + expires + &quot;; path=/&quot;
+    # alert(&quot;Cookie set: &quot; + cname + &quot;=&quot; + cvalue + &quot;; &quot; + expires + &quot;; path=/&quot;) # debugging
+</pre>
+<p>The cookie has now be set. It can be deleted by the user when the user is resetting all the cookies or a cookies
+of a certain website in his browser. It will also be deleted if the expiration is reached and the cookie is not
+fresh anymore - it has reached its expiration date (best before date like on food items).
+But it can also be deleted programmatically by the website by just putting its expiration date to a time
+back in the past. The code for this looks like this:</p>
+<pre class="literal-block">
+def deleteCookie(cname):
+    &quot;Delete a cookie with the name stored in cname&quot;
+    document.cookie = cname + &quot;=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;&quot;
+</pre>
+<p>Now after the cookie has been set we of course also want to read the cookie back in after the user
+visits our website again or has asked for content which has been processed programmatically. So how do we do this?
+Of course we know what kind of cookies with certain names had been set in the past by our pages so we request
+the names of these cookies and we like to know what has been stored inside these &quot;variables&quot; on the side of the user.
+The code is:</p>
+<pre class="literal-block">
+def getCookie(cname):
+    &quot;Try to find out if a cookie has been set with the name of cname and return its contents, if no cookie is found returnstring == ''&quot;
+    name = cname + &quot;=&quot;
+    # console.log(&quot;name=&quot;+name+&quot;;&quot;) # debug
+    # The decodeURIComponent() function decodes a URI component
+    # The Uniform Resource Identifier (URI) is replacing each occurrence of certain characters
+    # with one, two, three or four escape sequences corresponding to the UTF8 encoding of the
+    # character. You often see this is the URL line of your browser like this:
+    # http://www.transcrypt.org?test.cgi?&amp;username=Bob%20Roberts where %20 decodes the space character
+    decodedCookie = decodeURIComponent(document.cookie)
+    # console.log(&quot;decodedCookie:&quot;+decodedCookie) # debug
+    allcookies = decodedCookie.split(';')
+    # console.log(&quot;allcookies:&quot;+allcookies) # debug
+    for ca in allcookies:
+        # console.log(&quot;ca=&quot;+ca+&quot;;&quot;)
+        # if the name of the cookie is found in one of the split list elements
+        if name in ca:
+            f = ca.find(name)
+            # extract the content of the cookie and return it
+            c_content = ca[f+len(name):]
+            return c_content
+    return &quot;&quot;
+</pre>
+<p>This function returns a cookie in case it had been stored before, otherwise we will get an empty returnstring.</p>
+<p><em>Beware</em>: The document.cookie property looks like a normal text string:</p>
+<pre class="literal-block">
+document.cookie = &quot;username=Bob Roberts; expires=Thu, 1 Mar 2018 12:00:00 UTC; path=/&quot;
+</pre>
+<p>But it is not. Even if you write a whole cookie string to document.cookie, when you read it out again,
+you can only see the name-value pair of it, but not the expiration date or the path, so don´t be confused.
+If you set a new cookie, older cookies are not overwritten. The new cookie is added to document.cookie,
+so if you read document.cookie again you will get something like:</p>
+<pre class="literal-block">
+username = &quot;Bob Roberts&quot;
+lastvisit = &quot;Dec 31 2017&quot;
+</pre>
+</div>
+<div class="section" id="working-example-on-cookies">
+<h1>Working example on cookies</h1>
+<p>So let us look at a more extensive try-and-experience example in Python compiled with Transcrypt to get
+to know how to work with cookies. Here we go for <a class="reference external" href="cookies1.py">cookies1.py</a> :</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import time
+
+class TestSystem:
+
+    def setCookie(self, cname, cvalue, exdays):
+        t = time.time() + (int(exdays)*24*60*60)
+        # console.log(t)
+        struc_time = time.gmtime(t)
+        # console.log(struc_time)
+        expires = &quot;expires=&quot; + time.strftime(&quot;%a, %d %b %Y %H:%M:%S UTC&quot;, struc_time)
+        # console.log(expires)
+        document.cookie = cname + &quot;=&quot; + cvalue + &quot;; &quot; + expires + &quot;; path=/&quot;
+        alert(&quot;Cookie set: &quot; + cname + &quot;=&quot; + cvalue + &quot;; &quot; + expires + &quot;; path=/&quot;)
+
+    def deleteCookie(self, cname):
+        document.cookie = cname + &quot;=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;&quot;
+
+    def getCookie(self, cname):
+        name = cname + &quot;=&quot;
+        console.log(&quot;name=&quot;+name+&quot;;&quot;)
+        # alert(&quot;document.cookie:&quot;+document.cookie+&quot;:&quot;)
+        decodedCookie = decodeURIComponent(document.cookie)
+        # alert(&quot;decodedCookie:&quot;+decodedCookie+&quot;:&quot;)
+        allcookies = decodedCookie.split(';')
+        # alert(&quot;allcookies:&quot;+allcookies+&quot;:&quot;)
+        for ca in allcookies:
+            # console.log(&quot;ca=&quot;+ca+&quot;;&quot;)
+            if name in ca:
+                f = ca.find(name)
+                c_content = ca[f+len(name):]
+                return c_content
+        return &quot;&quot;
+
+    def show_cookies(self):
+        decodedCookie = decodeURIComponent(document.cookie)
+        allcookies = decodedCookie.split(';')
+        alert(&quot;allcookies:&quot;+allcookies+&quot;:&quot;)
+
+    def checkCookie(self):
+        user = self.getCookie(&quot;username&quot;)
+        # console.log(&quot;username=&quot;+user+&quot;;&quot;)
+        if (user != &quot;&quot;):
+            alert(&quot;Welcome again &quot; + user)
+        else:
+            user = prompt(&quot;Please enter your name:&quot;,&quot;&quot;)
+            if (user != &quot;&quot; and user is not None):
+                self.setCookie(&quot;username&quot;, user, 30)
+
+    def create_cookie(self):
+        cname = prompt(&quot;Please enter the cookie name:&quot;,&quot;&quot;)
+        cvalue = prompt(&quot;Please enter the cookie value/text:&quot;,&quot;&quot;)
+        days = prompt(&quot;In how many days is it going to expire?&quot;,&quot;&quot;)
+        self.setCookie(cname, cvalue, days)
+
+    def set_name(self):
+        alert(&quot;Your name will be set as cookie&quot;)
+        name = prompt('What is your name?','Transcrypt-User')
+        days = prompt('How many days shall the cookie last?','7')
+        self.setCookie(&quot;username&quot;, name, days)
+
+testSystem = TestSystem()
+</pre>
+<p>The html page for testing this out is <a class="reference external" href="01_cookies1.html">01_cookies1.html</a> :</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;de&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/cookies1.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Cookies&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;Cookie demo&lt;/h2&gt;
+    &lt;p&gt;Click on the buttons to test cookies!&lt;/p&gt;
+    &lt;p&gt;
+            &lt;button onclick=&quot;cookies1.testSystem.setCookie('username','TestUser',30)&quot;&gt;Set a test cookie&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;p&gt;
+    &lt;button onclick=&quot;cookies1.testSystem.show_cookies()&quot;&gt;Show cookies&lt;/button&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;button onclick=&quot;cookies1.testSystem.deleteCookie('username')&quot;&gt;Delete username cookie&lt;/button&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;button onclick=&quot;cookies1.testSystem.set_name()&quot;&gt;Set individual name and time cookie for username&lt;/button&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;button onclick=&quot;cookies1.testSystem.create_cookie()&quot;&gt;Create your own individual cookie&lt;/button&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;button onclick=&quot;cookies1.testSystem.checkCookie()&quot;&gt;Greet cookie&lt;/button&gt;
+  &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>End of section.</p>
+</div>
+</div>
