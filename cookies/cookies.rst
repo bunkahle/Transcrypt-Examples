@@ -63,7 +63,7 @@ It is quite easy: ::
 	    document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/"
 	    # alert("Cookie set: " + cname + "=" + cvalue + "; " + expires + "; path=/") # debugging
 
-The cookie has now be set. It can be deleted by the user when the user is resetting all the cookies or a cookies
+The cookie has now be set. It can be deleted by the user when the user is resetting all the cookies or a cookie
 of a certain website in his browser. It will also be deleted if the expiration is reached and the cookie is not
 fresh anymore - it has reached its expiration date (best before date like on food items). 
 But it can also be deleted programmatically by the website by just putting its expiration date to a time
