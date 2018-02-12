@@ -13,3 +13,11 @@ transcrypt.exe hello.py
 You get a extra directory named __javascript__ where the javascript files are located.
 
 Start hello.html in your browser and test the code.
+
+If you like to see a kind of tutorial for beginners in Transcrypt go to 
+
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/alerts/alerts.rst
+
+and
+
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/cookies/cookies.rst
