@@ -57,7 +57,7 @@ the browser is indicating that it is still loading the page though there is noth
 So if your script has finished it is a good idea to use document.close() if you have used
 document.write() before.
 
-In the next example where we compute a fibonacci sequence it takes the time for the browser
+In the next example where we compute a fibonacci sequence it takes a certain amount of time for the browser
 to compute these numbers. Only at the end the close function is called and the user knows
 that he needs to patient to see the complete result. We have split the header and the 
 footer of the html text in two strings which will be written at the beginning and the end
@@ -128,7 +128,7 @@ Only when the for loop has finished we will see the output on the screen, not be
 According to the machine and its power you are using this might take a shorter or longer
 time to happen or it might even give you a warning on the side of the browser.
 So there is no update of what already has been written - there is only
-all at the end or nothing while the page is loading. Ant this is an important limitation
+all at the end or nothing while the page is loading. And this is an important limitation
 of document.write():
 
 **The call to document.write(anytext) only works while the page is loading.**
@@ -138,7 +138,7 @@ The write() method is so mostly used for testing: If it is used after an HTML do
 is fully loaded, it will delete all existing HTML - it overwrites an existing html content
 on the webpage. 
 
-The method comes from times when there were no DOM and no possibilities to modify the html
+The method comes from times when there were no DOM elements and no possibilities to modify the html
 element with commands like document.getElementById and the like. But it still lives, because
 there are scripts using it.
 
@@ -203,7 +203,7 @@ The html page for this code: `doc_write1.html <doc_write1.html>`_ ::
 	  </body>
 	</html>
 
-As expected we see the line break if we look at the source of the web page (right click onto the webpage and source text).
+As expected we see the line break if we look at the source of the generated web page (right click onto the webpage and source text).
 These line breaks do not affect the display of the html text since a line break (carriage return or technically written "\\n")
 does not affect the design of the web page. If we want to include a visible line break in the html text we put a
 break tag into the text like <br>.
