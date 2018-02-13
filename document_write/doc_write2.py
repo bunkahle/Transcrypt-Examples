@@ -27,6 +27,7 @@ class TestSystem:
         return math.sqrt(x)
 
     def squareroot(self):
+        document.open()
         document.write(self.header)
         number = prompt("Please enter a number", "")
         if self.isNaN(number):
@@ -36,5 +37,6 @@ class TestSystem:
             document.write(self.result+str(result)+"<br>\n")
         document.write('    <button onclick="window.history.back();">Go Back</button>')
         document.write(self.footer)
+        document.close()
 
 testSystem = TestSystem()

@@ -47,20 +47,24 @@ class TestSystem:
     
     def change_doc(self):
         sliced_html = document.getElementById("textareaCode").value
+        # in case our test html code includes a textarea tag we need to mask it
         sliced_html = sliced_html.replace('</textarea>', '&lt;/textarea&gt;')
+        # we delete/erase the existing output of our browser window
         window.location = "about:blank"
-        # console.log("sliced_html:"+sliced_html)
+        # console.log("sliced_html:"+sliced_html) # debugging
         document.write(self.header)
-        # console.log("sliced_html:"+sliced_html)
+        # we put the last changes back into our textarea section
         document.write(sliced_html)
         footer = self.footer[:]
+        # now we decode masked html code back into real html
         sliced_html = sliced_html.replace("&lt;", "<").replace("&gt;", ">")
-        # console.log("sliced_html2:"+sliced_html)
+        # console.log("sliced_html:"+sliced_html)
+        # as long we are writing with document.write the document.getElementById does not work
+        # so we slice it manually
         tag2 = '<div id="playground">'
         f1 = footer.lower().find(tag2) + len(tag2)
         f2 = footer.lower().find("</div>")
         document.write(footer[:f1]+sliced_html+footer[f2:])
-        document.write('')
         document.close()
 
 testSystem = TestSystem()

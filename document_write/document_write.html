@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>Document Write</title>
+
+<div class="document" id="document-write">
+<h1 class="title">Document Write</h1>
+
+<div class="section" id="document-functions-like-open-write-ln-and-close">
+<h1>Document functions like open, write(ln) and close</h1>
+<p>The document.write() method writes HTML expressions or JavaScript code to a document.
+The content can be generated programmatically and can be dependent on the user input.</p>
+<p>Let us have a look at a simple example <a class="reference external" href="doc_write0.py">doc_write0.py</a>:</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+def write_text():
+    html_text = &quot;&quot;&quot;&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;title&gt;DocWrite&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;h1&gt;Header&lt;/h1&gt;
+  &lt;p&gt;any information in the body part&lt;/p&gt;
+  &lt;button onclick=&quot;window.history.back();&quot;&gt;Go Back&lt;/button&gt;
+  &lt;/body&gt;\n&lt;/html&gt;&quot;&quot;&quot;
+    document.open()
+    document.write(html_text)
+    document.close()
+</pre>
+<p>The html for is in <a class="reference external" href="doc_write0.html">doc_write0.html</a> :</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_write0.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document Write&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h1&gt;Write into html document&lt;/h1&gt;
+        &lt;p&gt;To proceed click the button below&lt;/p&gt;
+        &lt;p&gt;
+                &lt;div id = &quot;testmessage&quot;&gt;Write a static html text&lt;/div&gt;&lt;br&gt;
+                &lt;button onclick=&quot;doc_write0.write_text()&quot;&gt;Write HTML text&lt;/button&gt;
+        &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>We have a predefined html text (we could also have different texts which could be chosen
+by the user input) and document.open() opens an output stream to our current webpage,
+while document.write(html_text) writes to the stream and document.close() closes the
+stream. We can omit document.open() but if we do not close the stream with document.close()
+the browser is indicating that it is still loading the page though there is nothing more to come.
+So if your script has finished it is a good idea to use document.close() if you have used
+document.write() before.</p>
+<p>In the next example where we compute a fibonacci sequence it takes the time for the browser
+to compute these numbers. Only at the end the close function is called and the user knows
+that he needs to patient to see the complete result. We have not split the header and the
+footer of the html text in two strings which will be written at the beginning and the end
+of our document. <a class="reference external" href="doc_write.html">doc_write.html</a></p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import math
+
+class TestSystem:
+
+    def __init__ (self):
+        self.askready = &quot;Are you ready? Webpage will take a little time to load...&quot;
+        self.header = &quot;&quot;&quot;&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;title&gt;DocWrite&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;\n&quot;&quot;&quot;
+        self.footer = &quot;\n  &lt;/body&gt;\n&lt;/html&gt;&quot;
+
+    def fibonacci(self, n):
+        if n == 0:
+            return 0
+        elif n == 1:
+            return 1
+        else:
+            return self.fibonacci(n-1) + self.fibonacci(n-2)
+
+    def looping(self):
+        confirm(self.askready)
+        document.open()
+        document.write(self.header)
+        for i in range(32):
+            fib = self.fibonacci(i)
+            text = str(fib) +' = '+ str(i) +'&lt;br&gt;\n'
+            document.write(&quot;    &quot; + text)
+        document.write('    &lt;button onclick=&quot;window.history.back();&quot;&gt;Go Back&lt;/button&gt;')
+        document.write(self.footer)
+        document.close()
+
+testSystem = TestSystem()
+</pre>
+<p>The html for it is <a class="reference external" href="doc_write.html">doc_write.html</a> :</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_write.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document Write&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h1&gt;Write into html document&lt;/h1&gt;
+        &lt;p&gt;To proceed click the button below&lt;/p&gt;
+        &lt;p&gt;
+                &lt;div id = &quot;testmessage&quot;&gt;write a loop of a mathematical function&lt;/div&gt;&lt;br&gt;
+                &lt;button onclick=&quot;doc_write.testSystem.looping()&quot;&gt;Start looping&lt;/button&gt;
+        &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Only when the for loop has finished we will see the output on the screen, not before.
+According to the machine and its power you are using this might take a shorter or longer
+time to happen or it might even give you a warning on the side of the browser.
+So there is no update of what already has been written - there is only
+all at the end or nothing while the page is loading. Ant this is an important limitation
+of document.write():</p>
+<p><strong>The call to document.write(anytext) only works while the page is loading.</strong></p>
+<p>And it does not show anything until the page loading is finished.
+The write() method is so mostly used for testing: If it is used after an HTML document
+is fully loaded, it will delete all existing HTML - it overwrites an existing html content
+on the webpage.</p>
+<p>The method comes from times when there were no DOM and no possibilities to modify the html
+element with commands like document.getElementById and the like. But it still lives, because
+there are scripts using it.</p>
+<p>In modern scripts we rarely see it, because of its important limitations.</p>
+</div>
+<div class="section" id="document-write-and-document-writeln">
+<h1>document.write() and document.writeln()</h1>
+<p>Besides document.write() we also have document.writeln() which adds a line break at the
+end of the writing.
+Example <a class="reference external" href="doc_write1.py">doc_write1.py</a></p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class TestSystem:
+
+    def __init__ (self):
+        self.header = &quot;&quot;&quot;&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;title&gt;DocWrite&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;\n&quot;&quot;&quot;
+        self.footer = &quot;\n  &lt;/body&gt;\n&lt;/html&gt;&quot;
+
+    def write(self):
+        document.open()
+        document.write(self.header)
+        document.write(&quot;Hello World!&quot;)
+        document.write(&quot;Have a nice day!&quot;)
+        document.write(&quot;&lt;p&gt;Note that writeln() adds a new line after each statement:&lt;/p&gt;&quot;)
+        document.writeln(&quot;Hello World!&lt;br&gt;&quot;)
+        document.writeln(&quot;Have a nice day!&lt;br&gt;&quot;)
+        document.writeln(&quot;Check the sourcecode for line breaks! (Right mousebutton on the html document and click view sourcecode&lt;br&gt;&lt;br&gt;&quot;)
+        document.writeln(Date())
+        document.write('    &lt;button onclick=&quot;window.history.back();&quot;&gt;Go Back&lt;/button&gt;')
+        document.write(self.footer)
+        document.close()
+
+testSystem = TestSystem()
+</pre>
+<p>The html page for this code: <a class="reference external" href="doc_write1.html">doc_write1.html</a></p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_write1.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document Write&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h1&gt;Write into html document&lt;/h1&gt;
+        &lt;p&gt;To proceed click the button below&lt;/p&gt;
+        &lt;p&gt;
+                &lt;div id = &quot;testmessage&quot;&gt;Write html&lt;/div&gt;&lt;br&gt;
+                &lt;button onclick=&quot;doc_write1.testSystem.write()&quot;&gt;Start writing&lt;/button&gt;
+        &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>As expected we see the line break if we look at the source of the web page (right click onto the webpage and source text).
+These line breaks do not affect the display of the html text since a line break (carriage return or technically written &quot;\n&quot;)
+does not affect the design of the web page. If we want to include a visible line break in the html text we put a
+break tag into the text like &lt;br&gt;.</p>
+<p>In the next example the document is generated dynamically according to the user input. The user specifies a number
+and the script computes the square root of the number.</p>
+<p>Example <a class="reference external" href="doc_write2.py">doc_write2.py</a></p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import math
+
+class TestSystem:
+
+    def __init__ (self):
+        self.result = &quot;    The square root is: &quot;
+        self.header = &quot;&quot;&quot;&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;title&gt;DocWrite&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;\n&quot;&quot;&quot;
+        self.footer = &quot;\n  &lt;/body&gt;\n&lt;/html&gt;&quot;
+
+    def isNaN(self, x):
+        try:
+            a = int(x)
+            return False
+        except:
+            return True
+
+    def sqr(self, x):
+        return math.sqrt(x)
+
+    def squareroot(self):
+        document.open()
+        document.write(self.header)
+        number = prompt(&quot;Please enter a number&quot;, &quot;&quot;)
+        if self.isNaN(number):
+            alert(&quot;This is not a number!&quot;)
+        else:
+            result = self.sqr(float(number))
+            document.write(self.result+str(result)+&quot;&lt;br&gt;\n&quot;)
+        document.write('    &lt;button onclick=&quot;window.history.back();&quot;&gt;Go Back&lt;/button&gt;')
+        document.write(self.footer)
+        document.close()
+
+testSystem = TestSystem()
+</pre>
+<p>The html page for this code: <a class="reference external" href="doc_write2.html">doc_write2.html</a></p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_write2.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document Write&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h1&gt;Write into html document&lt;/h1&gt;
+        &lt;p&gt;To proceed click the button below&lt;/p&gt;
+        &lt;p&gt;
+                &lt;div id = &quot;testmessage&quot;&gt;computing square root&lt;/div&gt;&lt;br&gt;
+                &lt;button onclick=&quot;doc_write2.testSystem.squareroot()&quot;&gt;Compute Square root&lt;/button&gt;
+        &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>So, as this has been playing around, we will now look a interesting possibility to test html code
+with our document.write function. On the left side we have an textarea field which contains any
+html code. The user can modify this code, click onto a button and see what is going to change on the
+right output side.</p>
+<p>Example <a class="reference external" href="doc_html.py">doc_html.py</a></p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class TestSystem:
+
+    def __init__ (self):
+        self.header = &quot;&quot;&quot;&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;title&gt;Document Frame&lt;/title&gt;
+    &lt;script src=&quot;__javascript__/doc_html.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body bgcolor=&quot;#E6E6FA&quot;&gt;
+    &lt;table id=&quot;outertable&quot;&gt;&lt;tr&gt;&lt;td&gt;
+      &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;h2 id=&quot;id1&quot;&gt;Document Frame for editing html:&lt;/h2&gt;&lt;/td&gt;
+        &lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;button id=&quot;changebutton&quot; type=&quot;button&quot; onclick=&quot;doc_html.testSystem.change_doc()&quot;&gt;Try to run the html/code!&lt;/button&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;button onclick=&quot;window.history.back();&quot;&gt;Go Back&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;
+      &lt;/table&gt;
+      &lt;textarea rows=40 cols=&quot;80&quot; autocomplete=&quot;off&quot; id=&quot;textareaCode&quot; wrap=&quot;logical&quot; spellcheck=&quot;false&quot;&gt;\n&quot;&quot;&quot;
+        self.startdoc = &quot;&quot;&quot;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_html.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Titel&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Write into html document&lt;/h1&gt;
+    &lt;p id=&quot;explain&quot;&gt;To proceed click the button below&lt;/p&gt;
+    &lt;p&gt;
+    &lt;div id =&quot;testmessage&quot;&gt;...&lt;/div&gt;&lt;br&gt;
+    &lt;button id=&quot;click&quot; onclick=&quot;alert('hello')&quot;&gt;Say hello&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+        &quot;&quot;&quot;
+        self.footer = &quot;&quot;&quot;
+      &lt;/textarea&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;div id=&quot;playground&quot;&gt;&lt;h2 align=&quot;center&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;HTML-Playground&lt;/h2&gt;&lt;/div&gt;
+      &lt;/td&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+&lt;/html&gt; &quot;&quot;&quot;
+
+    def change_doc(self):
+sliced_html = document.getElementById(&quot;textareaCode&quot;).value
+# in case our test html code includes a textarea tag we need to mask it
+sliced_html = sliced_html.replace('&lt;/textarea&gt;', '&amp;lt;/textarea&amp;gt;')
+# we delete/erase the existing output of our browser window
+window.location = &quot;about:blank&quot;
+# console.log(&quot;sliced_html:&quot;+sliced_html) # debugging
+document.write(self.header)
+# we put the last changes back into our textarea section
+document.write(sliced_html)
+footer = self.footer[:]
+# now we decode masked html code back into real html
+sliced_html = sliced_html.replace(&quot;&amp;lt;&quot;, &quot;&lt;&quot;).replace(&quot;&amp;gt;&quot;, &quot;&gt;&quot;)
+# console.log(&quot;sliced_html:&quot;+sliced_html)
+# as long we are writing with document.write the document.getElementById does not work
+# so we slice it manually
+tag2 = '&lt;div id=&quot;playground&quot;&gt;'
+f1 = footer.lower().find(tag2) + len(tag2)
+f2 = footer.lower().find(&quot;&lt;/div&gt;&quot;)
+document.write(footer[:f1]+sliced_html+footer[f2:])
+document.close()
+
+testSystem = TestSystem()
+</pre>
+<p>The html page for this code: <a class="reference external" href="doc_html.html">doc_html.html</a></p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_html.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document Frame&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body bgcolor=&quot;#E6E6FA&quot;&gt;
+    &lt;table id=&quot;outertable&quot;&gt;&lt;tr&gt;&lt;td&gt;
+      &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;h2 id=&quot;id1&quot;&gt;Document Frame for editing html:&lt;/h2&gt;&lt;/td&gt;
+        &lt;td&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;button id=&quot;changebutton&quot; type=&quot;button&quot; onclick=&quot;doc_html.testSystem.change_doc()&quot;&gt;Try to run the html/code!&lt;/button&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;button onclick=&quot;window.history.back();&quot;&gt;Go Back&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;
+      &lt;/table&gt;
+      &lt;textarea  rows=40 cols=&quot;80&quot; autocomplete=&quot;off&quot; id=&quot;textareaCode&quot; wrap=&quot;logical&quot; spellcheck=&quot;false&quot;&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_html.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Titel&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Write into html document&lt;/h1&gt;
+    &lt;p&gt;To proceed click the button below&lt;/p&gt;
+  &lt;p&gt;
+    &lt;div id = &quot;testmessage&quot;&gt;...&lt;/div&gt;
+    &lt;button onclick=&quot;alert('hello')&quot;&gt;Say hello&lt;/button&gt;
+  &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+
+
+
+
+
+      &lt;/textarea&gt;&lt;/div&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;div id=&quot;playground&quot;&gt;&lt;h2 align=&quot;center&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;HTML-Playground&lt;/h2&gt;&lt;/div&gt;
+      &lt;/td&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>We could try to even insert complete Javascript scripts into our test code like this:</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_html.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Titel&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;script&gt;function test(){document.getElementById(&quot;testmessage&quot;).innerHTML=&quot;testing&quot;;}&lt;/script&gt;
+    &lt;h1&gt;Write into html document&lt;/h1&gt;
+    &lt;p&gt;To proceed click the button below&lt;/p&gt;
+  &lt;p&gt;
+    &lt;div id = &quot;testmessage&quot;&gt;...&lt;/div&gt;
+    &lt;button onclick='test()'&gt;Test&lt;/button&gt;
+  &lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>End of section.</p>
+</div>
+</div>
