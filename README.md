@@ -21,3 +21,7 @@ https://github.com/bunkahle/Transcrypt-Examples/blob/master/alerts/alerts.rst
 and
 
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/cookies/cookies.rst
+
+and 
+
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/cookies/document_write.rst
