@@ -59,7 +59,7 @@ document.write() before.
 
 In the next example where we compute a fibonacci sequence it takes the time for the browser
 to compute these numbers. Only at the end the close function is called and the user knows
-that he needs to patient to see the complete result. We have not split the header and the 
+that he needs to patient to see the complete result. We have split the header and the 
 footer of the html text in two strings which will be written at the beginning and the end
 of our document. `doc_write.html <doc_write.html>`_ ::
 
