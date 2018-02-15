@@ -46,6 +46,14 @@ def doc_id(id):
     "short wrapper for document.getElementById(id)"
     return document.getElementById(id)
 
+def doc_id_htm(id):
+    "short wrapper for document.getElementById(id).innerHTML"
+    return document.getElementById(id).innerHTML
+
+def doc_id_txt(id):
+    "short wrapper for document.getElementById(id).innerText"
+    return document.getElementById(id).innerText
+
 def doc_qs(sel):
     "short wrapper for document.querySelector(sel)"
     return document.querySelector(sel)
