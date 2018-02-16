@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/change_text2e.js"></script>
+    <title>querySelector</title>
+  </head>
+  <body>
+
+    <p><b>querySelector</b></p>
+
+    <main>
+    <p class="para">The first paragraph</p>
+    <p class="para2">The 2nd paragraph for the <b>querySelector</b> method</p>
+    <p class="para3">The 3rd paragraph for the method</p>
+    <p class="para">The 4th paragraph for the method</p>
+    <p class="para">The 5th paragraph for the method</p>
+    <p class="para" id="test">The 6th paragraph for the method</p>
+    </main>
+    <output>output class</output><br>
+    <output2>output class 2</output2><br>
+    <br>
+    <button onclick="change_text2e.change_text('.para', 'red')">Para</button>
+    <button onclick="change_text2e.change_text('.para2', 'yellow')">Para2</button>
+    <button onclick="change_text2e.change_text('.para3', 'violet')">Para3</button>
+    <button onclick="change_text2e.change_text('#test', 'magenta')">Para6</button>
+    <button onclick="change_text2e.change_text('output', 'blue')">Output</button>
+    <button onclick="change_text2e.change_text('output2', 'green')">Output 2</button>
+    <button onclick="change_text2e.change_text('main', 'orange')">Main</button>
+    <button onclick="change_text2e.change_text('.demo', 'grey')">Demo</button><br><br>
+    <button onclick="change_text2e.change_all_texts('.para', 'grey')">Change multiple paragraphs</button>
+
+    <p class="demo" id="demo">Selector and color</p>
+  
+</body>
+</html>
