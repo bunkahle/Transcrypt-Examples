@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/location_elements.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", location_elements.init)</script>
+    <title>Location elements</title>
+  </head>
+  <body>
+    <h1>Try out the location elements</h1>
+    <button onclick="location_elements.show()">show location elements</button> <br>
+    <p>Click the button below to append a query string to the url.<br>
+      After changing the url line click button "show location elements" above again and see the difference in location.search.</p>
+    <button onclick="location_elements.create_query()">create and append a query string to the url</button> <br>
+    <p>Click the button "go to hash #para50" to goto to the hash #para50 of this url.<br>
+      Then scroll back to the top of the doc and click on show location elements again and see the difference in location.search.</p>
+    <button onclick="location_elements.goto_hash('para50')">go to hash #para50</button> <br>
+    <p id="locs"></p>
+    <p id="hashtext"></p>
+  </body>
+</html>

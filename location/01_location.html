@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/location_change.js"></script>
+    <title>Location change of the doc</title>
+  </head>
+  <body>
+    <h1>Try out the location function</h1>
+    <p id="time"></p>
+    <script>document.getElementById("time").innerHTML = Date();</script>
+
+    <button onclick="location_change.reload_page()">Reload the page and see time change</button>&nbsp;&nbsp;&nbsp;
+    <button onclick="location_change.assign_page('http://www.transcrypt.org')">Go to a new webpage with assign</button>&nbsp;&nbsp;&nbsp;<br><br>
+    <button onclick="location.replace('http://www.google.com')">Replace the current page with google.com and check the history</button>&nbsp;&nbsp;&nbsp;<br>
+    <br><button onclick="window.history.back();">Go one page back</button>
+    <button onclick="window.history.forward();">Go one page fourth</button>
+<br><br>
+    <iframe id="iframe" src="01_location_frame.html" width="600" height="400">
+      <p>Your browser does not support iframes.</p>
+    </iframe>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/location_change.js"></script>
+    <title>Changing the location of the doc</title>
+  </head>
+  <body>
+    <h1>Iframe Contents</h1>
+    <input type="text" id="input_location" size="50" value="http://www.transcrypt.org" /> <button onclick="location_change.replace_url()">Go</button><br><br>
+    <p id="pages">Try to insert urls in the text entry field like:<br> 
+    http://www.transcrypt.org<br>
+    Some pages like http://www.google.com won´t work because they don't allow cross-origin framing.
+    </p>
+
+</body>
+</html>
