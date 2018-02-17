@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/get_lose_focus.js"></script>
+    <title>Display attributes</title>
+  </head>
+  <style>
+  a:focus, a:active {
+      color: green;
+  }
+  </style>
+  <body>
+  	<a id="myAnchor" href="http://www.transcrypt.org">Visit www.transcrypt.org</a>
+
+    <p>Click the buttons to give focus and/or remove focus from the link above.</p>
+
+    <input type="button" onclick="get_lose_focus.getfocus()" value="Get focus">
+    <input type="button" onclick="get_lose_focus.losefocus()" value="Lose focus">
+
+  </body>
+</html>
