@@ -7,14 +7,25 @@ Originally created by Andreas Bunkahle 2018
 
 You can import this library with 
 import TranscryptFrame as tf
+if it is in the same directory as your python script or it is located in the Lib/sitepackages directory
 
 and use it in your Python/Transcrypt scripts like this
 
 myElement = tf.doc_id("intro")
 tf.doc_id("demo").innerHTML = "The text from the intro paragraph is " + myElement.innerHTML
+
+or even shorter:
+
+tf.doc_id_htm("demo") = "The text from the intro paragraph is " + myElement.innerHTML
 """
 
 import time
+
+con = console
+doc = document
+his = history
+loc = location
+win = window
 
 def isNaN(x):
     try:
@@ -38,6 +49,9 @@ def button_isDisabled(butt):
     else:
         return False
 
+def conlog(text):
+    console.log(text)
+
 def doc_class(clas):
     "short wrapper for document.getElementByClassName(clas)"
     return document.getElementByClassName(clas)
@@ -57,6 +71,18 @@ def doc_id_txt(id):
 def doc_qs(sel):
     "short wrapper for document.querySelector(sel)"
     return document.querySelector(sel)
+
+def doc_qs_htm(sel):
+    "short wrapper for document.querySelector(sel).innerHTML"
+    return document.querySelector(sel).innerHTML
+
+def doc_qs_txt(sel):
+    "short wrapper for document.querySelector(sel).innerText"
+    return document.querySelector(sel).innerText
+
+def doc_qsa(sel):
+    "short wrapper for document.querySelectorAll(sel)"
+    return document.querySelectorAll(sel)
 
 def doc_tag(tag):
     "short wrapper for document.getElementByTagName(tag)"
