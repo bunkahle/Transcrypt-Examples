@@ -12,6 +12,8 @@ class TestSystem:
             pair = e[i].split('=')
             console.log(pair[0] + " => " + pair[1])
             self.pars[pair[0]] = pair[1]
+            if pair[1] == "undefined" or pair[1] is None:
+                self.pars = {}
         self.showParams()
 
     def showParams(self):

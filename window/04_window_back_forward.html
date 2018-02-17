@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/window_navigation.js"></script>
+    <title>Window back and forward</title>
+  </head>
+  <body>
+    <h1>Window back and forward</h1>
+    <p id="len"></p>
+    <br><button onclick="window_navigation.back()">Go one page back</button>
+    <button onclick="window_navigation.fourth()">Go one page forward</button>
+    <button onclick="window_navigation.goto(-2)">Go two pages back</button>
+    <button onclick="window_navigation.goto(2)">Go two pages forward</button>
+	<br><br>
+    <iframe id="iframe" src="04_window_frame.html" width="600" height="400">
+      <p>Your browser does not support iframes.</p>
+    </iframe>
+
+</body>
+</html>
