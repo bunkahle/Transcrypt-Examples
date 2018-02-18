@@ -95,17 +95,17 @@ def doc_class(clas):
     "short wrapper for document.getElementByClassName(clas)"
     return document.getElementByClassName(clas)
 
-def doc_class_htm(id):
-    "short wrapper for document.getElementByClassName(id).innerHTML"
-    return document.getElementByClassName(id).innerHTML
+def doc_class_htm(clas):
+    "short wrapper for document.getElementByClassName(clas).innerHTML"
+    return document.getElementByClassName(clas).innerHTML
 
-def doc_class_txt(id):
-    "short wrapper for document.getElementByClassName(id).innerText"
-    return document.getElementByClassName(id).innerText
+def doc_class_txt(clas):
+    "short wrapper for document.getElementByClassName(clas).innerText"
+    return document.getElementByClassName(clas).innerText
 
-def doc_class_val(id):
-    "short wrapper for document.getElementByClassName(id).value"
-    return document.getElementByClassName(id).value
+def doc_class_val(clas):
+    "short wrapper for document.getElementByClassName(clas).value"
+    return document.getElementByClassName(clas).value
 
 def doc_id(id):
     "short wrapper for document.getElementById(id)"
@@ -147,17 +147,17 @@ def doc_tag(tag):
     "short wrapper for document.getElementByTagName(tag)"
     return document.getElementByTagName(tag)
 
-def doc_tag_htm(id):
-    "short wrapper for document.getElementByTagName(id).innerHTML"
-    return document.getElementByTagName(id).innerHTML
+def doc_tag_htm(tag):
+    "short wrapper for document.getElementByTagName(tag).innerHTML"
+    return document.getElementByTagName(tag).innerHTML
 
-def doc_tag_txt(id):
-    "short wrapper for document.getElementByTagName(id).innerText"
-    return document.getElementByTagName(id).innerText
+def doc_tag_txt(tag):
+    "short wrapper for document.getElementByTagName(tag).innerText"
+    return document.getElementByTagName(tag).innerText
 
-def doc_tag_val(id):
-    "short wrapper for document.getElementByTagName(id).value"
-    return document.getElementByTagName(id).value
+def doc_tag_val(tag):
+    "short wrapper for document.getElementByTagName(tag).value"
+    return document.getElementByTagName(tag).value
 
 def deleteCookie(cname):
     "Deletes cookie with the name cname"
