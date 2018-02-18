@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-18 19:28:52
+// Transcrypt'ed from Python, 2018-02-18 20:25:08
 function location_elements () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
@@ -2227,10 +2227,10 @@ function location_elements () {
 			var x = '';
 			for (var i = 0; i < 100; i++) {
 				if (i == 50) {
-					x += (((((('<a name="para' + str (i)) + '"></a>') + '<p id="para"') + str (i)) + '>Paragraph ') + str (i)) + ' - Now please scroll back to the beginning and press show location elements again - look for the hash</p>';
+					x += (((((('<a name="para' + str (i)) + '"></a>') + '<p id="para') + str (i)) + '">Paragraph ') + str (i)) + ' - Now please scroll back to the beginning and press show location elements again - look for the hash</p>';
 				}
 				else {
-					x += (((((('<a name="para' + str (i)) + '"></a>') + '<p id="para"') + str (i)) + '>Paragraph ') + str (i)) + '</p>';
+					x += (((((('<a name="para' + str (i)) + '"></a>') + '<p id="para') + str (i)) + '">Paragraph ') + str (i)) + '</p>';
 				}
 			}
 			document.getElementById ('hashtext').innerHTML = x;
