@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>Location</title>
+
+<div class="document" id="location">
+<h1 class="title">Location</h1>
+
+<div class="section" id="location-is-about-the-url-or-uri-line-in-the-browser">
+<h1>Location is about the URL or URI line in the browser</h1>
+<p>You might want to work with the location function in Transcrypt if you need to
+get or manipulate the Uniform Resource Identifier (URI) information from the browser text input
+line. Let us see what functions location provides with the following code <a class="reference external" href="location_elements.py">location_elements.py</a>:</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+def init():
+    insert_hash()
+
+def show():
+    text = &quot;These are the location elements:&lt;br&gt;&quot;
+    text += &quot;Sets or returns the anchor part (#) of a URL that begins with the # character as &lt;b&gt;location.hash&lt;/b&gt;: &quot; + location.hash + &quot;&lt;br&gt;&quot;
+    text += &quot;Represents the hostname and port number of the URL &lt;b&gt;location.host&lt;/b&gt;: &quot; + location.host + &quot;&lt;br&gt;&quot;
+    text += &quot;Represents the hostname part of the URL as &lt;b&gt;location.hostname&lt;/b&gt;: &quot; + location.hostname + &quot;&lt;br&gt;&quot;
+    text += &quot;Represents the complete URL as &lt;b&gt;location.href&lt;/b&gt;: &quot; + location.href + &quot;&lt;br&gt;&quot;
+    text += &quot;Returns the protocol, hostname and port number of a URL as &lt;b&gt;location.origin&lt;/b&gt;: &quot; + location.origin + &quot;&lt;br&gt;&quot;
+    text += &quot;Represents the pathname part of the URL as &lt;b&gt;location.pathname&lt;/b&gt;: &quot; + location.pathname + &quot;&lt;br&gt;&quot;
+    text += &quot;Represents the port part (e.g. :8080) of the URL* as &lt;b&gt;location.port&lt;/b&gt;: &quot; + location.port + &quot;&lt;br&gt;&quot;
+    text += &quot;Represents the protocol part of the URL as &lt;b&gt;location.protocol&lt;/b&gt;: &quot; + location.protocol + &quot;&lt;br&gt;&quot;
+    text += &quot;The search part of the URL, including the ? is &lt;b&gt;location.search&lt;/b&gt;: &quot; + location.search
+    text += &quot;&lt;p&gt;&lt;b&gt;* Note: &lt;/b&gt;If the port number is default (80 for http and 443 for https), most browsers will display 0 or nothing.&lt;/p&gt;&quot;
+    # console.log(dir(location))
+    document.getElementById(&quot;locs&quot;).innerHTML = text
+
+def create_query():
+    location.search = &quot;?testname=transcrypt&amp;lang=python&quot;
+
+def goto_hash(h):
+    console.log(location.href+&quot;#&quot;+h)
+    location.assign(location.href+&quot;#&quot;+h)
+
+def insert_hash():
+    x = &quot;&quot;
+    for i in range(100):
+        if i == 50:
+            x += '&lt;a name=&quot;para' + str(i) + '&quot;&gt;&lt;/a&gt;' + '&lt;p id=&quot;para&quot;'+str(i)+'&gt;Paragraph '+str(i)+' - Now please scroll back to the beginning and press show location elements again - look for the hash&lt;/p&gt;'
+        else:
+            x += '&lt;a name=&quot;para' + str(i) + '&quot;&gt;&lt;/a&gt;' + '&lt;p id=&quot;para&quot;'+str(i)+'&gt;Paragraph '+str(i)+'&lt;/p&gt;'
+    document.getElementById(&quot;hashtext&quot;).innerHTML = x
+    console.log(x)
+</pre>
+<p>The html for this code is <a class="reference external" href="02_location_elements.html">02_location_elements.html</a> :</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/location_elements.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;document.addEventListener(&quot;DOMContentLoaded&quot;, location_elements.init)&lt;/script&gt;
+    &lt;title&gt;Location elements&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Try out the location elements&lt;/h1&gt;
+    &lt;button onclick=&quot;location_elements.show()&quot;&gt;show location elements&lt;/button&gt; &lt;br&gt;
+    &lt;p&gt;Click the button below to append a query string to the url.&lt;br&gt;
+      After changing the url line click button &quot;show location elements&quot; above again and see the difference in location.search.&lt;/p&gt;
+    &lt;button onclick=&quot;location_elements.create_query()&quot;&gt;create and append a query string to the url&lt;/button&gt; &lt;br&gt;
+    &lt;p&gt;Click the button &quot;go to hash #para50&quot; to goto to the hash #para50 of this url.&lt;br&gt;
+      Then scroll back to the top of the doc and click on show location elements again and see the difference in location.search.&lt;/p&gt;
+    &lt;button onclick=&quot;location_elements.goto_hash('para50')&quot;&gt;go to hash #para50&lt;/button&gt; &lt;br&gt;
+    &lt;p id=&quot;locs&quot;&gt;&lt;/p&gt;
+    &lt;p id=&quot;hashtext&quot;&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>The first time you load the html page and you click the button &quot;<em>show location elements</em>&quot; you will see
+that all location properties are displayed.
+<strong>location.href</strong> is the most comprehensive one. It holds the complete URL with everything: Protocol comes from <strong>location.protocol</strong>
+<em>(http, https, ftp, etc.)</em>. <strong>location.hostname</strong> is the hostname like <em>www.transcrypt.org</em>, <strong>location.pathname</strong> gives the pathname inside the host like <em>Transcrypt-Examples/location/02_location_elements.html</em>, the query string is stored in <strong>location.search</strong> like <em>?testname=transcrypt&amp;lang=python</em>
+and the hash tag in <strong>location.hash</strong> if the address is pointing to one like <em>#para50</em>.</p>
+<p>So the complete URL line can be divided into several logic parts which can be retrieved with the location routine.</p>
+<p>If you append a query string to the URL and click the first button again you will see the <strong>location.search</strong>
+has changed.</p>
+<p>All the dummy paragraphs Paragraph 0, Paragraph 1 have anchor attributes which look in html code like this:</p>
+<pre class="literal-block">
+&lt;a name=&quot;para0&quot;&gt;&lt;/a&gt;&lt;p id=&quot;para&quot;0&gt;Paragraph 0&lt;/p&gt;
+&lt;a name=&quot;para1&quot;&gt;&lt;/a&gt;&lt;p id=&quot;para&quot;1&gt;Paragraph 1&lt;/p&gt; etc.
+&lt;a name=&quot;para50&quot;&gt;&lt;/a&gt;&lt;p id=&quot;para&quot;1&gt;Paragraph 50&lt;/p&gt; ...
+</pre>
+<p>If you click on the button go to hash <em>#para50</em> the document is scrolling down to the specified anchor place and at the same
+time this anchor is appended to the URL line as <em>#para50</em>. Programmatically this is achieved by setting a new document URL
+with <strong>location.assign(webpage)</strong> which simply loads a new webpage into the browser and adds another page to the browser history.</p>
+<p>If you now scroll back to the the top of the document (don't use the back button of your browser) and you press
+<em>&quot;show location elements&quot;</em> again you will see that <strong>location.hash</strong> has changed.</p>
+</div>
+<div class="section" id="location-assign-location-replace-and-location-reload">
+<h1>location.assign, location.replace and location.reload</h1>
+<p>We already saw location.assign - it was used for loading a new webpage into the browser.
+Location.reload is used for reloading the current webpage again and refresh it.
+Location.replace is going to replace the current webpage in the browser. This means it is
+deleted in the browser history and completely replaced by the new webpage. Let us play around
+with the following code: code <a class="reference external" href="location_change.py">location_change.py</a>:</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+def reload_page(forceGet=False):
+    &quot;reloads the html doc - if forceGet == False&quot;
+    console.log(&quot;document is going to be reloaded&quot;)
+    # document.getElementById(&quot;iframe&quot;).contentWindow.location.reload(page)
+    location.reload(forceGet)
+    console.log(&quot;document was reloaded&quot;)
+
+def rep_page(page):
+    location.js_replace(page)
+    # document.getElementById(&quot;iframe&quot;).contentWindow.location.replace(page)
+    console.log(&quot;document was replaced - should not be in the history anymore&quot;)
+
+def assign_page(page):
+    location.assign(page)
+    # document.getElementById(&quot;iframe&quot;).contentWindow.location.assign(page)
+    console.log(&quot;a new document was loaded&quot;)
+
+def replace_url():
+    new_url = document.getElementById(&quot;input_location&quot;).value
+    if not &quot;http&quot; in new_url[:4]:
+        new_url = &quot;http://&quot; + new_url
+    assign_page(new_url)
+    # document.getElementById(&quot;page&quot;).innerHTML = &quot;Current page: &quot;+new_url
+</pre>
+<p>Caveat: The javascript replace function is called location.replace(pageaddress) in Javascript.
+Here in Transcrypt we need to call location.js_replace(page) instead because replace is a reserved
+Python function.</p>
+<p>And here comes the html for it: <a class="reference external" href="01_location.html">01_location.html</a> :</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/location_change.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Location change of the doc&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Try out the location function&lt;/h1&gt;
+    &lt;p id=&quot;time&quot;&gt;&lt;/p&gt;
+    &lt;script&gt;document.getElementById(&quot;time&quot;).innerHTML = Date();&lt;/script&gt;
+
+    &lt;button onclick=&quot;location_change.reload_page()&quot;&gt;Reload the page and see time change&lt;/button&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;button onclick=&quot;location_change.assign_page('http://www.transcrypt.org')&quot;&gt;Go to a new webpage with assign&lt;/button&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br&gt;&lt;br&gt;
+    &lt;button onclick=&quot;location_change.rep_page('http://www.google.com')&quot;&gt;Replace the current page with google.com and check the history&lt;/button&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br&gt;
+    &lt;br&gt;&lt;button onclick=&quot;window.history.back();&quot;&gt;Go one page back&lt;/button&gt;
+    &lt;button onclick=&quot;window.history.forward();&quot;&gt;Go one page fourth&lt;/button&gt;
+        &lt;br&gt;&lt;br&gt;
+    &lt;iframe id=&quot;iframe&quot; src=&quot;01_location_frame.html&quot; width=&quot;600&quot; height=&quot;400&quot;&gt;
+      &lt;p&gt;Your browser does not support iframes.&lt;/p&gt;
+    &lt;/iframe&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>And in order to try the code in a useful way we also need the html code for the iframe object: <a class="reference external" href="01_location_frame.html">01_location_frame.html</a> :</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/location_change.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Changing the location of the doc&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Iframe Contents&lt;/h1&gt;
+    &lt;input type=&quot;text&quot; id=&quot;input_location&quot; size=&quot;50&quot; value=&quot;http://www.transcrypt.org&quot; /&gt; &lt;button onclick=&quot;location_change.replace_url()&quot;&gt;Go&lt;/button&gt;&lt;br&gt;&lt;br&gt;
+    &lt;p id=&quot;pages&quot;&gt;Try to insert urls in the text entry field like:&lt;br&gt;
+    http://www.transcrypt.org&lt;br&gt;
+    Some pages like http://www.google.com wonÂ´t work because they don't allow cross-origin framing.
+    &lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>End of section.</p>
+</div>
+</div>

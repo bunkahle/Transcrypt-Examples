@@ -20,7 +20,7 @@ def show():
     document.getElementById("locs").innerHTML = text
 
 def create_query():
-    location.search = "?testname=transcrypt&lang=python1"
+    location.search = "?testname=transcrypt&lang=python"
 
 def goto_hash(h):
     console.log(location.href+"#"+h)
@@ -29,6 +29,9 @@ def goto_hash(h):
 def insert_hash():
     x = ""
     for i in range(100):
-        x += '<a name="para' + str(i) + '"></a>' + '<p id="para"'+str(i)+'>Paragraph '+str(i)+'</p>'
+        if i == 50:
+            x += '<a name="para' + str(i) + '"></a>' + '<p id="para"'+str(i)+'>Paragraph '+str(i)+' - Now please scroll back to the beginning and press show location elements again - look for the hash</p>'
+        else:
+            x += '<a name="para' + str(i) + '"></a>' + '<p id="para"'+str(i)+'>Paragraph '+str(i)+'</p>'
     document.getElementById("hashtext").innerHTML = x
     console.log(x)
