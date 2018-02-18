@@ -29,3 +29,7 @@ https://github.com/bunkahle/Transcrypt-Examples/blob/master/document_write/docum
 and
 
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/navigator/navigator.rst
+
+and
+
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/location/location.rst
