@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>Navigator information and geo location</title>
+
+<div class="document" id="navigator-information-and-geo-location">
+<h1 class="title">Navigator information and geo location</h1>
+<h2 class="subtitle" id="navigator-infos">Navigator infos</h2>
+
+<p>The following file and its functions are pretty much self-explanatory. They give information about the browser's properties: <a class="reference external" href="navigator_properties.py">navigator_properties.py</a></p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class TestSystem:
+
+        def __init__(self):
+                pass
+
+        def info(self):
+            x = &quot;Browser CodeName: &quot; + navigator.appCodeName + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;Browser Name: &quot; + navigator.appName + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;Version Info: &quot; + navigator.appVersion + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;Cookies Enabled: &quot; + navigator.cookieEnabled + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;Language of the browser: &quot; + navigator.language + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;Is the browser online? &quot; + navigator.onLine + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;Platform: &quot; + navigator.platform + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;Browser's Engine Name: &quot; + navigator.product + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;User-agent header sent: &quot; + navigator.userAgent + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;Java Enabled: &quot; + navigator.javaEnabled() + &quot;&lt;br&gt;\n&quot;
+            x = x + &quot;Data tainting enabled: &quot; + navigator.taintEnabled()
+            document.getElementById(&quot;msg&quot;).innerHTML = x
+
+        def getLocation(self):
+            if (navigator.geolocation):
+                navigator.geolocation.getCurrentPosition(self.showPosition)
+            else:
+                document.getElementById(&quot;loc&quot;).innerHTML = &quot;Geolocation is not supported by this browser.&quot;
+
+        def showPosition(self, position):
+            document.getElementById(&quot;loc&quot;).innerHTML = &quot;Latitude: &quot; + position.coords.latitude + &quot;&lt;br&gt;Longitude: &quot; + position.coords.longitude
+
+testSystem = TestSystem()
+</pre>
+<p>The part geoLocation is interesting. Here we can get the geo location of the browser in case the browser supports this feature.
+The function showPosition is called in order to display the geo coordinates by the previous function navigator.geolocation.getCurrentPosition. And here is the html for it <a class="reference external" href="01_navigator_properties.html">01_navigator_properties.html</a>:</p>
+<pre class="literal-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/navigator_properties.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Navigator infos and location&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;button onclick=&quot;navigator_properties.testSystem.info()&quot;&gt;Get Navigator infos&lt;/button&gt;
+    &lt;button onclick=&quot;navigator_properties.testSystem.getLocation()&quot;&gt;Get Location info&lt;/button&gt;
+    &lt;br&gt;&lt;br&gt;
+    &lt;div id=&quot;loc&quot;&gt;&lt;/div&gt;
+    &lt;br&gt;&lt;br&gt;
+    &lt;div id=&quot;msg&quot;&gt;&lt;/div&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>End of section.</p>
+</div>
