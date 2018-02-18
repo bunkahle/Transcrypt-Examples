@@ -30,8 +30,8 @@ def insert_hash():
     x = ""
     for i in range(100):
         if i == 50:
-            x += '<a name="para' + str(i) + '"></a>' + '<p id="para"'+str(i)+'>Paragraph '+str(i)+' - Now please scroll back to the beginning and press show location elements again - look for the hash</p>'
+            x += '<a name="para' + str(i) + '"></a>' + '<p id="para'+str(i)+'">Paragraph '+str(i)+' - Now please scroll back to the beginning and press show location elements again - look for the hash</p>'
         else:
-            x += '<a name="para' + str(i) + '"></a>' + '<p id="para"'+str(i)+'>Paragraph '+str(i)+'</p>'
+            x += '<a name="para' + str(i) + '"></a>' + '<p id="para'+str(i)+'">Paragraph '+str(i)+'</p>'
     document.getElementById("hashtext").innerHTML = x
     console.log(x)

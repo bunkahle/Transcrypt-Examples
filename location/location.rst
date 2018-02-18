@@ -85,9 +85,9 @@ has changed.
 
 All the dummy paragraphs Paragraph 0, Paragraph 1 have anchor attributes which look in html code like this: ::
 
-	<a name="para0"></a><p id="para"0>Paragraph 0</p>
-	<a name="para1"></a><p id="para"1>Paragraph 1</p> etc.
-	<a name="para50"></a><p id="para"1>Paragraph 50</p> ...
+	<a name="para0"></a><p id="para0">Paragraph 0</p>
+	<a name="para1"></a><p id="para1">Paragraph 1</p> etc.
+	<a name="para50"></a><p id="para50">Paragraph 50</p> ...
 
 
 If you click on the button go to hash *#para50* the document is scrolling down to the specified anchor place and at the same
