@@ -18,6 +18,9 @@ or even shorter:
 
 tf.doc_id_htm("demo") = "The text from the intro paragraph is " + myElement.innerHTML
 
+and the shortest:
+tf.S("#demo") = "The text from the intro paragraph is " + myElement.innerHTML
+
 You can also have jQuery-like function calls like
 
 tf.S("#demo", "htm") = "<p>New paragraph</p>" instead of $("#demo").html("<p>New paragraph</p>") in Javascript
@@ -65,7 +68,7 @@ def S(sel, kind=None):
     "short wrapper for jQuery like $(selector).kind function"
     if sel[0] == "#":
         if kind is None:
-            return doc_id(sel)
+            return doc_id(sel[1:])
         elif kind == "text" or kind == "txt":
             return doc_id(sel[1:]).innerText
         elif kind == "html" or kind == "htm":
@@ -74,7 +77,7 @@ def S(sel, kind=None):
             return doc_id(sel[1:]).value
     elif sel[0] == ".":
         if kind is None:
-            return doc_class(sel)
+            return doc_class(sel[1:])
         elif kind == "text" or kind == "txt":
             return doc_class(sel[1:]).innerText
         elif kind == "html" or kind == "htm":
