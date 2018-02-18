@@ -9,7 +9,7 @@ def reload_page(forceGet=False):
     console.log("document was reloaded")
 
 def rep_page(page):
-    location.replace(page)
+    location.js_replace(page)
     # document.getElementById("iframe").contentWindow.location.replace(page)
     console.log("document was replaced - should not be in the history anymore")
 
