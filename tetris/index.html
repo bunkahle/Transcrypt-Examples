@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="__javascript__/tetris_dom.js"></script>
+    <title>Tetris</title>
+</head>
+
+<body>
+	<h1>TETRIS written in Python and compiled to Javascript with Transcrypt</h1>
+    <table align="center"><tr><td>
+        <pre id="canvas"></pre>
+        <button onclick="tetris_dom.tetris.run()">START</button>
+    </td><td>
+        <p>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br></p>
+    </td><td>
+        <p id="title">tested with Firefox - bugs inclusive<br><b>Keys</b>: <b>Cursor keys</b> to move right, left, down and rotate (up),<br>and <b>Q</b> oder <b>ESC</b> for exiting.<br>Written by Andreas Bunkahle 2018<br>Press START to play...</p>
+        <p id="next"></p>
+        <p id="pressed"></p>
+	    <button onclick="tetris_dom.tetris.clearscreen()">CLEAR</button>
+    </td></tr></table>
+</body>
+</html>
