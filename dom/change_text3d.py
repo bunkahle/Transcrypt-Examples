@@ -4,24 +4,25 @@
 class TestSystem:
 	
 	def __init__(self):
-		self.secs = 9	
+		self.secs = 9
 
 	def count(self):
-		setTimeout(self.loop1, 1000)
-		setTimeout(self.loop1, 2000)
-		setTimeout(self.loop1, 3000)
-		setTimeout(self.loop1, 4000)
-		setTimeout(self.loop1, 5000)
-		setTimeout(self.loop1, 6000)
-		setTimeout(self.loop1, 7000)
-		setTimeout(self.loop1, 8000)
-		setTimeout(self.loop1, 9000)
-		setTimeout(self.loop1, 10000)
+		self.secs = 9
+		document.getElementById("counting").innerHTML = str(self.secs)+" seconds"
+		self.times = []
+		for i in range(1000, 11000, 1000):
+			to = setTimeout(self.loop1, i)
+			self.times.append(to)
 
 	def loop1(self):
 	    document.getElementById("counting").innerHTML = str(self.secs)+" seconds"
 	    self.secs = self.secs - 1
-	    if self.secs == 0:
+	    if self.secs == -1:
 	    	document.getElementById("counting").innerHTML ="Ignition!"
+
+	def stop_countdown(self):
+	 	for i in self.times:
+	 		clearTimeout(i)
+	 	document.getElementById("counting").innerHTML = "Houston we have a problem - countdown stopped"
 
 testSystem = TestSystem()
