@@ -6,6 +6,14 @@
     <title>Solar System Animation</title>
   </head>
   <body>
+    <p>This example does not work, it is just for showing how not to do it.</p>
+    <p>When running in the browser, all transcrypt/javascript code is executed in a single thread, the UI thread. Which means we can’t run a naive infinite game loop:</p>
+    <pre>
+      while True:
+          render()
+    </pre>
+    <p>This would block the UI thread, making the browser unresponsive.</p>
+    <p>See example <a href="02_canvas.html">02</a>, <a href="03_canvas.html">03</a> and <a href="04_canvas.html">04</a> how to create a game loop or constant update for the canvas</p>
     <canvas id="canvas" width="300" height="300"></canvas>
   </body>
   <script></script>
