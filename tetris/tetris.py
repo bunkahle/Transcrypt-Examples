@@ -241,7 +241,10 @@ print ("Keys: Cursor keys to move right, left, down and rotate (up),\nSpace bar 
 print ("")
 print ("Written by Andreas Bunkahle 2018")
 print ("")
-a = raw_input("Are you ready for this Pythonic game of tetris -\ncode with all batteries included? - Sure Babe (Y)")
+try:
+    a = raw_input("Are you ready for this Pythonic game of tetris -\ncode with all batteries included? - Sure Babe (Y)")
+except:
+    a = input("Are you ready for this Pythonic game of tetris -\ncode with all batteries included? - Sure Babe (Y)")
 if a == "n" or a == "N" or a == "I am afraid": sys.exit()
 clearScreen()
 score = 0
