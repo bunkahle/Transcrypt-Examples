@@ -18,7 +18,8 @@ class SolarSystem:
         self.earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png'
         if self.earth.naturalWidth == "undefined" or self.earth.naturalWidth == 0:
             self.earth.src ='Canvas_earth.png'
-        self.render()
+        self.paused = False
+        self.update = window.setInterval(self.render, 50)
 
     def render(self):
         self.ctx = document.getElementById('canvas').getContext('2d')
@@ -51,7 +52,12 @@ class SolarSystem:
 
         self.ctx.drawImage(self.sun, 0, 0, 300, 300)
 
-        self.render()
+    def pause(self):
+        self.paused = not self.paused
+        if self.paused:
+            window.clearInterval(self.update)
+        else:
+            self.update = window.setInterval(self.render, 50)
 
 solarSystem = SolarSystem()
 

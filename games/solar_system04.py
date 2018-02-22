@@ -9,9 +9,15 @@ class SolarSystem:
         self.sun = __new__(Image())
         self.moon = __new__(Image())
         self.earth = __new__(Image())
-        self.sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
-        self.moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
-        self.earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+        self.sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png'
+        if self.sun.naturalWidth == "undefined" or self.sun.naturalWidth == 0:
+            self.sun.src ='Canvas_sun.png'
+        self.moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png'
+        if self.moon.naturalWidth == "undefined" or self.moon.naturalWidth == 0:
+            self.moon.src ='Canvas_moon.png'
+        self.earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png'
+        if self.earth.naturalWidth == "undefined" or self.earth.naturalWidth == 0:
+            self.earth.src ='Canvas_earth.png'
         window.requestAnimationFrame(self.render)
 
     def render(self):
