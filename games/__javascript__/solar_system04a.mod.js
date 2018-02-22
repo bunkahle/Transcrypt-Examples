@@ -20,7 +20,8 @@
 				if (self.earth.naturalWidth == 'undefined' || self.earth.naturalWidth == 0) {
 					self.earth.src = 'Canvas_earth.png';
 				}
-				window.setTimeout (self.render, 50);
+				self.paused = false;
+				self.animate = window.requestAnimationFrame (self.render);
 			});},
 			get render () {return __get__ (this, function (self) {
 				self.ctx = document.getElementById ('canvas').getContext ('2d');
@@ -45,7 +46,24 @@
 				self.ctx.arc (150, 150, 105, 0, math.pi * 2, false);
 				self.ctx.stroke ();
 				self.ctx.drawImage (self.sun, 0, 0, 300, 300);
-				window.setTimeout (self.render, 50);
+				if (self.paused && self.animate !== null) {
+					window.cancelAnimationFrame (self.animate);
+					self.animate = null;
+				}
+				else if (!(self.paused)) {
+					self.animate = window.requestAnimationFrame (self.render);
+				}
+			});},
+			get pause () {return __get__ (this, function (self) {
+				self.paused = !(self.paused);
+				console.log (self.paused);
+				if (self.paused) {
+					window.cancelAnimationFrame (self.animate);
+					self.animate = null;
+				}
+				else {
+					self.animate = window.requestAnimationFrame (self.render);
+				}
 			});}
 		});
 		var solarSystem = SolarSystem ();

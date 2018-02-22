@@ -9,8 +9,17 @@
 				self.moon = new Image ();
 				self.earth = new Image ();
 				self.sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+				if (self.sun.naturalWidth == 'undefined' || self.sun.naturalWidth == 0) {
+					self.sun.src = 'Canvas_sun.png';
+				}
 				self.moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
+				if (self.moon.naturalWidth == 'undefined' || self.moon.naturalWidth == 0) {
+					self.moon.src = 'Canvas_moon.png';
+				}
 				self.earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+				if (self.earth.naturalWidth == 'undefined' || self.earth.naturalWidth == 0) {
+					self.earth.src = 'Canvas_earth.png';
+				}
 				window.setInterval (self.render, 50);
 			});},
 			get render () {return __get__ (this, function (self) {

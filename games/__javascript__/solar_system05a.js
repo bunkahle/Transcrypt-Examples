@@ -1,6 +1,6 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-22 19:10:28
-function solar_system04 () {
+// Transcrypt'ed from Python, 2018-02-22 18:41:41
+function solar_system05a () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
     var __world__ = __all__;
@@ -2312,7 +2312,13 @@ function solar_system04 () {
 				if (self.earth.naturalWidth == 'undefined' || self.earth.naturalWidth == 0) {
 					self.earth.src = 'Canvas_earth.png';
 				}
-				window.requestAnimationFrame (self.render);
+				self.Keys = dict ({'SPACE': 32, 'LEFT': 37, 'UP': 38, 'RIGHT': 39, 'DOWN': 40});
+				self.accel_value = 1.0;
+				self.accelerate = 1.0;
+				self.scale_factor = 1.0;
+				document.onkeypress = self.keyHandler;
+				self.paused = false;
+				self.animate = window.requestAnimationFrame (self.render);
 			});},
 			get render () {return __get__ (this, function (self) {
 				self.ctx = document.getElementById ('canvas').getContext ('2d');
@@ -2323,12 +2329,14 @@ function solar_system04 () {
 				self.ctx.save ();
 				self.ctx.translate (150, 150);
 				self.time = new Date ();
-				self.ctx.rotate (((2 * math.pi) / 60) * self.time.getSeconds () + ((2 * math.pi) / 60000) * self.time.getMilliseconds ());
+				var secs = self.time.getSeconds ();
+				var msecs = self.time.getMilliseconds ();
+				self.ctx.rotate ((((2 * math.pi) / 60) * self.accelerate) * secs + (((2 * math.pi) / 60000) * self.accelerate) * msecs);
 				self.ctx.translate (105, 0);
 				self.ctx.fillRect (0, -(12), 50, 24);
 				self.ctx.drawImage (self.earth, -(12), -(12));
 				self.ctx.save ();
-				self.ctx.rotate (((2 * math.pi) / 6) * self.time.getSeconds () + ((2 * math.pi) / 6000) * self.time.getMilliseconds ());
+				self.ctx.rotate ((((2 * math.pi) / 6) * self.accelerate) * secs + (((2 * math.pi) / 6000) * self.accelerate) * msecs);
 				self.ctx.translate (0, 28.5);
 				self.ctx.drawImage (self.moon, -(3.5), -(3.5));
 				self.ctx.restore ();
@@ -2336,8 +2344,54 @@ function solar_system04 () {
 				self.ctx.beginPath ();
 				self.ctx.arc (150, 150, 105, 0, math.pi * 2, false);
 				self.ctx.stroke ();
+				self.ctx.font = '20px Arial';
+				self.ctx.fillStyle = 'white';
+				self.ctx.fillText ('Accel:' + str (self.accelerate), 10, 20);
 				self.ctx.drawImage (self.sun, 0, 0, 300, 300);
-				window.requestAnimationFrame (self.render);
+				if (!(self.paused)) {
+					self.animate = window.requestAnimationFrame (self.render);
+				}
+			});},
+			get pause () {return __get__ (this, function (self) {
+				self.paused = !(self.paused);
+				if (!(self.paused)) {
+					self.animate = window.requestAnimationFrame (self.render);
+				}
+			});},
+			get keyHandler () {return __get__ (this, function (self, e) {
+				var kc = e.keyCode;
+				var cc = e.charCode;
+				console.log ((('keyCode: ' + str (kc)) + ' charCode: ') + str (cc));
+				if (kc == self.Keys ['RIGHT']) {
+					self.accelerate += self.accel_value;
+				}
+				else if (kc == self.Keys ['LEFT']) {
+					self.accelerate -= self.accel_value;
+				}
+			});},
+			get accel () {return __get__ (this, function (self) {
+				self.accelerate += self.accel_value;
+			});},
+			get slowdown () {return __get__ (this, function (self) {
+				self.accelerate -= self.accel_value;
+			});},
+			get zoom_in () {return __get__ (this, function (self) {
+				self.scale_factor += 0.01;
+				self.scaling ();
+			});},
+			get zoom_out () {return __get__ (this, function (self) {
+				self.scale_factor -= 0.01;
+				self.scaling ();
+			});},
+			get scaling () {return __get__ (this, function (self) {
+				var width = self.ctx.canvas.width;
+				var height = self.ctx.canvas.height;
+				var newWidth = width * self.scale_factor;
+				var newHeight = height * self.scale_factor;
+				self.ctx.save ();
+				self.ctx.clearRect (0, 0, width, height);
+				self.ctx.translate (-((newWidth - width) / 2), -((newHeight - height) / 2));
+				self.ctx.scale (self.scale_factor, self.scale_factor);
 			});}
 		});
 		var solarSystem = SolarSystem ();
@@ -2350,7 +2404,6 @@ function solar_system04 () {
 			__all__.solarSystem = solarSystem;
 		__pragma__ ('</all>')
 	}) ();
-
     return __all__;
 }
-window ['solar_system04'] = solar_system04 ();
+window ['solar_system05a'] = solar_system05a ();

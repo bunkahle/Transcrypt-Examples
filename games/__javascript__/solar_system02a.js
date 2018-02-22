@@ -1,6 +1,6 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-22 19:10:28
-function solar_system04 () {
+// Transcrypt'ed from Python, 2018-02-22 19:11:06
+function solar_system02a () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
     var __world__ = __all__;
@@ -2312,7 +2312,8 @@ function solar_system04 () {
 				if (self.earth.naturalWidth == 'undefined' || self.earth.naturalWidth == 0) {
 					self.earth.src = 'Canvas_earth.png';
 				}
-				window.requestAnimationFrame (self.render);
+				self.paused = false;
+				self.py_update = window.setTimeout (self.render, 50);
 			});},
 			get render () {return __get__ (this, function (self) {
 				self.ctx = document.getElementById ('canvas').getContext ('2d');
@@ -2337,7 +2338,21 @@ function solar_system04 () {
 				self.ctx.arc (150, 150, 105, 0, math.pi * 2, false);
 				self.ctx.stroke ();
 				self.ctx.drawImage (self.sun, 0, 0, 300, 300);
-				window.requestAnimationFrame (self.render);
+				if (!(self.paused)) {
+					self.py_update = window.setTimeout (self.render, 50);
+				}
+				else {
+					window.clearTimeout (self.py_update);
+				}
+			});},
+			get pause () {return __get__ (this, function (self) {
+				self.paused = !(self.paused);
+				if (!(self.paused)) {
+					self.py_update = window.setTimeout (self.render, 50);
+				}
+				else {
+					window.clearTimeout (self.py_update);
+				}
 			});}
 		});
 		var solarSystem = SolarSystem ();
@@ -2350,7 +2365,6 @@ function solar_system04 () {
 			__all__.solarSystem = solarSystem;
 		__pragma__ ('</all>')
 	}) ();
-
     return __all__;
 }
-window ['solar_system04'] = solar_system04 ();
+window ['solar_system02a'] = solar_system02a ();
