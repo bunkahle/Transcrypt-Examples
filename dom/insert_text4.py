@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
     
-def insert():
-    text = 'Hello, DOM!'
+def insert(text):
     document.getElementById('output').innerText = text
