@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Draw on Canvas</title>
+        <script language="javascript" src="__javascript__/canvas_11.js"></script>
+        <script>document.addEventListener("DOMContentLoaded", canvas_11.init)</script>
+    </head>
+    <style type="text/css" media="screen">
+    	body { background:#000; color:#FFF; text-align:left; font-size:90%; font-family:Verdana, Geneva, Arial, Helvetica, sans-serif; margin:0; padding:0; }
+    	canvas { cursor:crosshair; background:#FFF; margin:16px; }
+    	p { margin:16px; }
+    	#colors { margin:16px; }
+    	#colors:after { content:"."; display:block; width:100%; clear:both; height:0; visibility:hidden; }
+    		#colors div { height:32px; width:64px; float:left; border:2px solid #666; cursor:pointer; margin-right:16px; }
+    	#red { background:red; }
+    	#green { background:green; }
+    	#blue { background:blue; }
+    </style>
+    <body>
+    		<canvas id="graphics" width="400" height="300">
+    			Your browser can't display this graphic
+    		</canvas>
+    		<div id="colors">
+    			<div id="red"></div>
+    			<div id="green"></div>
+    			<div id="blue"></div>
+                <button onclick="canvas_11.clearCanvas()">Clear</button>
+    		</div>
+    		<p>
+    			coords: <span id="kx">0</span> &times; <span id="ky">0</span>
+    		</p>
+    	</body>
+    	
+</html>
+
