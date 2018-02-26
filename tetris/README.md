@@ -10,6 +10,6 @@ what the orginal Python code did.
 Also if it comes to game programming it is good to know about callbacks, setTimeout and other stuff to get the game engine working.
 
 A kind of introduction can be found on this at
-https://github.com/bunkahle/Transcrypt-Examples/tree/master/games
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/games/games.rst
 
 Andreas Bunkahle (andreas.bunkahle@debitel.net)
