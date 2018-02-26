@@ -16,20 +16,20 @@ Start hello.html in your browser and test the code.
 
 If you like to see a kind of tutorial for beginners in Transcrypt go to 
 
+1. Alerts, Prompts and Confirmations:
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/alerts/alerts.rst
 
-and
+2. Inserting text into DOM elements in HTML5:
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/dom/insert_text.rst
 
+3. Programming Cookies:
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/cookies/cookies.rst
 
-and 
-
+4. Write documents into the browser ouput with document.write:
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/document_write/document_write.rst
 
-and
-
+5. Navigator properties:
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/navigator/navigator.rst
 
-and
-
+6. Location: Load, reload, replace files into the browser history:
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/location/location.rst
