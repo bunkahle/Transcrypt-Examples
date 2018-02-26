@@ -30,7 +30,7 @@ at a simple example: <a class="reference external" href="01_a_insert_text.html">
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
-<p>We have a simple html document which by itself would only display the header <strong>DOM examples</strong>
+<p>We have a simple html document which by itself would only display the header <strong>&quot;DOM examples&quot;</strong>
 and a paragraph saying <strong>&quot;Testing DOM&quot;</strong>. By inserting the script source &quot;__javascript__/insert_text2.js&quot; in the header
 we have also executable program code which can modify the static html text. By calling the body tag with the option
 onload=&quot;insert_text2.insert()&quot; the program code is going to be executed when the html page is going to be loaded.
@@ -43,7 +43,7 @@ def insert():
     text = 'Hello, DOM!'
     document.getElementById('output').innerText = text
 </pre>
-<p>It specifies a text variable and inserts this text variable into the html element with the name id = &quot;output&quot;.
+<p>It specifies a text variable and inserts this text variable into the html element with the name id = 'output'.
 If we look into the html text again we see that there is a div tag with the name id=&quot;output&quot; just below the first
 paragraph. The element has an attribute called &quot;innerText&quot; which is loaded with the specified text variable.
 If we first translate/compile the python code with :</p>
@@ -52,14 +52,14 @@ transcrypt insert_text2.py
 </pre>
 <p>to Javascript code inside the directory __javascript__  and then load the html page
 <a class="reference external" href="01_a_insert_text.html">01_a_insert_text.html</a> we see that the page is also displaying
-the text &quot;Hello, DOM!&quot; just below the first paragraph where it says Testing DOM. We have changed the text
+the text &quot;Hello, DOM!&quot; just below the first paragraph where it says &quot;Testing DOM&quot;. We have changed the text
 output of the static html page dynamically by putting code to the html which modifies the representation
 and text output of the web page.</p>
 </div>
 <div class="section" id="using-classes-for-inserting-text">
 <h1>Using classes for inserting text</h1>
-<p>We could have done that also in a different way by using a class. In this case a simple function call as
-def insert() is completely sufficient for the task. But sometime you will have more complex functions and
+<p>We could have done that also in a different way by using a class. In the given case a simple function call as
+def insert() is completely sufficient for the task. But sometimes you will have more complex functions and
 functions which use the same variables in different routines. So it could be a good idea to define a class
 with objects and methods which are all loaded when the class is initialized. Doing this looks like this:
 <a class="reference external" href="01_b_insert_text.html">01_b_insert_text.html</a>:</p>
@@ -90,7 +90,7 @@ is the call of the routine insert(). It is now called as</p>
 &lt;body onload=insert_text2.insert()&gt;
 </pre>
 <p>We have to distinguish between three parts in the routine call: the first part <strong>insert_text.</strong> is the routine name
-as it is save as a file in the directory __javascript__ like insert_text.js - this is our source code file for the
+as it is saved as a file in the directory __javascript__ like insert_text.js - this is our source code file for the
 script. If we transcrypt our python code to javascript we usually choose the same name for the python code in order to
 translate to javascript code. So</p>
 <pre class="literal-block">
@@ -112,10 +112,11 @@ this file in the header with:</p>
 <pre class="literal-block">
 &lt;body onload=insert_text.testSystem.insert()&gt;
 </pre>
-<p>The third file called <strong>insert_text.mod.js</strong> is just the pure function we have programmed in Python transcrypted to javascript code. It cannot be run directly with our html page unless we write it in a special form. More on this later. <strong>insert_text.mod.js</strong> is the module which we just programmed. In case you are not able to upload script files to your internet provider or website (e.g. like Jimdo - they only let you edit your html files and no upload - but you can insert Javascript code in the header of the html files manually) you could also take the minified code and paste it into a script tag in the header of your web page.</p>
+<p>The third file called <strong>insert_text.mod.js</strong> is just the pure function we have programmed in Python transcrypted to javascript code. It cannot be run directly with our html page unless we write it in a special form. More on this later. <strong>insert_text.mod.js</strong> is the module which we just programmed. In case you are not able to upload script files to your internet provider or website (e.g. like Jimdo - they only let you edit your html files online on the screen and they provide no ftp upload - but you can insert Javascript code in the header of the html files manually) so you could also take the minified code and paste it into a script tag in the header of your web page.</p>
 <pre class="literal-block">
 &lt;script&gt;your code of your minified javascript file goes here&lt;/script&gt;
 </pre>
+<p>You can find an example of complete script code in the header in the example <a class="reference external" href="01_a1_insert_text.html">01_a1_insert_text.html</a>.</p>
 <p>But let us go back to the three parts of the routine call:</p>
 <pre class="literal-block">
 &lt;body onload=insert_text.testSystem.insert()&gt;
@@ -151,12 +152,12 @@ method of the class or function call inside the class which is called insert():<
 <pre class="literal-block">
 &lt;body onload=insert_text2.insert()&gt;
 </pre>
-<p>We just have the script source file and the direct call of the function inside that script.</p>
+<p>In the latter case we just have the script source file and the direct call of the function inside that script.</p>
 </div>
 <div class="section" id="direct-insertion-of-script-code-in-the-document">
 <h1>Direct insertion of script code in the document</h1>
-<p>But there are other ways to include script beside specifying it at the body onload=&quot;&quot; tag. We could
-also call the routine directly by putting the function call directly somewhere into the html text.
+<p>But there are other ways to include script beside specifying it in the body onload=&quot;&quot; tag. We could
+have also called the routine directly by putting the function call directly somewhere into the html text.
 Let's have a look in <a class="reference external" href="insert_text4.py">insert_text4.py</a>:</p>
 <pre class="literal-block">
 def insert(text):
@@ -184,9 +185,9 @@ def insert(text):
 <p>The function is now not called when the document body is loaded but it is called when the document is written
 to the browser's output after the paragraph which embraces the div id=&quot;output&quot;. You can directly call the
 function from within the html text. You specify the filename of the js file (insert_text4.js) as
-insert_text4 followed by a dot, then followed by the class if any and another dot and the function call with
+insert_text4 followed by a dot, then followed by the class if any class is existent and another dot and the function call with
 the name of the routine.</p>
-<p>Sometimes it is might even be necessary to call the functions after the html document of special tags have
+<p>Sometimes it might even be necessary to call the functions after the html document of special tags have
 been printed to the output of  the browser. If your script does not run and throws the error in the browser console
 (Hit F12 to see it) saying something like: <strong>TypeError: document.getElementById(...) is null</strong> it might be due to the fact that
 the document id had not been written to the browser output so far. If you wait with the script call until the document id is existent and has been written (so you place the script call after the document id in the document) you can solve this problem.</p>
@@ -219,7 +220,7 @@ document.getElementById('output').innerText = text
 </pre>
 <p>We now have no script source code definition in the header anymore but only the direct call
 of the javascript file in &quot;__javascript__/insert_text5.js&quot;. Since we have no function call
-the direct code is executed in the file insert_text5.js directly in place when the html output
+the code is executed in the file insert_text5.js directly in place when the html output
 reaches the script call.</p>
 <p>And here is a trick if you really want to produce small, efficient code which has been developed
 and written in Python but has then been transcrypted to Javascript. In the case above you could have
@@ -241,8 +242,8 @@ also used the pure insert_text5.mod.js file. Give it a try with the following ht
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
-<p>The mod.js file for insert_text5 is much smaller than the file sizes of insert_text5.js or even insert_text5.min.js
-which both more than 100 times larger. Let's have a look onto insert_text5.mod.js :</p>
+<p>The mod.js file size for insert_text5 is much smaller than the file sizes of insert_text5.js or even insert_text5.min.js
+which both are more than 100 times larger. Let's have a look into insert_text5.mod.js :</p>
 <pre class="literal-block">
 (function () {
         var __name__ = '__main__';
@@ -256,7 +257,7 @@ which both more than 100 times larger. Let's have a look onto insert_text5.mod.j
 </pre>
 <p>Quite small, isn't it?</p>
 <p>In this special case it would work, but not always. It works because we have only direct commands in the code and these
-commands do not apply special Python commands like int() or enumerate() or anything else from the Python world. Sometimes your code includes special Python commands or functions which are not defined in the mod.js file but which would be defined in the main js file oder the min.js file of your routine. You could of course try to mix javascript and python commands in your code and only work with the mod.js file and it seems even to work if you wanted to have python code like</p>
+commands do not apply special Python commands like int() or enumerate() or anything else from the Python world. Sometimes your code includes special Python commands or functions which are not defined in the mod.js file but which would be defined in the main js file oder the min.js file of your routine. You could of course try to mix javascript and python commands in your code and only work with the mod.js file and it even seems to work if you wanted to have python code like</p>
 <pre class="literal-block">
 a = int(b)
 </pre>
@@ -308,7 +309,7 @@ def insert():
 &lt;/html&gt;
 </pre>
 <p>Only when the button &quot;Try it&quot; is clicked the function will be called which takes the
-HTML-part of the space with the id=&quot;myPre&quot; and puts to the place with the div tag with the
+HTML-part of the space with the id=&quot;myPre&quot; and puts it to the place with the div tag with the
 id=&quot;demo&quot;. The format of the original text between the &lt;pre&gt; tag is going to be lost since
 regular html text does not take spaces or line breaks into account unless they are specified with
 tags like &lt;br&gt; and the like. The pre = preformatted tag carries these spaces and line breaks and
