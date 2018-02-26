@@ -52,6 +52,3 @@ class SolarSystem:
         self.ctx.drawImage(self.sun, 0, 0, 300, 300)
 
 solarSystem = SolarSystem()
-
-
-

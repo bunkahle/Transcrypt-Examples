@@ -25,6 +25,7 @@ class SolarSystem:
                      "DOWN":   40}
         self.accel_value = 1.0
         self.accelerate = 1.0
+        self.keyCode = -1
         document.onkeypress = self.keyHandler
         self.paused = False
         self.main_loop()

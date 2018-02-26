@@ -54,6 +54,3 @@ class SolarSystem:
         window.requestAnimationFrame(self.render)
 
 solarSystem = SolarSystem()
-
-
-

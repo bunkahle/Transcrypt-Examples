@@ -54,6 +54,3 @@ class SolarSystem:
         window.setTimeout(self.render, 50)
 
 solarSystem = SolarSystem()
-
-
-

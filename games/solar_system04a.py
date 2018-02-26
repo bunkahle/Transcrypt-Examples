@@ -68,6 +68,3 @@ class SolarSystem:
             self.animate = window.requestAnimationFrame(self.render)
 
 solarSystem = SolarSystem()
-
-
-

@@ -60,6 +60,3 @@ class SolarSystem:
             self.update = window.setInterval(self.render, 50)
 
 solarSystem = SolarSystem()
-
-
-

@@ -65,6 +65,3 @@ class SolarSystem:
             window.clearTimeout(self.update)
 
 solarSystem = SolarSystem()
-
-
-
