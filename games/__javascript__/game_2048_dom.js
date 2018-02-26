@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-23 11:08:45
+// Transcrypt'ed from Python, 2018-02-26 08:37:56
 function game_2048_dom () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};

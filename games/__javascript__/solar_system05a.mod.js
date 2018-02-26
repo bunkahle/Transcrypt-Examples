@@ -23,10 +23,10 @@
 				self.Keys = dict ({'SPACE': 32, 'LEFT': 37, 'UP': 38, 'RIGHT': 39, 'DOWN': 40});
 				self.accel_value = 1.0;
 				self.accelerate = 1.0;
-				self.keyCode = -(1);
+				self.scale_factor = 1.0;
 				document.onkeypress = self.keyHandler;
 				self.paused = false;
-				self.main_loop ();
+				self.animate = window.requestAnimationFrame (self.render);
 			});},
 			get render () {return __get__ (this, function (self) {
 				self.ctx = document.getElementById ('canvas').getContext ('2d');
@@ -56,21 +56,26 @@
 				self.ctx.fillStyle = 'white';
 				self.ctx.fillText ('Accel:' + str (self.accelerate), 10, 20);
 				self.ctx.drawImage (self.sun, 0, 0, 300, 300);
-				self.main_loop ();
+				if (!(self.paused)) {
+					self.animate = window.requestAnimationFrame (self.render);
+				}
 			});},
 			get pause () {return __get__ (this, function (self) {
 				self.paused = !(self.paused);
-				if (self.paused) {
-					document.getElementById ('info').innerHTML = '<b>Game stopped</b>';
-				}
-				else {
-					document.getElementById ('info').innerHTML = '<b>Game running</b>';
+				if (!(self.paused)) {
+					self.animate = window.requestAnimationFrame (self.render);
 				}
 			});},
 			get keyHandler () {return __get__ (this, function (self, e) {
-				self.keyCode = e.keyCode;
-				self.charCode = e.charCode;
-				console.log ((('keyCode: ' + str (self.keyCode)) + ' charCode: ') + str (self.charCode));
+				var kc = e.keyCode;
+				var cc = e.charCode;
+				console.log ((('keyCode: ' + str (kc)) + ' charCode: ') + str (cc));
+				if (kc == self.Keys ['RIGHT']) {
+					self.accelerate += self.accel_value;
+				}
+				else if (kc == self.Keys ['LEFT']) {
+					self.accelerate -= self.accel_value;
+				}
 			});},
 			get accel () {return __get__ (this, function (self) {
 				self.accelerate += self.accel_value;
@@ -78,23 +83,23 @@
 			get slowdown () {return __get__ (this, function (self) {
 				self.accelerate -= self.accel_value;
 			});},
-			get user_input () {return __get__ (this, function (self) {
-				if (self.keyCode == self.Keys ['RIGHT']) {
-					self.accelerate += self.accel_value;
-				}
-				else if (self.keyCode == self.Keys ['LEFT']) {
-					self.accelerate -= self.accel_value;
-				}
-				self.keyCode = -(1);
+			get zoom_in () {return __get__ (this, function (self) {
+				self.scale_factor += 0.01;
+				self.scaling ();
 			});},
-			get main_loop () {return __get__ (this, function (self) {
-				self.user_input ();
-				if (!(self.paused)) {
-					self.animate = window.requestAnimationFrame (self.render);
-				}
-				else {
-					setTimeout (self.main_loop, 50);
-				}
+			get zoom_out () {return __get__ (this, function (self) {
+				self.scale_factor -= 0.01;
+				self.scaling ();
+			});},
+			get scaling () {return __get__ (this, function (self) {
+				var width = self.ctx.canvas.width;
+				var height = self.ctx.canvas.height;
+				var newWidth = width * self.scale_factor;
+				var newHeight = height * self.scale_factor;
+				self.ctx.save ();
+				self.ctx.clearRect (0, 0, width, height);
+				self.ctx.translate (-((newWidth - width) / 2), -((newHeight - height) / 2));
+				self.ctx.scale (self.scale_factor, self.scale_factor);
 			});}
 		});
 		var solarSystem = SolarSystem ();

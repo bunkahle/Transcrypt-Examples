@@ -1,6 +1,6 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-26 08:37:16
-function solar_system04a () {
+// Transcrypt'ed from Python, 2018-02-22 18:41:41
+function solar_system05a () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
     var __world__ = __all__;
@@ -121,14 +121,15 @@ function solar_system04a () {
     };
     __all__.object = object;
     var __class__ = function (name, bases, attribs, meta) {
-        if (meta == undefined) {
+        if (meta === undefined) {
             meta = bases [0] .__metaclass__;
         }
         return meta.__new__ (meta, name, bases, attribs);
     }
     __all__.__class__ = __class__;
     var __pragma__ = function () {};
-    __all__.__pragma__ = __pragma__;	__nest__ (
+    __all__.__pragma__ = __pragma__;
+	__nest__ (
 		__all__,
 		'org.transcrypt.__base__', {
 			__all__: {
@@ -140,7 +141,7 @@ function solar_system04a () {
 						get __init__ () {return __get__ (this, function (self) {
 							self.interpreter_name = 'python';
 							self.transpiler_name = 'transcrypt';
-							self.transpiler_version = '3.6.82';
+							self.transpiler_version = '3.6.94';
 							self.target_subdir = '__javascript__';
 						});}
 					});
@@ -154,6 +155,7 @@ function solar_system04a () {
 			}
 		}
 	);
+
 	__nest__ (
 		__all__,
 		'org.transcrypt.__standard__', {
@@ -498,6 +500,7 @@ function solar_system04a () {
 			}
 		}
 	);
+
     var __call__ = function (/* <callee>, <this>, <params>* */) {
         var args = [] .slice.apply (arguments);
         if (typeof args [0] == 'object' && '__call__' in args [0]) {
@@ -610,7 +613,7 @@ function solar_system04a () {
     var getattr = function (obj, name) {
         return name in obj ? obj [name] : obj ['py_' + name];
     };
-    __all__.getattr= getattr;
+    __all__.getattr = getattr;
     var hasattr = function (obj, name) {
         try {
             return name in obj || 'py_' + name in obj;
@@ -630,8 +633,11 @@ function solar_system04a () {
     };
     __all__.delattr = (delattr);
     var __in__ = function (element, container) {
-        if (py_typeof (container) == dict) {
-            return container.hasOwnProperty (element);
+        if (container === undefined || container === null) {
+            return false;
+        }
+        if (container.__contains__ instanceof Function) {
+            return container.__contains__ (element);
         }
         else {
             return (
@@ -671,7 +677,13 @@ function solar_system04a () {
     function __k__ (keyed, key) {
         var result = keyed [key];
         if (typeof result == 'undefined') {
-             throw KeyError (key, new Error());
+            if (keyed instanceof Array)
+                if (key == +key && key >= 0 && keyed.length > key)
+                    return result;
+                else
+                    throw IndexError (key, new Error());
+            else
+                throw KeyError (key, new Error());
         }
         return result;
     }
@@ -687,17 +699,15 @@ function solar_system04a () {
         );
     }
     __all__.__t__ = __t__;
-    var bool = function (any) {
-        return !!__t__ (any);
-    };
-    bool.__name__ = 'bool';
-    __all__.bool = bool;
     var float = function (any) {
         if (any == 'inf') {
             return Infinity;
         }
         else if (any == '-inf') {
             return -Infinity;
+        }
+        else if (any == 'nan') {
+            return NaN;
         }
         else if (isNaN (parseFloat (any))) {
             if (any === false) {
@@ -715,17 +725,25 @@ function solar_system04a () {
         }
     };
     float.__name__ = 'float';
+    float.__bases__ = [object];
     __all__.float = float;
     var int = function (any) {
         return float (any) | 0
     };
     int.__name__ = 'int';
+    int.__bases__ = [object];
     __all__.int = int;
+    var bool = function (any) {
+        return !!__t__ (any);
+    };
+    bool.__name__ = 'bool';
+    bool.__bases__ = [int];
+    __all__.bool = bool;
     var py_typeof = function (anObject) {
         var aType = typeof anObject;
         if (aType == 'object') {
             try {
-                return anObject.__class__;
+                return '__class__' in anObject ? anObject.__class__ : object;
             }
             catch (exception) {
                 return aType;
@@ -741,43 +759,48 @@ function solar_system04a () {
         }
     };
     __all__.py_typeof = py_typeof;
-    var isinstance = function (anObject, classinfo) {
-        function isA (queryClass) {
-            if (queryClass == classinfo) {
-                return true;
-            }
-            for (var index = 0; index < queryClass.__bases__.length; index++) {
-                if (isA (queryClass.__bases__ [index], classinfo)) {
-                    return true;
-                }
-            }
-            return false;
-        }
+    var issubclass = function (aClass, classinfo) {
         if (classinfo instanceof Array) {
             for (var index = 0; index < classinfo.length; index++) {
-                var aClass = classinfo [index];
-                if (isinstance (anObject, aClass)) {
+                var aClass2 = classinfo [index];
+                if (issubclass (aClass, aClass2)) {
                     return true;
                 }
             }
             return false;
         }
         try {
-            return '__class__' in anObject ? isA (anObject.__class__) : anObject instanceof classinfo;
+            var aClass2 = aClass;
+            if (aClass2 == classinfo)
+                return true;
+            else {
+                var bases = [].slice.call (aClass2.__bases__);
+                while (bases.length) {
+                    aClass2 = bases.shift ();
+                    if (aClass2 == classinfo)
+                        return true;
+                    if (aClass2.__bases__.length)
+                        bases = [].slice.call (aClass2.__bases__).concat (bases);
+                }
+                return false;
+            }
         }
         catch (exception) {
-            var aType = py_typeof (anObject);
-            return aType == classinfo || (aType == bool && classinfo == int);
+            return aClass == classinfo || classinfo == object;
+        }
+    };
+    __all__.issubclass = issubclass;
+    var isinstance = function (anObject, classinfo) {
+        try {
+            return '__class__' in anObject ? issubclass (anObject.__class__, classinfo) : issubclass (py_typeof (anObject), classinfo);
+        }
+        catch (exception) {
+            return issubclass (py_typeof (anObject), classinfo);
         }
     };
     __all__.isinstance = isinstance;
     var callable = function (anObject) {
-        if ( typeof anObject == 'object' && '__call__' in anObject ) {
-            return true;
-        }
-        else {
-            return typeof anObject === 'function';
-        }
+        return anObject && typeof anObject == 'object' && '__call__' in anObject ? true : typeof anObject === 'function';
     };
     __all__.callable = callable;
     var repr = function (anObject) {
@@ -1064,6 +1087,7 @@ function solar_system04a () {
     __all__.list = list;
     Array.prototype.__class__ = list;
     list.__name__ = 'list';
+    list.__bases__ = [object];
     Array.prototype.__iter__ = function () {return new __PyIterator__ (this);};
     Array.prototype.__getslice__ = function (start, stop, step) {
         if (start < 0) {
@@ -1173,6 +1197,7 @@ function solar_system04a () {
     }
     __all__.tuple = tuple;
     tuple.__name__ = 'tuple';
+    tuple.__bases__ = [object];
     function set (iterable) {
         var instance = [];
         if (iterable) {
@@ -1185,6 +1210,7 @@ function solar_system04a () {
     }
     __all__.set = set;
     set.__name__ = 'set';
+    set.__bases__ = [object];
     Array.prototype.__bindexOf__ = function (element) {
         element += '';
         var mindex = 0;
@@ -1349,21 +1375,26 @@ function solar_system04a () {
     };
     Uint8Array.prototype.__rmul__ = Uint8Array.prototype.__mul__;
     function str (stringable) {
-        try {
-            return stringable.__str__ ();
-        }
-        catch (exception) {
+        if (typeof stringable === 'number')
+            return stringable.toString();
+        else {
             try {
-                return repr (stringable);
+                return stringable.__str__ ();
             }
             catch (exception) {
-                return String (stringable);
+                try {
+                    return repr (stringable);
+                }
+                catch (exception) {
+                    return String (stringable);
+                }
             }
         }
     };
     __all__.str = str;
     String.prototype.__class__ = str;
     str.__name__ = 'str';
+    str.__bases__ = [object];
     String.prototype.__iter__ = function () {new __PyIterator__ (this);};
     String.prototype.__repr__ = function () {
         return (this.indexOf ('\'') == -1 ? '\'' + this + '\'' : '"' + this + '"') .py_replace ('\t', '\\t') .py_replace ('\n', '\\n');
@@ -1375,7 +1406,14 @@ function solar_system04a () {
         return this.charAt (0).toUpperCase () + this.slice (1);
     };
     String.prototype.endswith = function (suffix) {
-        return suffix == '' || this.slice (-suffix.length) == suffix;
+        if (suffix instanceof Array) {
+            for (var i=0;i<suffix.length;i++) {
+                if (this.slice (-suffix[i].length) == suffix[i])
+                    return true;
+            }
+        } else
+            return suffix == '' || this.slice (-suffix.length) == suffix;
+        return false;
     };
     String.prototype.find  = function (sub, start) {
         return this.indexOf (sub, start);
@@ -1400,7 +1438,7 @@ function solar_system04a () {
             }
         }
         return result;
-    }
+    };
     __setProperty__ (String.prototype, 'format', {
         get: function () {return __get__ (this, function (self) {
             var args = tuple ([] .slice.apply (arguments).slice (1));
@@ -1510,7 +1548,14 @@ function solar_system04a () {
         }
     };
     String.prototype.startswith = function (prefix) {
-        return this.indexOf (prefix) == 0;
+        if (prefix instanceof Array) {
+            for (var i=0;i<prefix.length;i++) {
+                if (this.indexOf (prefix [i]) == 0)
+                    return true;
+            }
+        } else
+            return this.indexOf (prefix) == 0;
+        return false;
     };
     String.prototype.strip = function () {
         return this.trim ();
@@ -1519,13 +1564,16 @@ function solar_system04a () {
         return this.toUpperCase ();
     };
     String.prototype.__mul__ = function (scalar) {
-        var result = this;
-        for (var i = 1; i < scalar; i++) {
+        var result = '';
+        for (var i = 0; i < scalar; i++) {
             result = result + this;
         }
         return result;
     };
     String.prototype.__rmul__ = String.prototype.__mul__;
+    function __contains__ (element) {
+        return this.hasOwnProperty (element);
+    }
     function __keys__ () {
         var keys = [];
         for (var attrib in this) {
@@ -1646,6 +1694,7 @@ function solar_system04a () {
             }
         }
         __setProperty__ (instance, '__class__', {value: dict, enumerable: false, writable: true});
+        __setProperty__ (instance, '__contains__', {value: __contains__, enumerable: false});
         __setProperty__ (instance, 'py_keys', {value: __keys__, enumerable: false});
         __setProperty__ (instance, '__iter__', {value: function () {new __PyIterator__ (this.py_keys ());}, enumerable: false});
         __setProperty__ (instance, Symbol.iterator, {value: function () {new __JsIterator__ (this.py_keys ());}, enumerable: false});
@@ -1664,6 +1713,7 @@ function solar_system04a () {
     }
     __all__.dict = dict;
     dict.__name__ = 'dict';
+    dict.__bases__ = [object];
     function __setdoc__ (docString) {
         this.__doc__ = docString;
         return this;
@@ -1673,7 +1723,7 @@ function solar_system04a () {
         if (typeof a == 'object' && '__mod__' in a) {
             return a.__mod__ (b);
         }
-        else if (typeof b == 'object' && '__rpow__' in b) {
+        else if (typeof b == 'object' && '__rmod__' in b) {
             return b.__rmod__ (a);
         }
         else {
@@ -1685,7 +1735,7 @@ function solar_system04a () {
         if (typeof a == 'object' && '__mod__' in a) {
             return a.__mod__ (b);
         }
-        else if (typeof b == 'object' && '__rpow__' in b) {
+        else if (typeof b == 'object' && '__rmod__' in b) {
             return b.__rmod__ (a);
         }
         else {
@@ -1956,7 +2006,7 @@ function solar_system04a () {
         else if (typeof a == 'object' && '__mod__' in a) {
             return a.__mod__ (b);
         }
-        else if (typeof b == 'object' && '__rpow__' in b) {
+        else if (typeof b == 'object' && '__rmod__' in b) {
             return b.__rmod__ (a);
         }
         else {
@@ -2109,6 +2159,9 @@ function solar_system04a () {
         if (typeof container == 'object' && '__getitem__' in container) {
             return container.__getitem__ (key);
         }
+        else if ((typeof container == 'string' || container instanceof Array) && key < 0) {
+            return container [container.length + key];
+        }
         else {
             return container [key];
         }
@@ -2117,6 +2170,9 @@ function solar_system04a () {
     var __setitem__ = function (container, key, value) {
         if (typeof container == 'object' && '__setitem__' in container) {
             container.__setitem__ (key, value);
+        }
+        else if ((typeof container == 'string' || container instanceof Array) && key < 0) {
+            container [container.length + key] = value;
         }
         else {
             container [key] = value;
@@ -2140,7 +2196,8 @@ function solar_system04a () {
             container.__setslice__ (lower, upper, step, value);
         }
     };
-    __all__.__setslice__ = __setslice__;	__nest__ (
+    __all__.__setslice__ = __setslice__;
+	__nest__ (
 		__all__,
 		'math', {
 			__all__: {
@@ -2232,6 +2289,7 @@ function solar_system04a () {
 			}
 		}
 	);
+
 	(function () {
 		var math = {};
 		var __name__ = '__main__';
@@ -2254,6 +2312,11 @@ function solar_system04a () {
 				if (self.earth.naturalWidth == 'undefined' || self.earth.naturalWidth == 0) {
 					self.earth.src = 'Canvas_earth.png';
 				}
+				self.Keys = dict ({'SPACE': 32, 'LEFT': 37, 'UP': 38, 'RIGHT': 39, 'DOWN': 40});
+				self.accel_value = 1.0;
+				self.accelerate = 1.0;
+				self.scale_factor = 1.0;
+				document.onkeypress = self.keyHandler;
 				self.paused = false;
 				self.animate = window.requestAnimationFrame (self.render);
 			});},
@@ -2266,12 +2329,14 @@ function solar_system04a () {
 				self.ctx.save ();
 				self.ctx.translate (150, 150);
 				self.time = new Date ();
-				self.ctx.rotate (((2 * math.pi) / 60) * self.time.getSeconds () + ((2 * math.pi) / 60000) * self.time.getMilliseconds ());
+				var secs = self.time.getSeconds ();
+				var msecs = self.time.getMilliseconds ();
+				self.ctx.rotate ((((2 * math.pi) / 60) * self.accelerate) * secs + (((2 * math.pi) / 60000) * self.accelerate) * msecs);
 				self.ctx.translate (105, 0);
 				self.ctx.fillRect (0, -(12), 50, 24);
 				self.ctx.drawImage (self.earth, -(12), -(12));
 				self.ctx.save ();
-				self.ctx.rotate (((2 * math.pi) / 6) * self.time.getSeconds () + ((2 * math.pi) / 6000) * self.time.getMilliseconds ());
+				self.ctx.rotate ((((2 * math.pi) / 6) * self.accelerate) * secs + (((2 * math.pi) / 6000) * self.accelerate) * msecs);
 				self.ctx.translate (0, 28.5);
 				self.ctx.drawImage (self.moon, -(3.5), -(3.5));
 				self.ctx.restore ();
@@ -2279,25 +2344,54 @@ function solar_system04a () {
 				self.ctx.beginPath ();
 				self.ctx.arc (150, 150, 105, 0, math.pi * 2, false);
 				self.ctx.stroke ();
+				self.ctx.font = '20px Arial';
+				self.ctx.fillStyle = 'white';
+				self.ctx.fillText ('Accel:' + str (self.accelerate), 10, 20);
 				self.ctx.drawImage (self.sun, 0, 0, 300, 300);
-				if (self.paused && self.animate !== null) {
-					window.cancelAnimationFrame (self.animate);
-					self.animate = null;
-				}
-				else if (!(self.paused)) {
+				if (!(self.paused)) {
 					self.animate = window.requestAnimationFrame (self.render);
 				}
 			});},
 			get pause () {return __get__ (this, function (self) {
 				self.paused = !(self.paused);
-				console.log (self.paused);
-				if (self.paused) {
-					window.cancelAnimationFrame (self.animate);
-					self.animate = null;
-				}
-				else {
+				if (!(self.paused)) {
 					self.animate = window.requestAnimationFrame (self.render);
 				}
+			});},
+			get keyHandler () {return __get__ (this, function (self, e) {
+				var kc = e.keyCode;
+				var cc = e.charCode;
+				console.log ((('keyCode: ' + str (kc)) + ' charCode: ') + str (cc));
+				if (kc == self.Keys ['RIGHT']) {
+					self.accelerate += self.accel_value;
+				}
+				else if (kc == self.Keys ['LEFT']) {
+					self.accelerate -= self.accel_value;
+				}
+			});},
+			get accel () {return __get__ (this, function (self) {
+				self.accelerate += self.accel_value;
+			});},
+			get slowdown () {return __get__ (this, function (self) {
+				self.accelerate -= self.accel_value;
+			});},
+			get zoom_in () {return __get__ (this, function (self) {
+				self.scale_factor += 0.01;
+				self.scaling ();
+			});},
+			get zoom_out () {return __get__ (this, function (self) {
+				self.scale_factor -= 0.01;
+				self.scaling ();
+			});},
+			get scaling () {return __get__ (this, function (self) {
+				var width = self.ctx.canvas.width;
+				var height = self.ctx.canvas.height;
+				var newWidth = width * self.scale_factor;
+				var newHeight = height * self.scale_factor;
+				self.ctx.save ();
+				self.ctx.clearRect (0, 0, width, height);
+				self.ctx.translate (-((newWidth - width) / 2), -((newHeight - height) / 2));
+				self.ctx.scale (self.scale_factor, self.scale_factor);
 			});}
 		});
 		var solarSystem = SolarSystem ();
@@ -2312,4 +2406,4 @@ function solar_system04a () {
 	}) ();
     return __all__;
 }
-window ['solar_system04a'] = solar_system04a ();
+window ['solar_system05a'] = solar_system05a ();
