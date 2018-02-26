@@ -39,3 +39,7 @@ https://github.com/bunkahle/Transcrypt-Examples/blob/master/navigator/navigator.
 6. Location: Load, reload, replace files into the browser history:
 
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/location/location.rst
+
+Basics on game programming with DOM/HTML5:
+
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/games/games.rst
