@@ -1,6 +1,6 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-27 08:38:08
-function canvas_04 () {
+// Transcrypt'ed from Python, 2018-02-27 08:18:23
+function canvas_04a () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
     var __world__ = __all__;
@@ -2242,16 +2242,17 @@ function canvas_04 () {
 				self.canvas_id = canvas_id;
 				self.canvas = document.getElementById (self.canvas_id);
 				self.ctx = self.canvas.getContext ('2d');
+				self.ctx.save ();
+				self.ctx.beginPath ();
+				self.ctx.lineWidth = '3';
+				self.ctx.strokeStyle = 'blue';
+				self.ctx.strokeRect (60, 60, 160, 160);
+				self.ctx.translate (60, 60);
+				self.ctx.strokeStyle = 'red';
+				self.ctx.strokeRect (60, 60, 160, 160);
+				self.ctx.restore ();
 				self.ctx.rect (0, 0, 300, 300);
 				self.ctx.stroke ();
-				self.ctx.fillStyle = '#ff0000';
-				self.ctx.fillRect (10, 10, 100, 100);
-				self.ctx.fillStyle = '#0000ff';
-				self.ctx.fillRect (110, 110, 80, 80);
-				self.ctx.lineWidth = '3';
-				self.ctx.strokeStyle = '#00ff00';
-				self.ctx.strokeRect (55, 55, 100, 100);
-				self.ctx.clearRect (120, 120, 20, 20);
 			});}
 		});
 		var graphic = Graphics ('graphics');
@@ -2266,4 +2267,4 @@ function canvas_04 () {
 	}) ();
     return __all__;
 }
-window ['canvas_04'] = canvas_04 ();
+window ['canvas_04a'] = canvas_04a ();

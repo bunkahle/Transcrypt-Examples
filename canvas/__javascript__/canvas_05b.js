@@ -1,6 +1,6 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-27 08:38:08
-function canvas_04 () {
+// Transcrypt'ed from Python, 2018-02-27 08:36:26
+function canvas_05b () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
     var __world__ = __all__;
@@ -2241,17 +2241,34 @@ function canvas_04 () {
 			get __init__ () {return __get__ (this, function (self, canvas_id) {
 				self.canvas_id = canvas_id;
 				self.canvas = document.getElementById (self.canvas_id);
+				self.canvasWidth = self.canvas.width;
+				self.canvasHeight = self.canvas.height;
 				self.ctx = self.canvas.getContext ('2d');
-				self.ctx.rect (0, 0, 300, 300);
-				self.ctx.stroke ();
-				self.ctx.fillStyle = '#ff0000';
-				self.ctx.fillRect (10, 10, 100, 100);
-				self.ctx.fillStyle = '#0000ff';
-				self.ctx.fillRect (110, 110, 80, 80);
-				self.ctx.lineWidth = '3';
-				self.ctx.strokeStyle = '#00ff00';
-				self.ctx.strokeRect (55, 55, 100, 100);
-				self.ctx.clearRect (120, 120, 20, 20);
+				self.turning = true;
+				self.reverse = 1;
+				self.img = new Image ();
+				self.img.src = 'smiley.jpg';
+				self.img.onload = self.turn;
+				self.animate = setInterval (self.turn, 50);
+			});},
+			get turn () {return __get__ (this, function (self) {
+				self.ctx.clearRect (0, 0, self.canvasWidth, self.canvasHeight);
+				self.ctx.translate (self.canvasWidth / 2, self.canvasHeight / 2);
+				self.ctx.rotate ((math.pi / 180) * self.reverse);
+				self.ctx.translate (-(self.canvasWidth) / 2, -(self.canvasWidth) / 2);
+				self.ctx.drawImage (self.img, 0, 0, 200, 200);
+			});},
+			get toggle () {return __get__ (this, function (self) {
+				self.turning = !(self.turning);
+				if (self.turning) {
+					self.animate = setInterval (self.turn, 50);
+				}
+				else {
+					clearInterval (self.animate);
+				}
+			});},
+			get reverse_move () {return __get__ (this, function (self) {
+				self.reverse = -(self.reverse);
 			});}
 		});
 		var graphic = Graphics ('graphics');
@@ -2266,4 +2283,4 @@ function canvas_04 () {
 	}) ();
     return __all__;
 }
-window ['canvas_04'] = canvas_04 ();
+window ['canvas_05b'] = canvas_05b ();

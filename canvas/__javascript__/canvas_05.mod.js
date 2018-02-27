@@ -6,18 +6,15 @@
 			__module__: __name__,
 			get __init__ () {return __get__ (this, function (self, canvas_id) {
 				self.canvas_id = canvas_id;
-				self.canvas = document.getElementById (self.canvas_id);
-				self.ctx = self.canvas.getContext ('2d');
-				self.ctx.rect (0, 0, 300, 300);
-				self.ctx.stroke ();
-				self.ctx.fillStyle = '#ff0000';
-				self.ctx.fillRect (10, 10, 100, 100);
-				self.ctx.fillStyle = '#0000ff';
-				self.ctx.fillRect (110, 110, 80, 80);
-				self.ctx.lineWidth = '3';
-				self.ctx.strokeStyle = '#00ff00';
-				self.ctx.strokeRect (55, 55, 100, 100);
-				self.ctx.clearRect (120, 120, 20, 20);
+				self.ctx = document.getElementById (self.canvas_id).getContext ('2d');
+				self.img = new Image ();
+				self.img.src = 'smiley.jpg';
+				self.img.onload = self.turn;
+			});},
+			get turn () {return __get__ (this, function (self) {
+				self.ctx.translate (200, 0);
+				self.ctx.rotate ((90 * math.pi) / 180);
+				self.ctx.drawImage (self.img, 0, 0, 200, 200);
 			});}
 		});
 		var graphic = Graphics ('graphics');
