@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>Document properties</title>
+
+<div class="document" id="document-properties">
+<h1 class="title">Document properties</h1>
+<h2 class="subtitle" id="document-properties-provide-information-about-the-doc">Document properties provide information about the doc</h2>
+
+<p>Before we dive more into text changes and dom manipulation one word about
+the document properties. The keyword document holds some properties which you
+can access programmatically to find out more information about the html document at hand.
+Let's look at a simple example: <a class="reference external" href="doc_objects.py">doc_objects.py</a></p>
+<pre class="literal-block">
+def display_document_objects(self):
+        text = &quot;Number of anchors are: &quot; + document.anchors.length + &quot;&lt;br&gt;\n&quot;
+        text = text + &quot;document.body.innerHTML.length:&quot; + document.body.innerHTML.length + &quot;&lt;br&gt;\n&quot;
+        text = text + &quot;Number of embeds: &quot; + document.embeds.length + &quot;&lt;br&gt;\n&quot;
+        text = text + &quot;Number of forms: &quot; + document.forms.length + &quot;&lt;br&gt;\n&quot;
+        text = text + &quot;Number of images: &quot; + document.images.length + &quot;&lt;br&gt;\n&quot;
+        text = text + &quot;Number of links: &quot; + document.links.length + &quot;&lt;br&gt;\n&quot;
+        text = text + &quot;Number of scripts: &quot; + document.scripts.length + &quot;&lt;br&gt;\n&quot;
+        text = text + &quot;The title of this document is: &quot; + document.title + &quot;&lt;br&gt;\n&quot;
+        document.getElementById('info').innerHTML = text
+</pre>
+<p>Quite python-like you can easily access the document with its different properties: anchors, body,
+embeds, forms, images, links, scripts, title etc. You can try this code with the following
+html for it: <a class="reference external" href="01a_doc_objects.html">01a_doc_objects.html</a>:</p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_objects.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document objects&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+  &lt;div id=&quot;main&quot;&gt;
+  &lt;p&gt;Show Document objects&lt;/p&gt;
+  &lt;button onclick=&quot;doc_objects.display_document_objects()&quot;&gt;Show document object information&lt;/button&gt;
+  &lt;/div&gt;&lt;br&gt;
+  &lt;table&gt;&lt;tr&gt;&lt;td&gt;
+    &lt;a name=&quot;html&quot; href=&quot;https://www.w3schools.com/html/&quot;&gt;HTML Tutorial&lt;/a&gt;&lt;br&gt;
+    &lt;a name=&quot;css&quot; href=&quot;http://wiki.selfhtml.org/wiki/CSS&quot;&gt;CSS Tutorial&lt;/a&gt;&lt;br&gt;
+    &lt;a name=&quot;xml&quot;&gt;XML Tutorial&lt;/a&gt;&lt;br&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    &lt;img src=&quot;pic_bulboff.gif&quot;&gt;
+  &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+  &lt;form action=&quot;&quot;&gt;
+    First name: &lt;input type=&quot;text&quot; name=&quot;fname&quot; value=&quot;Monty&quot;&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+  &lt;/form&gt;
+  &lt;p&gt;Objects inside this document:&lt;/p&gt;
+  &lt;div id=&quot;info&quot;&gt;&lt;/div&gt;
+  &lt;BR&gt;
+  &lt;UL&gt;In general the following document objects are possible:
+    &lt;li&gt;document.anchors&lt;/li&gt;
+    &lt;li&gt;document.body&lt;/li&gt;
+    &lt;li&gt;document.documentElement&lt;/li&gt;
+    &lt;li&gt;document.embeds&lt;/li&gt;
+    &lt;li&gt;document.forms&lt;/li&gt;
+    &lt;li&gt;document.head&lt;/li&gt;
+    &lt;li&gt;document.images&lt;/li&gt;
+    &lt;li&gt;document.links&lt;/li&gt;
+    &lt;li&gt;document.scripts&lt;/li&gt;
+    &lt;li&gt;document.title&lt;/li&gt;
+  &lt;/UL&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Sometimes it might even be useful to see which element in the document had been clicked
+and which has become the activeElement. The code for it is more than simple: <a class="reference external" href="doc_props1.py">doc_props1.py</a></p>
+<pre class="literal-block">
+def active_element():
+    x = document.activeElement.tagName + &quot;, &quot; + document.activeElement.id
+    document.getElementById(&quot;demo&quot;).innerHTML = x
+</pre>
+<p>And the html to try it out: : <a class="reference external" href="01b_doc_properties.html">01b_doc_properties.html</a>:</p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_props1.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document activeElement&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body id=&quot;body&quot; onclick=&quot;doc_props1.active_element()&quot;&gt;
+        &lt;p id=&quot;explanation_text&quot;&gt;Click anywhere in the document to display the active element.&lt;/p&gt;
+        &lt;input id=&quot;inputfield&quot; type=&quot;text&quot; value=&quot;An input field&quot;&gt;
+        &lt;button id=&quot;button1&quot;&gt;A Button&lt;/button&gt;
+        &lt;p id=&quot;demo&quot;&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>It also quite easy to find out about the decoding of the html document. The code for this is simple: <a class="reference external" href="doc_props2.py">doc_props2.py</a>:</p>
+<pre class="literal-block">
+def character_set():
+    document.getElementById(&quot;demo&quot;).innerHTML = &quot;Character set: &quot;+ document.characterSet + &quot;&lt;br&gt;&quot; + &quot;Input decoding: &quot; + document.inputEncoding
+</pre>
+<p>And the html to try it out: <a class="reference external" href="01c_doc_properties.html">01c_doc_properties.html</a>:</p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/doc_props2.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document character set&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;button onclick=&quot;doc_props2.character_set()&quot;&gt;Check charset&lt;/button&gt;
+    &lt;p id=&quot;char_set&quot;&gt;The character set of this document is&lt;/p&gt;
+    &lt;p id=&quot;demo&quot;&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>End of section.</p>
+</div>
