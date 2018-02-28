@@ -22,7 +22,7 @@ Let's look at a simple example: `doc_objects.py <doc_objects.py>`_ ::
 		text = text + "The title of this document is: " + document.title + "<br>\n"
 		document.getElementById('info').innerHTML = text
 
-Quite python-like you can easily document with its different properties: anchors, body,
+Quite python-like you can easily access the document with its different properties: anchors, body,
 embeds, forms, images, links, scripts, title etc. You can try this code with the following
 html for it: `01a_doc_objects.html <01a_doc_objects.html>`_: ::
 
