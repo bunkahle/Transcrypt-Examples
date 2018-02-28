@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-15 00:48:40
+// Transcrypt'ed from Python, 2018-02-28 21:55:11
 function doc_props2 () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};

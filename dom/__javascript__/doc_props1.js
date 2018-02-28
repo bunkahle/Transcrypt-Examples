@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-15 00:23:37
+// Transcrypt'ed from Python, 2018-02-28 21:50:26
 function doc_props1 () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
@@ -2143,7 +2143,7 @@ function doc_props1 () {
     __all__.__setslice__ = __setslice__;	(function () {
 		var __name__ = '__main__';
 		var active_element = function () {
-			var x = document.activeElement.tagName;
+			var x = (document.activeElement.tagName + ', ') + document.activeElement.id;
 			document.getElementById ('demo').innerHTML = x;
 		};
 		__pragma__ ('<all>')

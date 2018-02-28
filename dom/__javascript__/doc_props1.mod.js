@@ -1,7 +1,7 @@
 	(function () {
 		var __name__ = '__main__';
 		var active_element = function () {
-			var x = document.activeElement.tagName;
+			var x = (document.activeElement.tagName + ', ') + document.activeElement.id;
 			document.getElementById ('demo').innerHTML = x;
 		};
 		__pragma__ ('<all>')

@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-10 15:10:57
+// Transcrypt'ed from Python, 2018-02-28 21:53:40
 function doc_objects () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
