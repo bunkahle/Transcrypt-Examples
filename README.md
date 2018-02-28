@@ -20,9 +20,13 @@ If you like to see a kind of tutorial for beginners in Transcrypt go to
 
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/alerts/alerts.rst
 
-2. Inserting text into DOM elements in HTML5:
+2a. Inserting text into DOM elements in HTML5:
 
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/dom/insert_text.rst
+
+2b. Document properties:
+
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/dom/document_properties.rst
 
 3. Programming Cookies:
 
