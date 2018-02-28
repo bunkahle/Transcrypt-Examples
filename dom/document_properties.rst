@@ -3,8 +3,8 @@
 Document properties
 ===================
 
-Insert text in a static html document on body onload
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Document properties provide information about the doc
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Before we dive more into text changes and dom manipulation one word about
 the document properties. The keyword document holds some properties which you
