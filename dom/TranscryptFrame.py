@@ -95,20 +95,20 @@ def S(sel, kind=None):
             return doc_tag(sel).value
 
 def doc_class(clas):
-    "short wrapper for document.getElementByClassName(clas)"
-    return document.getElementByClassName(clas)
+    "short wrapper for document.getElementsByClassName(clas)"
+    return document.getElementsByClassName(clas)
 
 def doc_class_htm(clas):
-    "short wrapper for document.getElementByClassName(clas).innerHTML"
-    return document.getElementByClassName(clas).innerHTML
+    "short wrapper for document.getElementsByClassName(clas).innerHTML"
+    return document.getElementsByClassName(clas).innerHTML
 
 def doc_class_txt(clas):
-    "short wrapper for document.getElementByClassName(clas).innerText"
-    return document.getElementByClassName(clas).innerText
+    "short wrapper for document.getElementsByClassName(clas).innerText"
+    return document.getElementsByClassName(clas).innerText
 
 def doc_class_val(clas):
-    "short wrapper for document.getElementByClassName(clas).value"
-    return document.getElementByClassName(clas).value
+    "short wrapper for document.getElementsByClassName(clas).value"
+    return document.getElementsByClassName(clas).value
 
 def doc_id(id):
     "short wrapper for document.getElementById(id)"
@@ -147,20 +147,20 @@ def doc_qsa(sel):
     return document.querySelectorAll(sel)
 
 def doc_tag(tag):
-    "short wrapper for document.getElementByTagName(tag)"
-    return document.getElementByTagName(tag)
+    "short wrapper for document.getElementsByTagName(tag)"
+    return document.getElementsByTagName(tag)
 
 def doc_tag_htm(tag):
-    "short wrapper for document.getElementByTagName(tag).innerHTML"
-    return document.getElementByTagName(tag).innerHTML
+    "short wrapper for document.getElementsByTagName(tag).innerHTML"
+    return document.getElementsByTagName(tag).innerHTML
 
 def doc_tag_txt(tag):
-    "short wrapper for document.getElementByTagName(tag).innerText"
-    return document.getElementByTagName(tag).innerText
+    "short wrapper for document.getElementsByTagName(tag).innerText"
+    return document.getElementsByTagName(tag).innerText
 
 def doc_tag_val(tag):
-    "short wrapper for document.getElementByTagName(tag).value"
-    return document.getElementByTagName(tag).value
+    "short wrapper for document.getElementsByTagName(tag).value"
+    return document.getElementsByTagName(tag).value
 
 def deleteCookie(cname):
     "Deletes cookie with the name cname"
