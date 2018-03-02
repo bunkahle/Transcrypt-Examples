@@ -60,7 +60,7 @@ def button_isDisabled(butt):
     else:
         return False
 
-def conlog(text):
+def clog(text):
     "short wrapper for console.log(text)"
     console.log(text)
 
