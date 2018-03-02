@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>Changing texts with DOM</title>
+
+<div class="document" id="changing-texts-with-dom">
+<h1 class="title">Changing texts with DOM</h1>
+
+<div class="section" id="queryselector">
+<h1>querySelector</h1>
+<p>In the next example we will look into querySelector for documents. Before we used</p>
+<pre class="literal-block">
+document.getElementById(idname)
+</pre>
+<p>to modify the contents of a DOM element. With</p>
+<pre class="literal-block">
+querySelector(querySelection)
+</pre>
+<p>we can also access not only ids of DOM elements, but also their classes and tagnames. So let's define id, class and tagname to understand these principles. In html documents we can have text which is outlined in the following manner:</p>
+<pre class="literal-block">
+&lt;h2 class=&quot;header_lesson_1&quot; id=&quot;head_lesson1&quot;&gt;Vocabularies of lesson 1&lt;/h2&gt;
+&lt;p class=&quot;vocabulary_english&quot; id=&quot;lesson1-voc1-eng&quot;&gt;to write&lt;/p&gt;
+&lt;p class=&quot;vocabulary_german&quot; id=&quot;lesson1-voc1-ger&quot;&gt;schreiben&lt;/p&gt;
+&lt;p class=&quot;vocabulary_english&quot; id=&quot;lesson1-voc2-eng&quot;&gt;source code&lt;/p&gt;
+&lt;p class=&quot;vocabulary_german&quot; id=&quot;lesson1-voc2-ger&quot;&gt;Quelltext&lt;/p&gt;
+</pre>
+<p>The tag name of the header is <strong>&lt;h2&gt;</strong>, these paragraphs have all the tagname <strong>&lt;p&gt;</strong>. Usually if we work with Javascript, JQuery or the like these tags are referred to as <strong>h2</strong> or <strong>p</strong> without any additional information.</p>
+<p>The class name of the paragraphs for the English vocabularies are <strong>vocabulary_english</strong>. All English vocabularies can be found with this classname while the German vocabularies all have the class name <strong>vocabulary_german</strong>. This makes sense if we want to locate all the places in the document with a certain class, e.g. to change these places by css attributes or define a different format for the output. In Javascript documents classes are referred to with a starting dot like <strong>.vocabulary_english</strong>. So if we like to find a certain class the first finding would be queried by:</p>
+<pre class="literal-block">
+querySelector(&quot;.vocabulary_english&quot;)
+</pre>
+<p>In the same way we can also locate the id of a certain DOM element like <strong>lesson1-voc1-eng</strong>, but here we use the hashtag # as the start element before the id name:</p>
+<pre class="literal-block">
+querySelector(&quot;#lesson1-voc1-eng&quot;)
+</pre>
+<p>So if no starting sign is given (neither a dot nor a hashtag) it is a tagname. If it is a dot, we have classname and if it is a hashtag we have an id name. No matter what kind of query-selector (tag, class, id) we use we can access all kinds of elements with querySelector. Let's have a view on the source code: <a class="reference external" href="change_text.py">change_text.py</a>:</p>
+<pre class="literal-block">
+class TestSystem:
+
+    def __init__ (self):
+        self.text = 'Hello, DOM!'
+        self.text2 = 'Hello, User!'
+        self.tags = [&quot;p&quot;, &quot;.header&quot;, &quot;#test&quot;, &quot;h1&quot;, &quot;output&quot;]
+        self.t = 0
+        self.qs = self.tags[self.t]
+
+    def insert(self):
+        document.querySelector('output').innerText = self.text
+
+    def change(self):
+        if document.querySelector('output').innerText == self.text:
+            document.querySelector('output').innerText = self.text2
+        else:
+            document.querySelector('output').innerText = self.text
+        document.querySelector(self.qs).style.backgroundColor = &quot;white&quot;
+        self.t += 1
+        self.qs = self.tags[self.t%len(self.tags)]
+        document.querySelector(self.qs).style.backgroundColor = &quot;red&quot;
+
+testSystem = TestSystem()
+</pre>
+<p>Each time the change routine is called we change the text between the tagnames &lt;output&gt; and &lt;/output&gt; and toggle them constantly. At the same time we also change the css text attributes from white to red background color. We mix all kinds of query selectors inside the list self.tags. We have tagnames like p, h1 and output, but we also have a class name called &quot;header&quot; and an id name with &quot;test&quot;. You find the html to try this here: <a class="reference external" href="02_change_text.html">02_change_text.html</a>:</p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/change_text.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;QuerySelector&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body onload=change_text.testSystem.insert()&gt;
+        &lt;h1 class=&quot;header&quot;&gt;DOM examples&lt;/h1&gt;
+        &lt;p id=&quot;test&quot;&gt;Testing DOM&lt;/p&gt;
+        &lt;p&gt;
+                &lt;output&gt;&lt;/output&gt;
+        &lt;/p&gt;
+    &lt;button onclick=&quot;change_text.testSystem.change()&quot;&gt;Click me&lt;/button&gt;
+    &lt;p&gt;Please click repeatedly on the button to see changes in the text and in the style&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+<div class="section" id="queryselectorall">
+<h1>querySelectorAll</h1>
+<p>In the next program we will look into <strong>querySelectorAll</strong>. <strong>document.querySelectorAll</strong> will give you a list of all elements
+which fit to the given querySelector. Let's have a look: <a class="reference external" href="change_text_all.py">change_text_all.py</a></p>
+<pre class="literal-block">
+class TestSystem:
+
+    def __init__ (self):
+        self.text1 = 'Hello, DOM!'
+        self.text2 = 'Hello, Python!'
+        self.text3 = 'Hello, User!'
+        self.text4 = 'Hello, Transcrypt!'
+        self.text5 = 'Hello, Javascript!'
+        self.text6 = 'Hello, Guido!'
+        self.text7 = 'Testing DOM'
+        self.text8 = '2nd line'
+        self.text9 = '3rd line'
+        self.strs = [self.text1, self.text2, self.text3, self.text4, self.text5, self.text6, self.text7, self.text8, self.text9]
+        self.pointer = 0
+
+    def change(self):
+        classes_p = document.querySelectorAll(&quot;p.intro&quot;)
+        text = &quot;&quot;
+        for p, para in enumerate(classes_p):
+            text = text + para.innerHTML + &quot;&lt;br&gt;&quot;
+            para.innerHTML = self.strs[p+self.pointer]
+        self.pointer = (self.pointer+3) % 9
+        document.getElementById(&quot;output&quot;).innerHTML = &quot;Taken from changed column:&lt;br&gt;&quot;+text
+
+testSystem = TestSystem()
+</pre>
+<p>All classes with the name <strong>.intro</strong> and the tag name <strong>p</strong> are going to be changed in the loop which
+iterates over the array/list of classes which apply to the set filter. The innnerHTML is changed and the old
+texts are written to the html element with the id=&quot;output&quot;.</p>
+<p>The html for this code looks like this: <a class="reference external" href="02_change_text_all.html">02_change_text_all.html</a></p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/change_text_all.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Change all selected texts&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+        &lt;h1&gt;Change all selected texts at once&lt;/h1&gt;
+    &lt;table border=2&gt;
+      &lt;tr&gt;&lt;td&gt;
+        &lt;h2 class=&quot;head&quot;&gt;original&lt;/h2&gt;&lt;/td&gt;&lt;td&gt;&lt;h2 class=&quot;head&quot;&gt;changed&lt;/h2&gt;
+      &lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;
+            &lt;p class=&quot;original&quot;&gt;Testing DOM&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p class=&quot;intro&quot;&gt;Testing DOM&lt;/p&gt;
+      &lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;
+        &lt;p class=&quot;original&quot;&gt;2nd line&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p class=&quot;intro&quot;&gt;2nd line&lt;/p&gt;
+      &lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;
+        &lt;p class=&quot;original&quot;&gt;3rd line&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p class=&quot;intro&quot;&gt;3rd line&lt;/p&gt;
+      &lt;/td&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;br&gt;
+    &lt;button onclick=&quot;change_text_all.testSystem.change()&quot;&gt;Change all texts&lt;/button&gt;
+    &lt;p id=&quot;output&quot;&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+<div class="section" id="getelementbyid">
+<h1>getElementById</h1>
+<p>But it is quite usual to work with <strong>getElementById</strong> in order to access html elements. In this case you don't need to specify the hashtag in front of the id name because we know by using <strong>getElementById</strong> that it must be an id. <a class="reference external" href="change_text2b.py">change_text2b.py</a></p>
+<pre class="literal-block">
+def insert():
+    myElement = document.getElementById(&quot;intro&quot;)
+    document.getElementById(&quot;demo&quot;).innerHTML = &quot;The text from the intro paragraph is &quot; + myElement.innerHTML
+</pre>
+<p>The html for it: <a class="reference external" href="02b_change_text.html">02b_change_text.html</a></p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/change_text2b.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;getElementById&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body onload=change_text2b.insert()&gt;
+    &lt;p id=&quot;intro&quot;&gt;&lt;b&gt;Hello World!&lt;/b&gt;&lt;/p&gt;
+    &lt;p&gt;This example demonstrates the &lt;b&gt;getElementById&lt;/b&gt; method!&lt;/p&gt;
+    &lt;p id=&quot;demo&quot;&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+<div class="section" id="getelementsbyclassname">
+<h1>getElementsByClassName</h1>
+<p>We can also do this for tagnames and class names. For the same class name we are going to iterate over the array/list of
+possible elements which is embraced by the tag name of &quot;main&quot;: <a class="reference external" href="change_text2d.py">change_text2d.py</a></p>
+<pre class="literal-block">
+def read():
+    x = document.getElementById(&quot;main&quot;)
+    y = x.getElementsByClassName(&quot;para&quot;)
+    for i in y:
+        document.getElementById(&quot;demo&quot;).innerHTML = document.getElementById(&quot;demo&quot;).innerHTML + &quot;&lt;br&gt;\n&quot; + i.innerHTML
+</pre>
+<p>and the html for it : <a class="reference external" href="02d_change_text.html">02d_change_text.html</a>:</p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/change_text2d.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;getElementsByClassName&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body onload=change_text2d.read()&gt;
+  &lt;p&gt;&lt;b&gt;getElementsByClassName&lt;/b&gt;&lt;/p&gt;
+  &lt;div id=&quot;main&quot;&gt;
+    &lt;p class=&quot;para&quot;&gt;The first paragraph&lt;/p&gt;
+    &lt;p class=&quot;para&quot;&gt;The 2nd paragraph for the &lt;b&gt;getElementsByClassName&lt;/b&gt; method&lt;/p&gt;
+    &lt;p class=&quot;para&quot;&gt;The 3rd paragraph for the method&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;para&quot;&gt;Another paragraph outside main&lt;/p&gt;
+  &lt;p id=&quot;demo&quot;&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+<div class="section" id="getelementsbytagname">
+<h1>getElementsByTagName</h1>
+<p>And the example for tagname finding: <a class="reference external" href="change_text3.py">change_text3.py</a>:</p>
+<pre class="literal-block">
+def read():
+    x = document.getElementById(&quot;main&quot;)
+    y = x.getElementsByTagName(&quot;p&quot;)
+    for i in y:
+        document.getElementById(&quot;demo&quot;).innerHTML = document.getElementById(&quot;demo&quot;).innerHTML + &quot;&lt;br&gt;\n&quot; + i.innerHTML
+</pre>
+<p>And the html for it: <a class="reference external" href="02c_change_text.html">02c_change_text.html</a></p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/change_text3.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;getElementsByTagName&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body onload=change_text3.read()&gt;
+  &lt;p&gt;&lt;b&gt;getElementsByTagName&lt;/b&gt;&lt;/p&gt;
+  &lt;div id=&quot;main&quot;&gt;
+    &lt;p&gt;The first paragraph&lt;/p&gt;
+    &lt;p&gt;The 2nd paragraph for the &lt;b&gt;getElementsByTagName&lt;/b&gt; method&lt;/p&gt;
+    &lt;p&gt;The 3rd paragraph for the method&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Another paragraph outside main&lt;/p&gt;
+  &lt;p id=&quot;demo&quot;&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>So if you design your html document with a clear structure with selected tag names, classes and ids you can
+easily change the contents according to your needs afterwards. Let us look at an example with more complex structures
+and try it out. The selections are made visible by changing the background css attributes of these elements:</p>
+<p><a class="reference external" href="change_text2e.py">change_text2e.py</a></p>
+<pre class="literal-block">
+def change_text(sel, color):
+    console.log(sel+&quot;:&quot;+color)
+    console.log(&quot;:&quot;+document.querySelector(sel).style.backgroundColor+&quot;:&quot;)
+    if document.querySelector(sel).style.backgroundColor == &quot;&quot;:
+        document.querySelector(sel).style.backgroundColor = color
+    else:
+        document.querySelector(sel).style.backgroundColor = &quot;&quot;
+    document.getElementById(&quot;demo&quot;).innerHTML = &quot;Highlighted css element: &quot;+sel+&quot; Color:&quot;+color
+
+def change_all_texts(sel, color):
+    console.log(sel+&quot;:&quot;+color)
+    console.log(&quot;:&quot;+document.querySelectorAll(sel)[0].style.backgroundColor+&quot;:&quot;)
+    if document.querySelectorAll(sel)[0].style.backgroundColor == &quot;&quot;:
+        change_color(sel, color)
+    else:
+        change_color(sel, &quot;&quot;)
+    document.getElementById(&quot;demo&quot;).innerHTML = &quot;Highlighted css element: &quot;+sel+&quot; Color:&quot;+color
+
+def change_color(sel, color):
+    elements = document.querySelectorAll(sel)
+    for e in elements:
+        e.style.backgroundColor = color
+</pre>
+<p>And the html to try it: <a class="reference external" href="02e_change_text.html">02e_change_text.html</a>:</p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/change_text2e.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;querySelector&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;&lt;b&gt;querySelector&lt;/b&gt;&lt;/p&gt;
+    &lt;main&gt;
+        &lt;p class=&quot;para&quot;&gt;The first paragraph&lt;/p&gt;
+        &lt;p class=&quot;para2&quot;&gt;The 2nd paragraph for the &lt;b&gt;querySelector&lt;/b&gt; method&lt;/p&gt;
+        &lt;p class=&quot;para3&quot;&gt;The 3rd paragraph for the method&lt;/p&gt;
+        &lt;p class=&quot;para&quot;&gt;The 4th paragraph for the method&lt;/p&gt;
+        &lt;p class=&quot;para&quot;&gt;The 5th paragraph for the method&lt;/p&gt;
+        &lt;p class=&quot;para&quot; id=&quot;test&quot;&gt;The 6th paragraph for the method&lt;/p&gt;
+    &lt;/main&gt;
+    &lt;output&gt;output class&lt;/output&gt;&lt;br&gt;
+    &lt;output2&gt;output class 2&lt;/output2&gt;&lt;br&gt;
+    &lt;br&gt;
+    &lt;button onclick=&quot;change_text2e.change_text('.para', 'red')&quot;&gt;Para&lt;/button&gt;
+    &lt;button onclick=&quot;change_text2e.change_text('.para2', 'yellow')&quot;&gt;Para2&lt;/button&gt;
+    &lt;button onclick=&quot;change_text2e.change_text('.para3', 'violet')&quot;&gt;Para3&lt;/button&gt;
+    &lt;button onclick=&quot;change_text2e.change_text('#test', 'magenta')&quot;&gt;Para6&lt;/button&gt;
+    &lt;button onclick=&quot;change_text2e.change_text('output', 'blue')&quot;&gt;Output&lt;/button&gt;
+    &lt;button onclick=&quot;change_text2e.change_text('output2', 'green')&quot;&gt;Output 2&lt;/button&gt;
+    &lt;button onclick=&quot;change_text2e.change_text('main', 'orange')&quot;&gt;Main&lt;/button&gt;
+    &lt;button onclick=&quot;change_text2e.change_text('.demo', 'grey')&quot;&gt;Demo&lt;/button&gt;&lt;br&gt;&lt;br&gt;
+    &lt;button onclick=&quot;change_text2e.change_all_texts('.para', 'grey')&quot;&gt;Change multiple paragraphs&lt;/button&gt;
+    &lt;p class=&quot;demo&quot; id=&quot;demo&quot;&gt;Selector and color&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+<div class="section" id="transcryptframe">
+<h1>TranscryptFrame</h1>
+<p>Since it is quite annoying to always write code like <strong>document.querySelector(sel)</strong> or <strong>document.getElementById(id)</strong> I thought
+about writing a short wrapper for the these functions. In the Javascript world a lot of tools like jQuery and Ajax and the like exist
+to make programming easier. It is called TranscryptFrame.py and can be found here in this
+directory dom: <a class="reference external" href="TranscryptFrame.py">TranscryptFrame.py</a>.
+Let us look at sample use for it <a class="reference external" href="change_text2b_alter.py">change_text2b_alter.py</a>:</p>
+<pre class="literal-block">
+import TranscryptFrame as tf
+
+def insert():
+    myElement = tf.doc_id(&quot;intro&quot;)
+    tf.doc_id(&quot;demo&quot;).innerHTML = &quot;The text from the intro paragraph is &quot; + myElement.innerHTML
+</pre>
+<p>In the first line we import the TranscryptFrame library which should be in the same working directory or saved to the site-packages
+directory of your Python distribution. It gets the abbreviation of tf for shortness. Now we don't need to write something like</p>
+<pre class="literal-block">
+myElement = document.getElementById(&quot;intro&quot;)
+</pre>
+<p>but we write:</p>
+<pre class="literal-block">
+myElement = tf.doc_id(&quot;intro&quot;)
+</pre>
+<p>the html for it is: <a class="reference external" href="02b_change_text_alter.html">02b_change_text_alter.html</a>:</p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/change_text2b_alter.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;TranscryptFrame&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body onload=change_text2b_alter.insert()&gt;
+    &lt;p id=&quot;intro&quot;&gt;&lt;b&gt;Hello World!&lt;/b&gt;&lt;/p&gt;
+    &lt;p&gt;This example demonstrates the &lt;b&gt;getElementById&lt;/b&gt; method!&lt;/p&gt;
+    &lt;p id=&quot;demo&quot;&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Another example with even shorter expressions which is similiar to the jQuery syntax <a class="reference external" href="change_text2c_alter.py">change_text2c_alter.py</a>:</p>
+<pre class="literal-block">
+import TranscryptFrame as tf
+
+def insert():
+    # working:
+    # myElement = tf.S(&quot;#intro&quot;)
+    # tf.S(&quot;#demo&quot;).innerHTML = &quot;The text from the intro paragraph is &quot; + myElement.innerHTML
+
+    # working:
+    # myElement_htm = tf.S(&quot;#intro&quot;, &quot;htm&quot;)
+    # tf.S(&quot;#demo&quot;).innerHTML = &quot;The text from the intro paragraph is &quot; + myElement_htm
+
+    # working:
+    tf.S(&quot;#demo&quot;).innerHTML = &quot;The text from the intro paragraph is &quot; + tf.S(&quot;#intro&quot;, &quot;htm&quot;)
+
+    # not working: can't assign to function call
+    # tf.S(&quot;#demo&quot;, &quot;htm&quot;) = &quot;The text from the intro paragraph is &quot; + tf.S(&quot;#intro&quot;, &quot;htm&quot;)
+</pre>
+<p>The line</p>
+<pre class="literal-block">
+tf.S(&quot;#demo&quot;).innerHTML = &quot;The text from the intro paragraph is &quot; + tf.S(&quot;#intro&quot;, &quot;htm&quot;)
+</pre>
+<p>is now replacing the code of:</p>
+<pre class="literal-block">
+document.getElementById(&quot;demo&quot;).innerHTML = &quot;The text from the intro paragraph is &quot; + document.getElementById(&quot;intro&quot;).innerHTML
+</pre>
+<p>And the html for it: <a class="reference external" href="02c_change_text_alter.html">02c_change_text_alter.html</a>:</p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/change_text2c_alter.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Change Text with TranscryptFrame&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body onload=change_text2c_alter.insert()&gt;
+    &lt;p id=&quot;intro&quot;&gt;&lt;b&gt;Hello World!&lt;/b&gt;&lt;/p&gt;
+    &lt;p&gt;This example demonstrates the &lt;b&gt;getElementById&lt;/b&gt; method!&lt;/p&gt;
+    &lt;p id=&quot;demo&quot;&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>OK. The last example is more a kind of counting clicks and giving responses to it. <a class="reference external" href="change_text2.py">change_text2.py</a>:</p>
+<pre class="literal-block">
+class TestSystem:
+
+    def __init__ (self):
+        self.text = 'Hello, DOM!'
+        self.clicks = 0
+
+    def insert(self):
+        document.querySelector('output').innerText = self.text
+
+    def pressed(self):
+        self.clicks = self.clicks + 1
+        if self.clicks &lt; 10:
+            text = 'You have pressed ' + str(self.clicks) +' times!'
+        elif self.clicks &lt; 15:
+            text = 'You have pressed ' + str(self.clicks) +' times! How about a break?'
+        else:
+            text = str(self.clicks) + ' times! Stop it!'
+        document.querySelector('output').innerText = text
+
+    def reset(self):
+        self.clicks = 0
+        text = &quot;It is again &quot; + str(self.clicks) + ' clicks! Where have they gone?!'
+        document.querySelector('output').innerText = text
+
+testSystem = TestSystem()
+</pre>
+<p>And the html: <a class="reference external" href="02a_change_text2.html">02a_change_text2.html</a>:</p>
+<pre class="literal-block">
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;script src=&quot;__javascript__/change_text2.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Changing texts&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body onload=change_text2.testSystem.insert()&gt;
+        &lt;h1&gt;DOM examples&lt;/h1&gt;
+        &lt;p&gt;Testing DOM&lt;/p&gt;
+        &lt;p&gt;
+                &lt;output&gt;&lt;/output&gt;
+        &lt;/p&gt;
+    &lt;p&gt;
+      &lt;test&gt;Test String:&lt;/test&gt;
+    &lt;/p&gt;
+    &lt;button id=&quot;button1&quot; onclick=&quot;change_text2.testSystem.pressed()&quot;&gt;Click me&lt;/button&gt;&lt;br&gt;
+    &lt;button id=&quot;button2&quot; onclick=&quot;change_text2.testSystem.reset()&quot;&gt;Reset counter&lt;/button&gt;&lt;br&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>End of section.</p>
+</div>
+</div>

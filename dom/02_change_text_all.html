@@ -8,14 +8,22 @@
   </head>
   <body>
   	<h1>Change all selected texts at once</h1>
-  	<p class="intro">Testing DOM</p>
-    <p class="intro">2nd line</p>
-    <p class="intro">3rd line</p>
+    <table border=2>
+      <tr><td>
+        <h2 class="head">original</h2></td><td><h2 class="head">changed</h2>
+      </td></tr>
+      <tr><td>
+  	    <p class="original">Testing DOM</p></td><td><p class="intro">Testing DOM</p>
+      </td></tr>
+      <tr><td>
+        <p class="original">2nd line</p></td><td><p class="intro">2nd line</p>
+      </td></tr>
+      <tr><td>
+        <p class="original">3rd line</p></td><td><p class="intro">3rd line</p>
+      </td></tr>
+    </table>
+    <br>
     <button onclick="change_text_all.testSystem.change()">Change all texts</button>
     <p id="output"></p>
   </body>
 </html>
-
-
-
-

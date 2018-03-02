@@ -6,5 +6,3 @@ def read():
     y = x.getElementsByClassName("para")
     for i in y:
         document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "<br>\n" + i.innerHTML
-
-
