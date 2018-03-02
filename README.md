@@ -5,7 +5,7 @@ You need to have Python 3.6 installed.
 
 Install Transcrypt with pip install transcrypt
 
-Create a directory like hello with two files names hello.py and hello.html
+Create a directory like hello with two files named `hello.py <dom/hello.py>`_ and hello.html
 
 Run transcrypt.exe to compile the example file hello.py to Javascript files:
 transcrypt.exe hello.py
