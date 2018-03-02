@@ -28,6 +28,10 @@ https://github.com/bunkahle/Transcrypt-Examples/blob/master/dom/insert_text.rst
 
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/dom/document_properties.rst
 
+2c. Changing texts with querySelector(All), getElementById, getElementsByClassName and getElementsByTagName
+
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/dom/changing_texts.rst
+
 3. Programming Cookies:
 
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/cookies/cookies.rst
