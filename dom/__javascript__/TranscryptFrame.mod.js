@@ -30,7 +30,7 @@
 				return false;
 			}
 		};
-		var conlog = function (text) {
+		var clog = function (text) {
 			console.log (text);
 		};
 		var S = function (sel, kind) {
@@ -167,8 +167,8 @@
 			__all__.button_disable = button_disable;
 			__all__.button_enable = button_enable;
 			__all__.button_isDisabled = button_isDisabled;
+			__all__.clog = clog;
 			__all__.con = con;
-			__all__.conlog = conlog;
 			__all__.deleteCookie = deleteCookie;
 			__all__.doc = doc;
 			__all__.doc_class = doc_class;

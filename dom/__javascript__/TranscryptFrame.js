@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-03-02 17:03:19
+// Transcrypt'ed from Python, 2018-03-02 17:06:57
 function TranscryptFrame () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
@@ -2651,7 +2651,7 @@ function TranscryptFrame () {
 				return false;
 			}
 		};
-		var conlog = function (text) {
+		var clog = function (text) {
 			console.log (text);
 		};
 		var S = function (sel, kind) {
@@ -2788,8 +2788,8 @@ function TranscryptFrame () {
 			__all__.button_disable = button_disable;
 			__all__.button_enable = button_enable;
 			__all__.button_isDisabled = button_isDisabled;
+			__all__.clog = clog;
 			__all__.con = con;
-			__all__.conlog = conlog;
 			__all__.deleteCookie = deleteCookie;
 			__all__.doc = doc;
 			__all__.doc_class = doc_class;
