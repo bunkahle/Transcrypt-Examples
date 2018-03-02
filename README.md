@@ -10,7 +10,7 @@ Create a directory like hello with two files named [hello.py](https://github.com
 Run transcrypt to compile the example file hello.py to Javascript files:
 transcrypt hello.py
 
-You get a extra directory named __javascript__ where the javascript files are located.
+You get a extra directory named `__javascript__` where the javascript files are located.
 
 Start hello.html in your browser and test the code.
 
