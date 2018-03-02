@@ -20,9 +20,9 @@ The part ::
 	<script src="__javascript__/alerts2.js"></script>"
 
 
-links to the Javascript code which you have transcrypted by running transcrypt.exe like this: ::
+links to the Javascript code which you have transcrypted by running transcrypt like this: ::
 
-	transcrypt.exe alerts2.py
+	transcrypt alerts2.py
 
 This generates a new directory in your working directory called __javascript__ and puts three files in it
 which later can be called as javascript code from the html file by putting in the script line: ::
