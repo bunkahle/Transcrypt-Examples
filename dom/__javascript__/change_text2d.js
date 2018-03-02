@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-08 23:17:12
+// Transcrypt'ed from Python, 2018-03-02 13:24:15
 function change_text2d () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};

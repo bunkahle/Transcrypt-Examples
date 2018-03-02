@@ -3,10 +3,17 @@
 		var TestSystem = __class__ ('TestSystem', [object], {
 			__module__: __name__,
 			get __init__ () {return __get__ (this, function (self) {
-				self.text = 'Hello, DOM!';
+				self.text1 = 'Hello, DOM!';
 				self.text2 = 'Hello, Python!';
 				self.text3 = 'Hello, User!';
-				self.strs = list ([self.text, self.text2, self.text3]);
+				self.text4 = 'Hello, Transcrypt!';
+				self.text5 = 'Hello, Javascript!';
+				self.text6 = 'Hello, Guido!';
+				self.text7 = 'Testing DOM';
+				self.text8 = '2nd line';
+				self.text9 = '3rd line';
+				self.strs = list ([self.text1, self.text2, self.text3, self.text4, self.text5, self.text6, self.text7, self.text8, self.text9]);
+				self.pointer = 0;
 			});},
 			get change () {return __get__ (this, function (self) {
 				var classes_p = document.querySelectorAll ('p.intro');
@@ -17,9 +24,10 @@
 					var p = __left0__ [0];
 					var para = __left0__ [1];
 					var text = (text + para.innerHTML) + '<br>';
-					para.innerHTML = self.strs [p];
+					para.innerHTML = self.strs [p + self.pointer];
 				}
-				document.getElementById ('output').innerHTML = text;
+				self.pointer = __mod__ (self.pointer + 3, 9);
+				document.getElementById ('output').innerHTML = 'Taken from changed column:<br>' + text;
 			});}
 		});
 		var testSystem = TestSystem ();

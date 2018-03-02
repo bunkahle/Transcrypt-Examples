@@ -9,7 +9,7 @@
 			else {
 				document.querySelector (sel).style.backgroundColor = '';
 			}
-			document.getElementById ('demo').innerHTML = 'Highlighted css element: ' + sel;
+			document.getElementById ('demo').innerHTML = (('Highlighted css element: ' + sel) + ' Color:') + color;
 		};
 		var change_all_texts = function (sel, color) {
 			console.log ((sel + ':') + color);
@@ -20,7 +20,7 @@
 			else {
 				change_color (sel, '');
 			}
-			document.getElementById ('demo').innerHTML = 'Highlighted css element: ' + sel;
+			document.getElementById ('demo').innerHTML = (('Highlighted css element: ' + sel) + ' Color:') + color;
 		};
 		var change_color = function (sel, color) {
 			var elements = document.querySelectorAll (sel);

@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-15 01:39:27
+// Transcrypt'ed from Python, 2018-03-02 13:37:55
 function change_text2e () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
@@ -2151,7 +2151,7 @@ function change_text2e () {
 			else {
 				document.querySelector (sel).style.backgroundColor = '';
 			}
-			document.getElementById ('demo').innerHTML = 'Highlighted css element: ' + sel;
+			document.getElementById ('demo').innerHTML = (('Highlighted css element: ' + sel) + ' Color:') + color;
 		};
 		var change_all_texts = function (sel, color) {
 			console.log ((sel + ':') + color);
@@ -2162,7 +2162,7 @@ function change_text2e () {
 			else {
 				change_color (sel, '');
 			}
-			document.getElementById ('demo').innerHTML = 'Highlighted css element: ' + sel;
+			document.getElementById ('demo').innerHTML = (('Highlighted css element: ' + sel) + ' Color:') + color;
 		};
 		var change_color = function (sel, color) {
 			var elements = document.querySelectorAll (sel);
