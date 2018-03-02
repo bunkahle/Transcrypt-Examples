@@ -9,7 +9,7 @@
 <h1 class="title">Alerts and Prompts</h1>
 <h2 class="subtitle" id="preparation-of-html-files-to-run-transcrypted-python-code">Preparation of html files to run transcrypted Python code</h2>
 
-<p>In order to run Python code which has been &quot;transcrypted&quot; to Javascript,
+<p>In order to running Python code which has been &quot;transcrypted&quot; to Javascript,
 you need to include a text line starting with &lt;script&gt; into your html file which looks like this:</p>
 <pre class="literal-block">
 &lt;head&gt;
@@ -23,9 +23,9 @@ you need to include a text line starting with &lt;script&gt; into your html file
 <pre class="literal-block">
 &lt;script src=&quot;__javascript__/alerts2.js&quot;&gt;&lt;/script&gt;&quot;
 </pre>
-<p>links to the Javascript code which you have transcrypted by running transcrypt.exe like this:</p>
+<p>links to the Javascript code which you have transcrypted by running transcrypt like this:</p>
 <pre class="literal-block">
-transcrypt.exe alerts2.py
+transcrypt alerts2.py
 </pre>
 <p>This generates a new directory in your working directory called __javascript__ and puts three files in it
 which later can be called as javascript code from the html file by putting in the script line:</p>
@@ -75,7 +75,7 @@ Now this is integrated into the <a class="reference external" href="alerts2.html
 </pre>
 <p>After we have transcrpyted the file with:</p>
 <pre class="literal-block">
-transcrypt.exe alerts2.py
+transcrypt alerts2.py
 </pre>
 <p>We can load the html file <a class="reference external" href="alerts2.html">alerts2.html</a> into the browser and click onto the two buttons.
 Inside the html code the section 'onclick=&quot;alerts2.alert_standard()&quot;' looks for a
@@ -88,7 +88,7 @@ e.g. in the header of the html file, and just replace the extension .py with .js
 Clicking onto the 2nd button displays a message which has been defined in the html text.
 Change this text inside the html and another message will be displayed after reload of the webpage while the first button message
 can only be changed if you change the Python source code of alerts2.py and recompile it with
-transcrypt.exe and reload the html page again.</p>
+transcrypt and reload the html page again.</p>
 </div>
 <div class="section" id="id1">
 <h1>Alerts and Prompts</h1>
@@ -152,7 +152,7 @@ input. The appropriate <a class="reference external" href="alerts3.html">htmlcod
 </pre>
 <p>The python code <a class="reference external" href="alerts3.py">alerts3.py</a> gets transcrypted to <a class="reference external" href="__javascript__/alerts3.js">alerts3.js</a> inside the __javascript__ directory after running</p>
 <pre class="literal-block">
-transcrypt.exe alerts3.py
+transcrypt alerts3.py
 </pre>
 <p>If we work with classes we need to call the functions inside the html text by also including the classname from inside the Python code,
 in our case: &quot;alerts3.testSystem.alert_standard()&quot; in contrast to &quot;alerts2.alert_standard()&quot; in the previous
@@ -227,7 +227,7 @@ in order to change and adjust the html text to the user input. What we alredy se
 is going to introduce more and more javascript functions seamlessly into our python code. We simply take the same
 functions by their names like alert, prompt, document.getElementsById and integrate them without any further requirements
 into our Python code. Elegant and intuitively! In case you are not sure if a certain javascript function exists
-just try it in your transcrypt code and see if the compiler transcrypt.exe is complaining or not.</p>
+just try it in your transcrypt code and see if the compiler transcrypt is complaining or not.</p>
 </div>
 <div class="section" id="confirm">
 <h1>Confirm</h1>
@@ -464,5 +464,6 @@ class TestSystem:
 
 testSystem = TestSystem()
 </pre>
+<p>End of section.</p>
 </div>
 </div>

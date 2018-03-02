@@ -5,7 +5,7 @@ Alerts and Prompts
 Preparation of html files to run transcrypted Python code
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In order to run Python code which has been "transcrypted" to Javascript,
+In order to running Python code which has been "transcrypted" to Javascript,
 you need to include a text line starting with <script> into your html file which looks like this: ::
 
 	<head>
@@ -89,7 +89,7 @@ Clicking onto the first button displays an alert box with the standard message "
 Clicking onto the 2nd button displays a message which has been defined in the html text.
 Change this text inside the html and another message will be displayed after reload of the webpage while the first button message
 can only be changed if you change the Python source code of alerts2.py and recompile it with
-transcrypt.exe and reload the html page again.
+transcrypt and reload the html page again.
 
 Alerts and Prompts
 ==================
@@ -154,7 +154,7 @@ input. The appropriate `htmlcode <alerts3.html>`_ for this Python code looks lik
 
 The python code `alerts3.py <alerts3.py>`_ gets transcrypted to `alerts3.js <__javascript__/alerts3.js>`_ inside the __javascript__ directory after running ::
 
-	transcrypt.exe alerts3.py
+	transcrypt alerts3.py
 
 If we work with classes we need to call the functions inside the html text by also including the classname from inside the Python code,
 in our case: "alerts3.testSystem.alert_standard()" in contrast to "alerts2.alert_standard()" in the previous
@@ -233,7 +233,7 @@ in order to change and adjust the html text to the user input. What we alredy se
 is going to introduce more and more javascript functions seamlessly into our python code. We simply take the same
 functions by their names like alert, prompt, document.getElementsById and integrate them without any further requirements
 into our Python code. Elegant and intuitively! In case you are not sure if a certain javascript function exists
-just try it in your transcrypt code and see if the compiler transcrypt.exe is complaining or not.
+just try it in your transcrypt code and see if the compiler transcrypt is complaining or not.
 
 Confirm
 =======
