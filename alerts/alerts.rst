@@ -75,7 +75,7 @@ Now this is integrated into the `html code <alerts2.html>`_ like this: ::
 
 After we have transcrpyted the file with: ::
 
-	transcrypt.exe alerts2.py
+	transcrypt alerts2.py
 
 We can load the html file `alerts2.html <alerts2.html>`_ into the browser and click onto the two buttons.
 Inside the html code the section 'onclick="alerts2.alert_standard()"' looks for a 
