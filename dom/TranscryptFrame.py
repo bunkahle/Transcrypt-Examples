@@ -30,13 +30,123 @@ or new_var = tf.S("#demo", "htm") instead of new_var = $("#demo").html()
 or new_var = document.getElementById("demo").innerHTML
 """
 
-import time
+import math, time
 
 con = console
 doc = document
 his = history
 loc = location
 win = window
+
+class CanvasImage(object):
+    """This is a wrapper around the html5 canvas and canvas context.
+       You can now easily instantiate a CanvasImage class like this:
+       import TranscryptFrame as tf
+       myImage = tf.CanvasImage("myimage.jpg", "my_canvas_id", 200, 200)
+       It has methods like:
+       copy -> returns a deep copy of the given CanvasImage class
+       open(src, canvas_id) -> opens a new image source
+       resize(size, position) -> resizes the image to size and position, self.width and self.height are adjusted
+       rotate(degree) -> rotates the image by degree
+       set_canvas(canvas_id) -> sets a canvas for the CanvasImage object in case it had not been defined before
+       show() -> shows the image
+       thumbnail(size, position) -> creates a thumbnail without adjusting self.width and self.height
+       To get the width and height of an image:
+       myImage.width or myImage.height
+       To get the width and height of the canvas:
+       myImage.canvas.width or myImage.canvas.height
+    """
+
+    def __init__(self, src=None, canvas_id=None, width=300, height=200, position=None): 
+        self.width = width
+        self.height = height
+        self.position = position
+        if self.position is None:
+            self.pos_x = 0
+            self.pos_y = 0
+        else:
+            self.pos_x = position[0]
+            self.pos_y = position[1]
+        self.position = (self.pos_x, self.pos_y)
+        self.set_canvas(canvas_id)
+        self.img = __new__(Image())
+        self.open(src, canvas_id)
+        return self
+
+    def copy(self, canvas_id=None):
+        "retrieve a deep copy of the given image"
+        new_image = Image(self.src, canvas_id, self.width, self.height)
+        return new_image
+
+    def open(self, src, canvas_id=None):
+        "open an image from a certain local or remote src to a canvas by specifiying the canvas_id"
+        self.src = src
+        if self.src is not None:
+            self.img.src = self.src
+            self.img.onload = self._post_loading()
+        if self.canvas_id is not None:
+            self.ctx = document.getElementById(self.canvas_id).getContext('2d')
+        
+    def _post_loading(self):
+        "post processing actions after image loading"
+        self.width = self.img.naturalWidth
+        self.height = self.img.naturalHeight
+        self.size = (self.width, self.height)
+        self.show()
+
+    def resize(self, size, position=None):
+        "resize image to tuple size at given position"
+        self.width, self.height = size
+        self.ctx.clearRect(0, 0, self.canvasWidth, self.canvasHeight)
+        if position is None:
+            self.show(self.position, self.width, self.height)
+        else:
+            self.show(position, self.width, self.height)
+
+    def rotate(self, degree):
+        "rotate image by degree"
+        if self.ctx is not None:
+            self.ctx.clearRect(0, 0, self.canvasWidth, self.canvasHeight)
+            # Move registration point and turn axis to the center of the canvas
+            self.ctx.translate(self.canvasWidth/2, self.canvasHeight/2)
+            # Rotate degree in degrees
+            self.ctx.rotate(math.pi / 180 * degree)
+            # Move registration point back to the top left corner of canvas
+            self.ctx.translate(-self.canvasWidth/2, -self.canvasWidth/2)
+            self.ctx.drawImage(self.img, 0, 0, self.canvasWidth, self.canvasHeight)
+        else:
+            raise AttributeError("No context/canvas id exists for showing the image, use set_canvas to define canvas_id for the image.")
+
+    def set_canvas(self, canvas_id):
+        "set the canvas id, the canvas and the canvas context for the Image object"
+        self.canvas_id = canvas_id
+        if self.canvas_id is not None:
+            self.canvas = document.getElementById(self.canvas_id)
+            self.canvasWidth = self.canvas.width
+            self.canvasHeight = self.canvas.height
+            self.ctx = self.canvas.getContext('2d')
+        else:
+            self.ctx = None
+
+    def show(self, position=None, width=None, height=None):
+        "show the image on the canvas with given position (tuple), width and height"
+        if position is not None:
+            self.pos_x = position[0]
+            self.pos_y = position[1]
+        else:
+            self.pos_x = self.position[0]
+            self.pos_y = self.position[1]
+        if self.ctx is not None:
+            if width is None: width = self.width
+            if height is None: height = self.height
+            self.ctx.drawImage(self.img, self.pos_x, self.pos_y, width, height)
+        else:
+            raise AttributeError("No context/canvas id exists for showing the image, use set_canvas to define canvas_id for the image.")
+
+    def thumbnail(self, size, position=None):
+        "create and show a thumbnail of a new size"
+        width, height = size
+        self.show(position, width, height)
 
 def isNaN(x):
     try:
