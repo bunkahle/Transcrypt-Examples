@@ -246,6 +246,10 @@ def doc_id_val(id):
     "short wrapper for document.getElementById(id).value"
     return document.getElementById(id).value
 
+def doc_id_sty(id):
+    "short wrapper for document.getElementById(id).style"
+    return document.getElementById(id).style
+
 def doc_qs(sel):
     "short wrapper for document.querySelector(sel)"
     return document.querySelector(sel)
@@ -261,6 +265,10 @@ def doc_qs_txt(sel):
 def doc_qs_val(sel):
     "short wrapper for document.querySelector(sel).value"
     return document.querySelector(sel).value
+
+def doc_qs_sty(sel):
+    "short wrapper for document.querySelector(sel).style"
+    return document.querySelector(sel).style
 
 def doc_qsa(sel):
     "short wrapper for document.querySelectorAll(sel)"
