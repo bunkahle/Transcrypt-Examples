@@ -170,7 +170,7 @@ def button_isDisabled(butt):
     else:
         return False
 
-def clog(text):
+def c(text):
     "short wrapper for console.log(text)"
     console.log(text)
 
@@ -208,17 +208,17 @@ def doc_class(clas):
     "short wrapper for document.getElementsByClassName(clas)"
     return document.getElementsByClassName(clas)
 
-def doc_class_htm(clas):
-    "short wrapper for document.getElementsByClassName(clas).innerHTML"
-    return document.getElementsByClassName(clas).innerHTML
+def doc_class_htm(clas, ix):
+    "short wrapper for document.getElementsByClassName(clas)[ix].innerHTML"
+    return document.getElementsByClassName(clas)[ix].innerHTML
 
-def doc_class_txt(clas):
-    "short wrapper for document.getElementsByClassName(clas).innerText"
-    return document.getElementsByClassName(clas).innerText
+def doc_class_txt(clas, ix):
+    "short wrapper for document.getElementsByClassName(clas)[ix].innerText"
+    return document.getElementsByClassName(clas)[ix].innerText
 
-def doc_class_val(clas):
-    "short wrapper for document.getElementsByClassName(clas).value"
-    return document.getElementsByClassName(clas).value
+def doc_class_val(clas, ix):
+    "short wrapper for document.getElementsByClassName(clas)[ix].value"
+    return document.getElementsByClassName(clas)[ix].value
 
 def doc_id(id):
     "short wrapper for document.getElementById(id)"
@@ -260,17 +260,17 @@ def doc_tag(tag):
     "short wrapper for document.getElementsByTagName(tag)"
     return document.getElementsByTagName(tag)
 
-def doc_tag_htm(tag):
-    "short wrapper for document.getElementsByTagName(tag).innerHTML"
-    return document.getElementsByTagName(tag).innerHTML
+def doc_tag_htm(tag, ix):
+    "short wrapper for document.getElementsByTagName(tag)[ix].innerHTML"
+    return document.getElementsByTagName(tag)[ix].innerHTML
 
-def doc_tag_txt(tag):
-    "short wrapper for document.getElementsByTagName(tag).innerText"
-    return document.getElementsByTagName(tag).innerText
+def doc_tag_txt(tag, ix):
+    "short wrapper for document.getElementsByTagName(tag)[ix].innerText"
+    return document.getElementsByTagName(tag)[ix].innerText
 
-def doc_tag_val(tag):
-    "short wrapper for document.getElementsByTagName(tag).value"
-    return document.getElementsByTagName(tag).value
+def doc_tag_val(tag, ix):
+    "short wrapper for document.getElementsByTagName(tag)[ix].value"
+    return document.getElementsByTagName(tag)[ix].value
 
 def deleteCookie(cname):
     "Deletes cookie with the name cname"
