@@ -171,7 +171,9 @@ def button_isDisabled(butt):
         return False
 
 def c(text):
-    "short wrapper for console.log(text)"
+    """short wrapper for console.log(text) or print(text)
+       so it could be called: import TranscryptFrame as tf; tf.c("some debug text")
+    """
     console.log(text)
 
 def S(sel, kind=None, ix=None):
