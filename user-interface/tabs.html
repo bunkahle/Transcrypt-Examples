@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    body {font-family: Arial;}
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+    </style>
+  </head>
+  <script src="__javascript__/tabs.js" charset="UTF-8"></script>
+  <body>
+
+    <p>Click on the buttons inside the tabbed menu:</p>
+
+    <div class="tab">
+      <button class="tablinks" onclick="tabs.openLang(event, 'Python')">Python</button>
+      <button class="tablinks" onclick="tabs.openLang(event, 'Javascript')">Javascript</button>
+      <button class="tablinks" onclick="tabs.openLang(event, 'Transcrypt')">Transcrypt</button>
+    </div>
+
+    <div id="Python" class="tabcontent">
+      <h3>Python</h3>
+      <p>Python is a very famous computer language, brilliant for fast developing and deploying.</p>
+    </div>
+
+    <div id="Javascript" class="tabcontent">
+      <h3>Javascript</h3>
+      <p>Javascript is the computer language for browsers. Not so easy to write and read as Python but quite common.</p> 
+    </div>
+
+    <div id="Transcrypt" class="tabcontent">
+      <h3>Transcrypt</h3>
+      <p>Transcrypt combines Python and Javascript in an elegant and intuitive way and combines both so that you can develop browser programs as easy as you write Python programs.</p>
+    </div>
+
+     
+    </body>
+</html> 
