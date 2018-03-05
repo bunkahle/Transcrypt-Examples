@@ -174,9 +174,9 @@ def c(text):
     "short wrapper for console.log(text)"
     console.log(text)
 
-def S(sel, kind=None):
+def S(sel, kind=None, ix=None):
     "short wrapper for jQuery like $(selector).kind function"
-    if sel[0] == "#":
+    if sel[0] == "#": # we look for doc ids
         if kind is None:
             return doc_id(sel[1:])
         elif kind == "text" or kind == "txt":
@@ -185,24 +185,32 @@ def S(sel, kind=None):
             return doc_id(sel[1:]).innerHTML
         elif kind == "value" or kind == "val":
             return doc_id(sel[1:]).value
-    elif sel[0] == ".":
+    elif sel[0] == ".": # we look for doc classes
         if kind is None:
             return doc_class(sel[1:])
-        elif kind == "text" or kind == "txt":
-            return doc_class(sel[1:]).innerText
-        elif kind == "html" or kind == "htm":
-            return doc_class(sel[1:]).innerHTML
-        elif kind == "value" or kind == "val":
-            return doc_class(sel[1:]).value
-    else:
+        else:
+            if ix is None:
+                raise IndexError("You must specify an index element for classes if kind is not None")
+            else:
+                if kind == "text" or kind == "txt":
+                    return doc_class_txt(sel[1:], ix)
+                elif kind == "html" or kind == "htm":
+                    return doc_class_htm(sel[1:], ix)
+                elif kind == "value" or kind == "val":
+                    return doc_class_val(sel[1:], ix)
+    else:  # we look for doc tags
         if kind is None:
             return doc_tag(sel)
-        elif kind == "text" or kind == "txt":
-            return doc_tag(sel).innerText
-        elif kind == "html" or kind == "htm":
-            return doc_tag(sel).innerHTML
-        elif kind == "value" or kind == "val":
-            return doc_tag(sel).value
+        else:
+            if ix is None:
+                raise IndexError("You must specify an index element for tags if kind is not None")
+            else:
+                if kind == "text" or kind == "txt":
+                    return doc_tag_txt(sel, ix)
+                elif kind == "html" or kind == "htm":
+                    return doc_tag_htm(sel, ix)
+                elif kind == "value" or kind == "val":
+                    return doc_tag_val(sel, ix)
 
 def doc_class(clas):
     "short wrapper for document.getElementsByClassName(clas)"
