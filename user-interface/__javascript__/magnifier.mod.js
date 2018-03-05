@@ -5,10 +5,10 @@
 			get __init__ () {return __get__ (this, function (self) {
 				self.img = document.getElementById ('myimage');
 				self.saved_src = self.img.src;
-				print (self.saved_src);
 				self.resultat = document.getElementById ('myresult');
 				self.lens = document.createElement ('DIV');
 				self.lens.setAttribute ('class', 'img-zoom-lens');
+				self.lens.setAttribute ('position', 'absolute');
 				self.img.parentElement.insertBefore (self.lens, self.img);
 				self.cx = self.resultat.offsetWidth / self.lens.offsetWidth;
 				self.cy = self.resultat.offsetHeight / self.lens.offsetHeight;
@@ -18,7 +18,6 @@
 				self.img.addEventListener ('mousemove', self.moveLens);
 				self.lens.addEventListener ('touchmove', self.moveLens);
 				self.img.addEventListener ('touchmove', self.moveLens);
-				console.log ('run');
 				self.counter = 0;
 			});},
 			get moveLens () {return __get__ (this, function (self, e) {
@@ -31,9 +30,6 @@
 				var y = e.pageY - a.top;
 				var x = x - window.pageXOffset;
 				var y = y - window.pageYOffset;
-				self.lens = document.createElement ('DIV');
-				self.lens.setAttribute ('class', 'img-zoom-lens');
-				self.lens.setAttribute ('position', 'absolute');
 				var x = x - self.lens.offsetWidth / 2;
 				var y = y - self.lens.offsetHeight / 2;
 				if (x > self.img.width - self.lens.offsetWidth) {
@@ -48,7 +44,6 @@
 				if (y < 0) {
 					var y = 0;
 				}
-				print ('xy', x, y);
 				self.lens.style.left = str (x) + 'px';
 				self.lens.style.top = str (y) + 'px';
 				self.resultat.style.backgroundPosition = ((('-' + str (x * self.cx)) + 'px -') + str (y * self.cy)) + 'px';
