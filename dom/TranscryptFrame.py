@@ -150,15 +150,15 @@ class CanvasImage(object):
         """show the image on the canvas with given position (tuple), width and height, 
            can also be used to scale the image to a given width and height"""
         if position is not None:
-            self.pos_x = position[0]
-            self.pos_y = position[1]
+            pos_x = position[0]
+            pos_y = position[1]
         else:
-            self.pos_x = self.position[0]
-            self.pos_y = self.position[1]
+            pos_x = self.position[0]
+            pos_y = self.position[1]
         if self.ctx is not None:
             if width is None: width = self.width
             if height is None: height = self.height
-            self.ctx.drawImage(self.img, self.pos_x, self.pos_y, width, height)
+            self.ctx.drawImage(self.img, pos_x, pos_y, width, height)
         else:
             raise AttributeError("No context/canvas id exists for showing the image, use set_canvas to define canvas_id for the image.")
 
