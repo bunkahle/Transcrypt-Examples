@@ -87,7 +87,7 @@ class CanvasImage(object):
            if the given canvas_id != canvas_id of the default image object it is copied to a new canvas with canvas_id
            specifying dWidth and DHeight can also scale the new image.
            dx, dy = upper left corner for the destination point, dWidth and DHeight width and height for destination drawing"""
-        new_image = self.copy(self.canvas_id)
+        new_image = self.copy(canvas_id)
         if canvas_id == self.canvas_id:
             self.ctx.drawImage(self.img, posx, posy, width, height, dx, dy, dWidth, dHeight)
             return self.img
