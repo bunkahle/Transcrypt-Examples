@@ -1,4 +1,4 @@
--#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 This is a suggestion for a transcrypt framework which offers convenient 
@@ -206,6 +206,8 @@ def S(sel, kind=None, ix=None):
             return doc_id(sel[1:]).innerHTML
         elif kind == "value" or kind == "val":
             return doc_id(sel[1:]).value
+        elif kind == "style" or kind == "sty":
+            return doc_id(sel[1:]).style
     elif sel[0] == ".": # we look for doc classes
         if kind is None:
             return doc_class(sel[1:])
@@ -219,6 +221,8 @@ def S(sel, kind=None, ix=None):
                     return doc_class_htm(sel[1:], ix)
                 elif kind == "value" or kind == "val":
                     return doc_class_val(sel[1:], ix)
+                elif kind == "style" or kind == "sty":
+                    return doc_class_sty(sel[1:], ix)
     else:  # we look for doc tags
         if kind is None:
             return doc_tag(sel)
@@ -232,6 +236,8 @@ def S(sel, kind=None, ix=None):
                     return doc_tag_htm(sel, ix)
                 elif kind == "value" or kind == "val":
                     return doc_tag_val(sel, ix)
+                elif kind == "style" or kind == "sty":
+                    return doc_tag_sty(sel, ix)
 
 def doc_class(clas):
     "short wrapper for document.getElementsByClassName(clas)"
@@ -248,6 +254,10 @@ def doc_class_txt(clas, ix):
 def doc_class_val(clas, ix):
     "short wrapper for document.getElementsByClassName(clas)[ix].value"
     return document.getElementsByClassName(clas)[ix].value
+
+def doc_class_sty(clas, ix):
+    "short wrapper for document.getElementsByClassName(clas)[ix].style"
+    return document.getElementsByClassName(clas)[ix].style
 
 def doc_id(id):
     "short wrapper for document.getElementById(id)"
@@ -308,6 +318,10 @@ def doc_tag_txt(tag, ix):
 def doc_tag_val(tag, ix):
     "short wrapper for document.getElementsByTagName(tag)[ix].value"
     return document.getElementsByTagName(tag)[ix].value
+
+def doc_tag_sty(tag, ix):
+    "short wrapper for document.getElementsByTagName(tag)[ix].style"
+    return document.getElementsByTagName(tag)[ix].style
 
 def deleteCookie(cname):
     "Deletes cookie with the name cname"
