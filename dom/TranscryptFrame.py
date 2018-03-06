@@ -7,7 +7,7 @@ Originally created by Andreas Bunkahle 2018
 
 You can import this library with 
 import TranscryptFrame as tf
-if it is in the same directory as your python script or it is located in the Lib/sitepackages directory
+if it is in the same directory as your python script or it is located in the Lib/sitepackages directory or in your Pythonpath
 
 and use it in your Python/Transcrypt scripts like this
 
@@ -15,15 +15,12 @@ myElement = tf.doc_id("intro")
 tf.doc_id("demo").innerHTML = "The text from the intro paragraph is " + myElement.innerHTML
 
 or even shorter:
-
-tf.doc_id_htm("demo") = "The text from the intro paragraph is " + myElement.innerHTML
-
-and the shortest:
-tf.S("#demo") = "The text from the intro paragraph is " + myElement.innerHTML
+myElement = tf.S("#intro", "htm")
+tf.S("#demo").innerHTML = "The text from the intro paragraph is " + myElement
 
 You can also have jQuery-like function calls like
 
-tf.S("#demo", "htm") = "<p>New paragraph</p>" instead of $("#demo").html("<p>New paragraph</p>") in Javascript
+tf.S("#demo").innerHTML = "<p>New paragraph</p>" instead of $("#demo").html("<p>New paragraph</p>") in Javascript
 or document.getElementById("demo").innerHTML = "<p>New paragraph</p>" in Transcrypt
 
 or new_var = tf.S("#demo", "htm") instead of new_var = $("#demo").html()
