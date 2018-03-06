@@ -78,7 +78,7 @@ class CanvasImage(object):
 
     def copy(self, canvas_id=None):
         "retrieve a deep copy of the given image"
-        new_image = Image(self.src, canvas_id, self.width, self.height)
+        new_image = CanvasImage(self.src, canvas_id, self.width, self.height)
         return new_image
 
     def crop(self, posx, posy, width, height, canvas_id, dx, dy, dWidth, dHeight):
