@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 This is a suggestion for a transcrypt framework which offers convenient 
@@ -44,6 +44,8 @@ class CanvasImage(object):
        import TranscryptFrame as tf
        myImage = tf.CanvasImage("myimage.jpg", "my_canvas_id", 200, 200)
        It has methods like:
+       clear -> clears the canvas of the image
+       crop -> crops a part of the image to a destination area of the same image or a different canvas
        copy -> returns a deep copy of the given CanvasImage class
        open(src, canvas_id) -> opens a new image source
        resize(size, position) -> resizes the image to size and position, self.width and self.height are adjusted
@@ -73,11 +75,30 @@ class CanvasImage(object):
         self.open(src, canvas_id)
         return self
 
+    def clear(self):
+        "clears the complete canvas of an image"
+        self.ctx.clearRect(0, 0, self.canvasWidth, self.canvasHeight)
+
     def copy(self, canvas_id=None):
         "retrieve a deep copy of the given image"
         new_image = Image(self.src, canvas_id, self.width, self.height)
         return new_image
 
+    def crop(self, posx, posy, width, height, canvas_id, dx, dy, dWidth, dHeight):
+        """crops a part of the image specified by posx, posy, width and height to a new canvas with canvas_id
+           if the given canvas_id == canvas_id of the default image object it is sliced into the existing image
+           if the given canvas_id != canvas_id of the default image object it is copied to a new canvas with canvas_id
+           specifying dWidth and DHeight can also scale the new image.
+           dx, dy = upper left corner for the destination point, dWidth and DHeight width and height for destination drawing"""
+        new_image = self.copy(self.canvas_id)
+        if canvas_id == self.canvas_id:
+            self.ctx.drawImage(self.img, posx, posy, width, height, dx, dy, dWidth, dHeight)
+            return self.img
+        else:
+            new_image.clear()
+            new_image.ctx.drawImage(self.img, posx, posy, width, height, dx, dy, dWidth, dHeight)
+            return new_image
+        
     def open(self, src, canvas_id=None):
         "open an image from a certain local or remote src to a canvas by specifiying the canvas_id"
         self.src = src
@@ -97,7 +118,7 @@ class CanvasImage(object):
     def resize(self, size, position=None):
         "resize image to tuple size at given position"
         self.width, self.height = size
-        self.ctx.clearRect(0, 0, self.canvasWidth, self.canvasHeight)
+        self.clear()
         if position is None:
             self.show(self.position, self.width, self.height)
         else:
@@ -106,7 +127,7 @@ class CanvasImage(object):
     def rotate(self, degree):
         "rotate image by degree"
         if self.ctx is not None:
-            self.ctx.clearRect(0, 0, self.canvasWidth, self.canvasHeight)
+            self.clear()
             # Move registration point and turn axis to the center of the canvas
             self.ctx.translate(self.canvasWidth/2, self.canvasHeight/2)
             # Rotate degree in degrees
@@ -129,7 +150,8 @@ class CanvasImage(object):
             self.ctx = None
 
     def show(self, position=None, width=None, height=None):
-        "show the image on the canvas with given position (tuple), width and height"
+        """show the image on the canvas with given position (tuple), width and height, 
+           can also be used to scale the image to a given width and height"""
         if position is not None:
             self.pos_x = position[0]
             self.pos_y = position[1]
