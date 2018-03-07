@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="__javascript__/gallery.js"></script>
+    <title>Gallery with Canvas</title>
+  </head>
+  <style>
+    body {
+      background: 0 -100px repeat-x url(https://mdn.mozillademos.org/files/5415/bg_gallery.png) #4F191A;
+      margin: 10px;
+    }
+
+    img {
+      display: none;
+    }
+
+    table {
+      margin: 0 auto;
+    }
+
+    td {
+      padding: 15px;
+    }
+  </style>
+  <body onload="gallery.draw();">
+     <table>
+      <tr>
+        <td><img src="gallery_1.jpg"></td>
+        <td><img src="gallery_2.jpg"></td>
+        <td><img src="gallery_3.jpg"></td>
+        <td><img src="gallery_4.jpg"></td>
+      </tr>
+      <tr>
+        <td><img src="gallery_5.jpg"></td>
+        <td><img src="gallery_6.jpg"></td>
+        <td><img src="gallery_7.jpg"></td>
+        <td><img src="gallery_8.jpg"></td>
+      </tr>
+     </table>
+     <img id="frame" src="Canvas_picture_frame.png" width="132" height="150">
+  </body>
+</html>
