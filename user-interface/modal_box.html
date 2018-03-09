@@ -20,21 +20,51 @@
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
-
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #FF0000;
+            color: white;
+        }
+        .modal-footer {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+        .modal-body {
+            padding: 2px 16px;
+            background-color: #FFFF00;
+        }
+        /* Modal Content */
         /* Modal Content */
         .modal-content {
-            background-color: #ffff00;
+            position: relative;
+            background-color: #fefefe;
             margin: auto;
-            padding: 20px;
+            padding: 0;
             border: 1px solid #888;
-            width: 80%;
+            width: 50%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
         }
-        .head {
-            background-color: #ff0000;
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {top:-300px; opacity:0} 
+            to {top:0; opacity:1}
+        }
+
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+        .text {
+            padding: 2px 16px;
         }
         /* The Close Button */
         .close {
-            color: #aaaaaa;
+            color: #CCCCCC;
             float: right;
             font-size: 28px;
             font-weight: bold;
@@ -56,12 +86,19 @@
     <div id="myModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
-        <span class="close">&times;</span><br>
-        <h1 class="head">The Modal Box header</h1>
-        <p>Some text in the Modal..</p>
+        <div class="modal-header">
+              <span class="close">&times;</span>
+              <h2>Modal Header</h2>
+        </div>
+        <p class="text">Some text in the Modal..</p>
+        <div class="text">
         <a href="#" class="btn" data-dismiss="modal">Close</a>
-        <a href="#" onclick="modal_box.msg()">Save changes</a>
-        <button onclick="modal_box.close_modal()">Close</button>
+            <a href="#" onclick="modal_box.msg()">Save changes</a>
+            <button onclick="modal_box.close_modal()">Close</button><br><br>
+        </div>
+        <div class="modal-footer">
+             <h3>Modal Footer</h3>
+        </div>
       </div>
     </div>
     <script src="__javascript__/modal_box.js" charset="UTF-8"></script>
