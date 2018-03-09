@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8" />
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #ffff00;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .head {
+            background-color: #ff0000;
+        }
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    </head>
+    <body>
+    <h2>Modal Example</h2>
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span><br>
+        <h1 class="head">The Modal Box header</h1>
+        <p>Some text in the Modal..</p>
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a href="#" onclick="modal_box.msg()">Save changes</a>
+        <button onclick="modal_box.close_modal()">Close</button>
+      </div>
+    </div>
+    <script src="__javascript__/modal_box.js" charset="UTF-8"></script>
+    </body>
+</html>
