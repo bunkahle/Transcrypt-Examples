@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8" />
+    <style>
+      #myProgress {
+        width: 100%;
+        background-color: #ddd;
+      }
+
+      #myBar {
+        width: 0%;
+        height: 36px;
+        background-color: #4CAF50;
+      }
+
+      #label {
+        text-align: center;
+        line-height: 36px;
+        color: white;
+      }
+    </style>
+  </head>
+  <script src="__javascript__/progress_bar.js" charset="UTF-8"></script>
+  <body>
+
+  <div id="myProgress">
+    <div id="myBar">
+      <div id="label">0%</div>
+    </div>
+  </div>
+
+  <br>
+  <button id="start" onclick="progress_bar.pb.move()" style="padding:12px;border:none;cursor:pointer;">Start Progress</button> 
+
+  
+  </body>
+</html>
