@@ -1,9 +1,11 @@
 # Transcrypt-Examples
 Examples for transcrypt
 
-You need to have Python 3.6 installed.
+You need to have Python 3.6 or 3.7 installed.
 
-Install Transcrypt with pip install transcrypt
+Install Transcrypt with pip install transcrypt==3.6
+
+Since Transcrypt version 3.7 has several redesigns in its handling you need to have Transcrypt version 3.6 installed in order to follow along with this tutorial which refers to Transcrypt version 3.6.
 
 Create a directory like hello with two files named [hello.py](https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.py) and [hello.html](https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.html)
 
