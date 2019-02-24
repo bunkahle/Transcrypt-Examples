@@ -7,11 +7,11 @@ Install Transcrypt with pip install transcrypt==3.6
 
 Since Transcrypt version 3.7 has several redesigns in its handling you need to have Transcrypt version 3.6 installed in order to follow along with this tutorial which refers to Transcrypt version 3.6.
 
-If you still want to work with the latest Transcrypt version >3.7 you need to modify the script entry in the html file. Before in Transcrypt <=3.6 the entry e.g. for alerts2 in the html file looked like this: ::
+If you still want to work with the latest Transcrypt version >3.7 you need to modify the script entry in the html file. Before in Transcrypt <=3.6 the entry e.g. for alerts2 in the html file looked like this:
 
     <script src="__javascript__/alerts2.js"></script>
 
-This needs to be replaced in the following code samples by: ::
+This needs to be replaced in the following code samples by:
 
     <script type="module">import * as alerts2 from './__target__/alerts2.js';window.alerts2 = alerts2;</script>
 
