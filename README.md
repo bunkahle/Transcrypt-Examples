@@ -21,9 +21,14 @@ If you want to compile/transpile Python to Javascript and display the code in a 
 Create a directory like hello with two files named [hello.py](https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.py) and [hello.html](https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.html)
 
 Run transcrypt to compile the example file hello.py to Javascript files:
-transcrypt hello.py
+
+    transcrypt hello.py
 
 You get a extra directory named `__javascript__` (Transcrypt <=3.6) resp. `__target__` (Transcrypt >=3.7) where the javascript files are located.
+
+In case you have no Java installed on your machine you might want to use transcrypt without minification of your code which otherwise might produce an error when compiling:
+
+    transcrypt -n hello.py
 
 Start hello.html in your browser and test the code.
 
