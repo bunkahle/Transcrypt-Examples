@@ -7,11 +7,11 @@ Install Transcrypt with pip install transcrypt==3.6
 
 Since Transcrypt version 3.7 has several redesigns in its handling you need to have Transcrypt version 3.6 installed in order to follow along with this tutorial which refers to Transcrypt version 3.6.
 
-If you still want to work with the latest Transcrypt version >3.7 you need to modify the script entry in the html file. Before in Transcrypt <=3.6 the entry e.g. for alerts2 in the html file looked like this:
+If you still want to work with the latest Transcrypt version >=3.7 you need to modify the script entry in the html file. Before in Transcrypt <=3.6 the entry e.g. for alerts2 in the html file looked like this:
 
     <script src="__javascript__/alerts2.js"></script>
 
-This needs to be replaced in the following code samples by:
+This needs to be replaced in the following/contained code samples of this tutorial to have the same functionality by:
 
     <script type="module">import * as alerts2 from './__target__/alerts2.js';window.alerts2 = alerts2;</script>
 
@@ -20,7 +20,7 @@ Create a directory like hello with two files named [hello.py](https://github.com
 Run transcrypt to compile the example file hello.py to Javascript files:
 transcrypt hello.py
 
-You get a extra directory named `__javascript__` where the javascript files are located.
+You get a extra directory named `__javascript__` (Transcrypt <=3.6) resp. `__target__` (Transcrypt >=3.7) where the javascript files are located.
 
 Start hello.html in your browser and test the code.
 
