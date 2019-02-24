@@ -14,6 +14,9 @@ If you still want to work with the latest Transcrypt version >=3.7 you need to m
 This needs to be replaced in the following/contained code samples of this tutorial to have the same functionality by:
 
     <script type="module">import * as alerts2 from './__target__/alerts2.js';window.alerts2 = alerts2;</script>
+    
+If you want to compile/transpile Python to Javascript and display the code in a wide range of browsers it is recommendable at the moment to stick to Transcrypt version 3.6 since Transcrypt >=3.7 makes use of the the script type module which is only supported by major browsers at the moment (Feb 2019) as hinted in here: https://github.com/QQuick/Transcrypt/issues/611  There might be incompatibilities. This said, let's begin with the tutorial:
+
 
 Create a directory like hello with two files named [hello.py](https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.py) and [hello.html](https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.html)
 
