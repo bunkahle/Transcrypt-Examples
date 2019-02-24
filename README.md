@@ -3,7 +3,9 @@ Examples for transcrypt
 
 You need to have Python 3 installed.
 
-Install Transcrypt with pip install transcrypt==3.6
+Install Transcrypt with 
+
+    pip install transcrypt==3.6
 
 Since Transcrypt version 3.7 has several redesigns in its handling you need to have Transcrypt version 3.6 installed in order to follow along with this tutorial which refers to Transcrypt version 3.6.
 
