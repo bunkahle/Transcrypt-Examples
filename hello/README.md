@@ -27,7 +27,7 @@ You can do so by:
 
 ```(hello) C:\Python36\programs\Transcrypt-Examples\hello>pip install transcrypt```
 
-for the latest version of transcrypt or if6# you want to follow along with this tutorial
+for the latest version of transcrypt or if you want to follow along with this tutorial
 which was written with transcrypt 3.6 with
 
 ```(hello) C:\Python36\programs\Transcrypt-Examples\hello>pip install transcrypt==3.6```
