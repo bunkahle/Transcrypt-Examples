@@ -36,7 +36,9 @@ You can deactivate the virtualenv afterwards by the command
 
 ```(hello) C:\Python36\programs\Transcrypt-Examples\hello>deactivate```
 
-Create a directory like hello with two files names `hello.py <hello.py>`_  and `hello.html <hello.html>`_
+Create a directory like hello with two files names hello.py and hello.html which can be found here:
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.py
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.html
 
 Run transcrypt.exe to compile the example file hello.py to Javascript files:
 
