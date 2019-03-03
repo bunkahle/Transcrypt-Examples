@@ -44,12 +44,12 @@ https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.html
 
 Run transcrypt.exe to compile the example file hello.py to Javascript files:
 
-```transcrypt.exe hello.py```
+```(hello) C:\Python36\programs\Transcrypt-Examples\hello>transcrypt.exe hello.py```
 
 In case you have not Java installed on your machine for code minification run
 transcrypt with the switch -n or --nomin in order not to produce an error:
 
-```transcrypt.exe -n hello.py```
+```(hello) C:\Python36\programs\Transcrypt-Examples\hello>transcrypt.exe -n hello.py```
 
 You get a extra directory named ```__javascript__``` (transcrypt<=3.6) or ```__target__``` (transcrypt>=3.7) where the javascript files are located.
 
