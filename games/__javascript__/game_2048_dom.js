@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2018-02-26 08:37:56
+// Transcrypt'ed from Python, 2019-03-03 18:40:38
 function game_2048_dom () {
     var __symbols__ = ['__py3.6__', '__esv5__'];
     var __all__ = {};
@@ -2326,10 +2326,53 @@ function game_2048_dom () {
 		var random = {};
 		var __name__ = '__main__';
 		__nest__ (random, '', __init__ (__world__.random));
+		var Tile = __class__ ('Tile', [object], {
+			__module__: __name__,
+			get __init__ () {return __get__ (this, function (self, value) {
+				if (typeof value == 'undefined' || (value != null && value .hasOwnProperty ("__kwargtrans__"))) {;
+					var value = 0;
+				};
+				self.value = value;
+			});}
+		});
 		var Game2048 = __class__ ('Game2048', [object], {
 			__module__: __name__,
-			get __init__ () {return __get__ (this, function (self) {
-				self.b = list ([list ([0, 0, 0, 0]), list ([0, 0, 0, 0]), list ([0, 0, 0, 0]), list ([0, 0, 0, 0])]);
+			get __init__ () {return __get__ (this, function (self, size) {
+				self.grid = (function () {
+					var __accu0__ = [];
+					for (var j = 0; j < size; j++) {
+						__accu0__.append ((function () {
+							var __accu1__ = [];
+							for (var i = 0; i < size; i++) {
+								__accu1__.append (Tile ());
+							}
+							return __accu1__;
+						}) ());
+					}
+					return __accu0__;
+				}) ();
+				self.gl = size;
+				self.b = (function () {
+					var __accu0__ = [];
+					var __iterable0__ = self.grid;
+					for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+						var j = __iterable0__ [__index0__];
+						__accu0__.append ((function () {
+							var __accu1__ = [];
+							var __iterable1__ = j;
+							for (var __index1__ = 0; __index1__ < len (__iterable1__); __index1__++) {
+								var i = __iterable1__ [__index1__];
+								__accu1__.append (false);
+							}
+							return __accu1__;
+						}) ());
+					}
+					return __accu0__;
+				}) ();
+				self.colorcodes = dict ({0: 'white', 2: 'AntiqueWhite', 4: 'BurlyWood', 8: 'BurlyWood', 16: 'Cyan', 32: 'Gold', 64: 'GoldenRod', 128: 'HotPink', 256: 'Crimson', 512: 'DarkRed', 1024: 'DeepPink', 2048: 'DarkMagenta'});
+				self.start_value = int (document.getElementById ('selstart').value);
+				self.addRandomTile ();
+				self.addRandomTile ();
 				for (var i = 0; i < 16; i++) {
 					document.getElementById ('butt' + str (i)).style.fontSize = 'large';
 					document.getElementById ('butt' + str (i)).style.backgroundColor = 'white';
@@ -2337,153 +2380,285 @@ function game_2048_dom () {
 					document.getElementById ('butt' + str (i)).style.width = '100px';
 					document.getElementById ('butt' + str (i)).innerHTML = '   ';
 				}
-				self.start_value = document.getElementById ('selstart').value;
-				self.start_value = int (self.start_value);
-				self.new_number ();
-				document.onkeypress = self.on_keypress;
+				self.makeButtons ();
+				document.onkeydown = self.on_keypress;
 			});},
-			get shiftp () {return __get__ (this, function (self, c) {
-				var lst = list ([]);
-				var zeros = 0;
-				var __iterable0__ = c;
+			get __str__ () {return __get__ (this, function (self) {
+				var ret = '';
+				var iS = dict ({});
+				var __iterable0__ = self.grid;
+				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+					var j = __iterable0__ [__index0__];
+					for (var i = 0; i < len (j); i++) {
+						iS [i] = max (iS.py_get (i), len (str (j [i])));
+					}
+				}
+				var __iterable0__ = self.grid;
+				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+					var j = __iterable0__ [__index0__];
+					for (var i = 0; i < len (j); i++) {
+						var ret = ((ret + str (j [i])) + ' ') + ' ' * (iS [i] - len (str (j [i])));
+					}
+					var ret = ret + '\n';
+				}
+				return ret.py_replace (' 0', '  ').py_replace ('0 ', '  ');
+			});},
+			get addRandomTile () {return __get__ (this, function (self) {
+				var availableTiles = self.getAvailableTiles ();
+				var findTile = self.findTile (random.choice (availableTiles));
+				self.grid [findTile [0]] [findTile [1]] = Tile (self.start_value);
+			});},
+			get getAvailableTiles () {return __get__ (this, function (self) {
+				var ret = list ([]);
+				var __iterable0__ = self.grid;
 				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
 					var i = __iterable0__ [__index0__];
-					if (i == 0) {
-						zeros++;
-					}
-					if (i > 0) {
-						lst.append (i);
-					}
-				}
-				for (var i = 0; i < zeros; i++) {
-					lst.append (0);
-				}
-				return lst;
-			});},
-			get sms () {return __get__ (this, function (self, l) {
-				var l = self.shiftp (l);
-				for (var i = 0; i < len (l) - 1; i++) {
-					if (l [i + 1] == l [i]) {
-						var __left0__ = tuple ([2 * l [i], 0]);
-						l [i] = __left0__ [0];
-						l [i + 1] = __left0__ [1];
-					}
-				}
-				var ret = self.shiftp (l);
-				return ret;
-			});},
-			get rot () {return __get__ (this, function (self) {
-				self.b = list ([list ([self.b [3] [0], self.b [2] [0], self.b [1] [0], self.b [0] [0]]), list ([self.b [3] [1], self.b [2] [1], self.b [1] [1], self.b [0] [1]]), list ([self.b [3] [2], self.b [2] [2], self.b [1] [2], self.b [0] [2]]), list ([self.b [3] [3], self.b [2] [3], self.b [1] [3], self.b [0] [3]])]);
-			});},
-			get move () {return __get__ (this, function (self, n) {
-				var diff = self.b.__getslice__ (0, null, 1);
-				for (var i = 0; i < n; i++) {
-					self.rot ();
-				}
-				for (var i = 0; i < 4; i++) {
-					self.b [i] = self.sms (self.b [i]);
-				}
-				for (var i = 0; i < 4 - n; i++) {
-					self.rot ();
-				}
-				if (self.b != diff) {
-					return 1;
-				}
-				else {
-					return 0;
-				}
-			});},
-			get new_number () {return __get__ (this, function (self) {
-				var empty = list ([]);
-				var __iterable0__ = enumerate (self.b);
-				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
-					var __left0__ = __iterable0__ [__index0__];
-					var r = __left0__ [0];
-					var row = __left0__ [1];
-					var __iterable1__ = enumerate (row);
+					var __iterable1__ = i;
 					for (var __index1__ = 0; __index1__ < len (__iterable1__); __index1__++) {
-						var __left0__ = __iterable1__ [__index1__];
-						var c = __left0__ [0];
-						var col = __left0__ [1];
-						if (col == 0) {
-							empty.append (tuple ([r, c]));
+						var j = __iterable1__ [__index1__];
+						if (j.value == 0) {
+							ret.append (j);
 						}
 					}
 				}
-				if (len (empty) > 0) {
-					var k = empty [random.randint (0, len (empty) - 1)];
-					self.b [k [0]] [k [1]] = random.randint (1, 2) * self.start_value;
+				return ret;
+			});},
+			get findTile () {return __get__ (this, function (self, tile) {
+				for (var i = 0; i < len (self.grid); i++) {
+					for (var j = 0; j < len (self.grid [i]); j++) {
+						if (self.grid [i] [j] == tile) {
+							return tuple ([i, j]);
+						}
+					}
 				}
-				var j = -(1);
-				for (var i = 0; i < 16; i++) {
-					var d = self.b [Math.floor (i / 4)] [__mod__ (i, 4)];
-					if (d == 2048) {
-						var j = i;
+			});},
+			get reloc () {return __get__ (this, function (self, i, j) {
+				return i * self.gl + j;
+			});},
+			get makeButtons () {return __get__ (this, function (self) {
+				for (var i = 0; i < len (self.grid); i++) {
+					for (var j = 0; j < len (self.grid [i]); j++) {
+						if (self.grid [i] [j].value) {
+							document.getElementById ('butt' + str (self.reloc (i, j))).style.backgroundColor = self.colorcodes [self.grid [i] [j].value];
+							document.getElementById ('butt' + str (self.reloc (i, j))).innerHTML = str (self.grid [i] [j].value);
+						}
+						else {
+							document.getElementById ('butt' + str (self.reloc (i, j))).style.backgroundColor = 'white';
+							document.getElementById ('butt' + str (self.reloc (i, j))).innerHTML = '   ';
+						}
 					}
-					if (d) {
-						document.getElementById ('butt' + str (i)).innerHTML = str (d);
-					}
-					else {
-						document.getElementById ('butt' + str (i)).innerHTML = '   ';
-					}
-					var colorcodes = dict ({0: 'white', 2: 'AntiqueWhite', 4: 'BurlyWood', 8: 'BurlyWood', 16: 'Cyan', 32: 'Gold', 64: 'GoldenRod', 128: 'HotPink', 256: 'Crimson', 512: 'DarkRed', 1024: 'DeepPink', 2048: 'DarkMagenta'});
-					document.getElementById ('butt' + str (i)).style.backgroundColor = colorcodes [d];
 				}
-				if (j > -(1)) {
-					for (var i = 0; i < 16; i++) {
-						document.getElementById ('butt' + str (i)).innerHTML = document.getElementById ('butt' + str (i)).innerHTML + ' :)';
+			});},
+			get move () {return __get__ (this, function (self, direction) {
+				var merged = list ([]);
+				var moved = false;
+				var lines = rotate (self.grid, direction + 1);
+				console.log (lines);
+				var __iterable0__ = lines;
+				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+					var line = __iterable0__ [__index0__];
+					console.log (line);
+					while (len (line) && line [len (line) - 1].value == 0) {
+						line.py_pop (-(1));
 					}
-					alert ('Congratulations! You made it to 2048!');
-					self.b = list ([list ([0, 0, 0, 0]), list ([0, 0, 0, 0]), list ([0, 0, 0, 0]), list ([0, 0, 0, 0])]);
+					var i = len (line) - 1;
+					while (i >= 0) {
+						if (line [i].value == 0) {
+							var moved = true;
+							line.py_pop (i);
+						}
+						i--;
+					}
+					var i = 0;
+					while (i < len (line) - 1) {
+						if (line [i].value == line [i + 1].value && !(__in__ (line [i], merged) || __in__ (line [i + 1], merged))) {
+							var moved = true;
+							line [i] = Tile (line [i].value * 2);
+							merged.append (line [i]);
+							line.py_pop (i + 1);
+						}
+						else {
+							i++;
+						}
+					}
+					while (len (line) < len (self.grid)) {
+						line.append (Tile ());
+					}
+				}
+				var __iterable0__ = lines;
+				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+					var line = __iterable0__ [__index0__];
+					if (!(len (lines))) {
+						var line = (function () {
+							var __accu0__ = [];
+							var __iterable1__ = self.grid;
+							for (var __index1__ = 0; __index1__ < len (__iterable1__); __index1__++) {
+								var i = __iterable1__ [__index1__];
+								__accu0__.append (Tile ());
+							}
+							return __accu0__;
+						}) ();
+					}
+				}
+				self.grid = rotate (lines, 0 - (direction + 1));
+				if (moved) {
+					self.addRandomTile ();
 				}
 			});},
 			get on_keypress () {return __get__ (this, function (self, event) {
-				var direction = dict ({'Left': 0, 'Down': 1, 'Right': 2, 'Up': 3});
-				self.keypressed = -(1);
 				var kc = event.keyCode;
-				var cc = event.charCode;
-				self.ckeys = dict ({38: 3, 39: 2, 37: 0, 40: 1});
-				var __iterable0__ = self.ckeys.py_items ();
-				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
-					var __left0__ = __iterable0__ [__index0__];
-					var key = __left0__ [0];
-					var val = __left0__ [1];
-					if (kc == key) {
-						self.keypressed = key;
-						break;
-					}
+				if (kc == 37) {
+					self.move (3);
 				}
-				if (self.keypressed != -(1)) {
-					if (self.move (self.ckeys [self.keypressed])) {
-						self.new_number ();
-					}
-					var p = self.b.__getslice__ (0, null, 1);
-					for (var i = 0; i < 4; i++) {
-						self.move (i);
-						if (self.b != p) {
-							self.b = p.__getslice__ (0, null, 1);
-							return ;
-						}
-					}
+				else if (kc == 38) {
+					self.move (2);
+				}
+				else if (kc == 39) {
+					self.move (1);
+				}
+				else if (kc == 40) {
+					self.move (0);
+				}
+				self.makeButtons ();
+				if (self.lost ()) {
 					for (var i = 0; i < 16; i++) {
 						document.getElementById ('butt' + str (i)).style.backgroundColor = 'red';
 						document.getElementById ('butt' + str (i)).innerHTML = document.getElementById ('butt' + str (i)).innerHTML + ' :(';
 					}
 					alert ('Aaah! This did not work!');
 				}
+				else if (self.won ()) {
+					alert ('Congratulations! You made it!');
+				}
+			});},
+			get lost () {return __get__ (this, function (self) {
+				var s = len (self.grid) - 1;
+				var b = true;
+				for (var i = 0; i < len (self.grid); i++) {
+					for (var j = 0; j < len (self.grid [i]); j++) {
+						var val = self.grid [i] [j].value;
+						if (val == 0) {
+							var b = false;
+						}
+						if (i > 0 && self.grid [i - 1] [j].value == val) {
+							var b = false;
+						}
+						if (j > 0 && self.grid [i] [j - 1].value == val) {
+							var b = false;
+						}
+						if (i < s && self.grid [i + 1] [j].value == val) {
+							var b = false;
+						}
+						if (j < s && self.grid [i] [j + 1].value == val) {
+							var b = false;
+						}
+					}
+				}
+				return b;
+			});},
+			get won () {return __get__ (this, function (self) {
+				for (var i = 0; i < len (self.grid); i++) {
+					for (var j = 0; j < len (self.grid [i]); j++) {
+						if (self.grid [i] [j].value == 2048) {
+							return true;
+						}
+					}
+				}
+				return false;
+			});},
+			get getValues () {return __get__ (this, function (self) {
+				var ret = list ([]);
+				var __iterable0__ = self.grid;
+				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+					var i = __iterable0__ [__index0__];
+					var __iterable1__ = i;
+					for (var __index1__ = 0; __index1__ < len (__iterable1__); __index1__++) {
+						var j = __iterable1__ [__index1__];
+						ret.append (j);
+					}
+				}
+				return ret;
 			});},
 			get startvalue () {return __get__ (this, function (self) {
 				self.start_value = int (document.getElementById ('selstart').value);
 			});}
 		});
-		var game2048 = Game2048 (null);
+		var rotate = function (l, num) {
+			var num = __mod__ (num, 4);
+			var s = len (l) - 1;
+			var l2 = list ([]);
+			if (num == 0) {
+				var l2 = l;
+			}
+			else if (num == 1) {
+				var l2 = (function () {
+					var __accu0__ = [];
+					var __iterable0__ = l;
+					for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+						var j = __iterable0__ [__index0__];
+						__accu0__.append ((function () {
+							var __accu1__ = [];
+							var __iterable1__ = j;
+							for (var __index1__ = 0; __index1__ < len (__iterable1__); __index1__++) {
+								var i = __iterable1__ [__index1__];
+								__accu1__.append (false);
+							}
+							return __accu1__;
+						}) ());
+					}
+					return __accu0__;
+				}) ();
+				for (var y = 0; y < len (l); y++) {
+					for (var x = 0; x < len (l [y]); x++) {
+						l2 [x] [s - y] = l [y] [x];
+					}
+				}
+			}
+			else if (num == 2) {
+				var l2 = l;
+				l2.reverse ();
+				var __iterable0__ = l;
+				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+					var i = __iterable0__ [__index0__];
+					i.reverse ();
+				}
+			}
+			else if (num == 3) {
+				var l2 = (function () {
+					var __accu0__ = [];
+					var __iterable0__ = l;
+					for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+						var j = __iterable0__ [__index0__];
+						__accu0__.append ((function () {
+							var __accu1__ = [];
+							var __iterable1__ = j;
+							for (var __index1__ = 0; __index1__ < len (__iterable1__); __index1__++) {
+								var i = __iterable1__ [__index1__];
+								__accu1__.append (false);
+							}
+							return __accu1__;
+						}) ());
+					}
+					return __accu0__;
+				}) ();
+				for (var y = 0; y < len (l); y++) {
+					for (var x = 0; x < len (l [y]); x++) {
+						l2 [y] [x] = l [x] [s - y];
+					}
+				}
+			}
+			return l2;
+		};
+		var game2048 = Game2048 (4);
 		__pragma__ ('<use>' +
 			'random' +
 		'</use>')
 		__pragma__ ('<all>')
 			__all__.Game2048 = Game2048;
+			__all__.Tile = Tile;
 			__all__.__name__ = __name__;
 			__all__.game2048 = game2048;
+			__all__.rotate = rotate;
 		__pragma__ ('</all>')
 	}) ();
     return __all__;
