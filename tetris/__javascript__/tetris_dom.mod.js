@@ -1,13 +1,16 @@
 	(function () {
-		var time = {};
+		var __name__ = '__main__';
 		var randint = __init__ (__world__.random).randint;
-		__nest__ (time, '', __init__ (__world__.time));
 		var Tetris = __class__ ('Tetris', [object], {
+			__module__: __name__,
 			get __init__ () {return __get__ (this, function (self) {
 				self.ROWS = 10;
 				self.COLS = 20;
 				self.FELD = list ([]);
-				self.FELD = self.init_field (self.COLS, self.ROWS, self.FELD);
+				self.ckeys = dict ({'up': 38, 'right': 39, 'left': 37, 'down': 40, 'esc': 27, 'quit': 81, 'pause': 80});
+				self.tetrominoes = list ([list ([list (['.', 'X', 'X']), list (['X', 'X', '.']), list (['.', '.', '.'])]), list ([list (['X', 'X', '.']), list (['.', 'X', 'X']), list (['.', '.', '.'])]), list ([list (['.', '.', '.']), list (['X', 'X', 'X']), list (['.', '.', '.'])]), list ([list (['.', 'X', '.']), list (['.', 'X', '.']), list (['.', 'X', '.'])]), list ([list (['.', '.', '.']), list (['X', 'X', 'X']), list (['.', '.', 'X'])]), list ([list (['.', '.', 'X']), list (['X', 'X', 'X']), list (['.', '.', '.'])]), list ([list (['.', 'X', 'X']), list (['.', 'X', 'X']), list (['.', '.', '.'])]), list ([list (['.', '.', '.']), list (['.', 'X', '.']), list (['X', 'X', 'X'])])]);
+				self.lt = len (self.tetrominoes);
+				self.init_field ();
 			});},
 			get mult_string () {return __get__ (this, function (self, s, c) {
 				var new_row = '';
@@ -16,35 +19,30 @@
 				}
 				return new_row;
 			});},
-			get show_feld () {return __get__ (this, function (self, COLS, ROWS, FELD) {
-				var sfeld = ('+' + self.mult_string ('-', COLS)) + '+<br>';
-				for (var i = 0; i < ROWS; i++) {
-					sfeld += ('|' + FELD [i].__getslice__ (1, -(1), 1)) + '|<br>';
-				}
-				sfeld += ('+' + self.mult_string ('-', COLS)) + '+<br>';
-				document.getElementById ('canvas').innerHTML = sfeld;
-			});},
-			get chkBoard () {return __get__ (this, function (self, FELD, ROWS, COLS, score) {
-				var deleted = true;
-				while (deleted) {
-					var deleted = false;
-					for (var i = 0; i < ROWS; i++) {
-						if (!(__in__ ('.', FELD [i]))) {
-							FELD.py_pop (i);
-							FELD.insert (0, ('|' + '.' * COLS) + '|');
-							var score = score + COLS;
-							var deleted = true;
-							break;
-						}
+			get chkBoard () {return __get__ (this, function (self) {
+				var deleted = false;
+				for (var i = 0; i < self.ROWS; i++) {
+					if (!(__in__ ('.', self.FELD [i]))) {
+						self.showfield ();
+						var start = self.FELD.__getslice__ (0, i, 1);
+						var ende = self.FELD.__getslice__ (i + 1, null, 1);
+						var new_row = self.mult_string ('.', self.COLS);
+						self.FELD = list ([('X' + new_row) + 'X']);
+						self.FELD.extend (start);
+						self.FELD.extend (ende);
+						self.score = self.score + self.score;
+						var deleted = true;
+						self.showfield ();
+						break;
 					}
 				}
-				return score;
+				return deleted;
 			});},
-			get testCollision () {return __get__ (this, function (self, FELD, FP) {
+			get testCollision () {return __get__ (this, function (self, FP) {
 				for (var i = 0; i < 3; i++) {
 					for (var j = 0; j < 3; j++) {
 						try {
-							if (FP [2] [i] [j] == 'X' && FELD [FP [0] + i] [FP [1] + j] == 'X') {
+							if (FP [2] [i] [j] == 'X' && self.FELD [FP [0] + i] [FP [1] + j] == 'X') {
 								return 1;
 							}
 						}
@@ -55,12 +53,12 @@
 				}
 				return 0;
 			});},
-			get putFig () {return __get__ (this, function (self, FELD, FP, mode) {
+			get putFig () {return __get__ (this, function (self, FP, mode) {
 				for (var i = 0; i < 3; i++) {
 					for (var j = 0; j < 3; j++) {
 						try {
 							if (FP [2] [i] [j] == 'X') {
-								FELD [FP [0] + i] = (FELD [FP [0] + i].__getslice__ (0, FP [1] + j, 1) + mode) + FELD [FP [0] + i].__getslice__ ((FP [1] + j) + 1, null, 1);
+								self.FELD [FP [0] + i] = (self.FELD [FP [0] + i].__getslice__ (0, FP [1] + j, 1) + mode) + self.FELD [FP [0] + i].__getslice__ ((FP [1] + j) + 1, null, 1);
 							}
 						}
 						catch (__except0__) {
@@ -69,39 +67,32 @@
 					}
 				}
 			});},
-			get MoveFig () {return __get__ (this, function (self, FELD, FP, key, d) {
+			get MoveFig () {return __get__ (this, function (self, FP, key, d) {
 				var return_success = function (F, success) {
-					self.putFig (FELD, F, 'X');
+					self.putFig (F, 'X');
 					self.keypressed = -(1);
 					return tuple ([success, F]);
 				};
-				self.ckeys = dict ({'up': 38, 'right': 39, 'left': 37, 'down': 40, 'esc': 27, 'quit': 113, 'pause': 112});
 				var FPC = list ([FP [0], FP [1], FP [2]]);
 				if (key == self.ckeys ['left']) {
 					FPC [1] = FPC [1] - d;
 				}
-				else {
-					if (key == self.ckeys ['right']) {
-						FPC [1] = FPC [1] + d;
-					}
-					else {
-						if (key == self.ckeys ['down']) {
-							if (FPC [0] < self.ROWS - 4) {
-								FPC [0] = FPC [0] + d * 2;
-							}
-						}
-						else {
-							if (key == self.ckeys ['up']) {
-								FPC [2] = self.RotFig (FPC [2], 1);
-							}
-							else {
-								FPC [0] = FPC [0] + d;
-							}
-						}
+				else if (key == self.ckeys ['right']) {
+					FPC [1] = FPC [1] + d;
+				}
+				else if (key == self.ckeys ['down']) {
+					if (FPC [0] < self.ROWS - 4) {
+						FPC [0] = FPC [0] + d * 2;
 					}
 				}
-				self.putFig (FELD, FP, '.');
-				if (!(self.testCollision (FELD, FPC))) {
+				else if (key == self.ckeys ['up']) {
+					FPC [2] = self.RotFig (FPC [2], 1);
+				}
+				else {
+					FPC [0] = FPC [0] + d;
+				}
+				self.putFig (FP, '.');
+				if (!(self.testCollision (FPC))) {
 					return return_success (FPC, 1);
 				}
 				else {
@@ -109,24 +100,18 @@
 						FPC [1] = FPC [1] + d;
 						FPC [0] = FPC [0] + d;
 					}
-					else {
-						if (key == self.ckeys ['right']) {
-							FPC [1] = FPC [1] - d;
-							FPC [0] = FPC [0] + d;
-						}
-						else {
-							if (key == self.ckeys ['down']) {
-								FPC [0] = FPC [0] - d;
-							}
-							else {
-								if (key == self.ckeys ['up']) {
-									FPC [2] = list ([FP [2] [0], FP [2] [1], FP [2] [2]]);
-									FPC [0] = FPC [0] + d;
-								}
-							}
-						}
+					else if (key == self.ckeys ['right']) {
+						FPC [1] = FPC [1] - d;
+						FPC [0] = FPC [0] + d;
 					}
-					if (!(self.testCollision (FELD, FPC))) {
+					else if (key == self.ckeys ['down']) {
+						FPC [0] = FPC [0] - d;
+					}
+					else if (key == self.ckeys ['up']) {
+						FPC [2] = list ([FP [2] [0], FP [2] [1], FP [2] [2]]);
+						FPC [0] = FPC [0] + d;
+					}
+					if (!(self.testCollision (FPC))) {
 						return return_success (FPC, 1);
 					}
 					else {
@@ -141,22 +126,28 @@
 				}
 				return FPR;
 			});},
-			get wait () {return __get__ (this, function (self) {
-				if (self.keypressed == -(1)) {
-					setTimeout (self.wait, 50);
+			get showfield () {return __get__ (this, function (self, py_update) {
+				if (typeof py_update == 'undefined' || (py_update != null && py_update .hasOwnProperty ("__kwargtrans__"))) {;
+					var py_update = true;
+				};
+				if (py_update) {
+					document.getElementById ('next').innerHTML = ((((self.msg + '<br>\nRound No.:') + str (self.counter)) + ' Bricks passed so far: ') + str (self.bricks)) + ' ';
 				}
-			});},
-			get showfield () {return __get__ (this, function (self, COLS, ROWS, FELD, score, counter, msg, speed) {
-				var key = '';
-				document.getElementById ('next').innerHTML = ((((msg + '\n') + str (counter)) + ' Score: ') + str (score + counter)) + ' ';
-				self.show_feld (COLS, ROWS, FELD);
+				var sfeld = ('+' + self.mult_string ('-', self.COLS)) + '+<br>';
+				for (var i = 0; i < self.ROWS; i++) {
+					sfeld += ('|' + self.FELD [i].__getslice__ (1, -(1), 1)) + '|<br>';
+				}
+				sfeld += ('+' + self.mult_string ('-', self.COLS)) + '+<br>';
+				document.getElementById ('canvas').innerHTML = sfeld;
 			});},
 			get on_keypress () {return __get__ (this, function (self, e) {
+				if (self.end) {
+					return ;
+				}
 				var kc = e.keyCode;
 				var cc = e.charCode;
-				self.ckeys = dict ({'up': 38, 'right': 39, 'left': 37, 'down': 40, 'esc': 27, 'quit': 113, 'pause': 112});
-				var __iterable0__ = self.ckeys.items ();
-				for (var __index0__ = 0; __index0__ < __iterable0__.length; __index0__++) {
+				var __iterable0__ = self.ckeys.py_items ();
+				for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
 					var __left0__ = __iterable0__ [__index0__];
 					var key = __left0__ [0];
 					var val = __left0__ [1];
@@ -167,99 +158,121 @@
 				}
 				self.loop ();
 			});},
+			get getsizes () {return __get__ (this, function (self) {
+				self.COLS = document.getElementById ('SelectX').value;
+				self.ROWS = document.getElementById ('SelectY').value;
+			});},
 			get clearscreen () {return __get__ (this, function (self) {
 				document.getElementById ('canvas').innerHTML = '';
 				document.getElementById ('title').innerHTML = 'Your score is: 0';
-				self.FELD = self.init_field (self.COLS, self.ROWS, self.FELD);
+				self.getsizes ();
+				self.init_field ();
 			});},
 			get loop () {return __get__ (this, function (self) {
 				clearTimeout (self.cont);
-				self.counter++;
-				self.score = self.score + 1;
-				var msg = ('Next Brick:<pre>' + self.new_brick) + '</pre>';
-				self.showfield (self.COLS, self.ROWS, self.FELD, self.score, self.counter, msg, self.speed);
-				if (self.keypressed == 27 || self.keypressed == 113) {
-					document.getElementById ('title').innerHTML = 'Game over. Your score is: ' + str (self.score + self.counter);
+				if (self.end) {
 					return ;
 				}
-				var __left0__ = self.MoveFig (self.FELD, self.FigPos, self.keypressed, 1);
-				var move = __left0__ [0];
-				self.FigPos = __left0__ [1];
-				if (!(move)) {
-					var score = self.chkBoard (self.FELD, self.ROWS, self.COLS, self.score);
-					self.FigPos = list ([0, int (self.COLS / 2) - 1, self.new_tetrom]);
-					self.new_tetrom = self.tetrominoes [randint (0, self.lt - 1)];
-					self.new_brick = ('<pre>' + '\n'.join (function () {
-						var __accu0__ = [];
-						var __iterable0__ = self.new_tetrom;
-						for (var __index0__ = 0; __index0__ < __iterable0__.length; __index0__++) {
-							var b = __iterable0__ [__index0__];
-							__accu0__.append ((b [0] + b [1]) + b [2]);
+				self.counter++;
+				self.score = self.score + 1;
+				self.msg = ('Next Brick:<pre>' + self.new_brick) + '</pre>';
+				self.showfield ();
+				if (self.keypressed == self.ckeys ['esc'] || self.keypressed == self.ckeys ['quit']) {
+					document.getElementById ('title').innerHTML = 'Game over. Your score is: ' + str (self.score + self.counter);
+					self.end = true;
+					clearTimeout (self.cont);
+					return ;
+				}
+				if (self.keypressed == self.ckeys ['pause']) {
+					self.pause = !(self.pause);
+					self.keypressed = -(1);
+				}
+				if (!(self.pause)) {
+					var __left0__ = self.MoveFig (self.FigPos, self.keypressed, 1);
+					var move = __left0__ [0];
+					self.FigPos = __left0__ [1];
+					var dele = true;
+					if (!(move)) {
+						while (dele) {
+							var dele = self.chkBoard ();
 						}
-						return __accu0__;
-					} ())) + '</pre>';
-					self.bricks++;
-					if (self.testCollision (self.FELD, self.FigPos)) {
-						document.getElementById ('title').innerHTML = 'Game over. Your score is: ' + str (self.score + self.counter);
-						return ;
+						self.FigPos = list ([0, int (self.COLS / 2) - 1, self.new_tetrom]);
+						self.new_tetrom = self.tetrominoes [randint (0, self.lt - 1)];
+						self.new_brick = ('<pre>' + '\n'.join ((function () {
+							var __accu0__ = [];
+							var __iterable0__ = self.new_tetrom;
+							for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
+								var b = __iterable0__ [__index0__];
+								__accu0__.append ((b [0] + b [1]) + b [2]);
+							}
+							return __accu0__;
+						}) ())) + '</pre>';
+						self.bricks++;
+						if (self.testCollision (self.FigPos)) {
+							document.getElementById ('title').innerHTML = 'Game Over. Your score is: ' + str (self.score + self.counter);
+							self.end = true;
+							return ;
+						}
+						else {
+							document.getElementById ('title').innerHTML = 'Your score is: ' + str (self.score + self.counter);
+						}
+						self.putFig (self.FigPos, 'X');
 					}
-					self.putFig (self.FELD, self.FigPos, 'X');
 				}
 				self.cont = setTimeout (self.loop, self.speed * 1000);
 			});},
-			get init_field () {return __get__ (this, function (self, COLS, ROWS, FELD) {
-				var FELD = list ([]);
-				for (var i = 0; i < ROWS; i++) {
-					var new_row = self.mult_string ('.', COLS);
-					FELD.append (('X' + new_row) + 'X');
+			get init_field () {return __get__ (this, function (self) {
+				self.FELD = list ([]);
+				for (var i = 0; i < self.ROWS; i++) {
+					var new_row = self.mult_string ('.', self.COLS);
+					self.FELD.append (('X' + new_row) + 'X');
 				}
-				var new_row = self.mult_string ('X', COLS + 2);
-				FELD.append (new_row);
+				var new_row = self.mult_string ('X', self.COLS + 2);
+				self.FELD.append (new_row);
 				try {
-					self.show_feld (COLS, ROWS, FELD);
+					self.showfield (__kwargtrans__ ({py_update: false}));
 				}
 				catch (__except0__) {
 					// pass;
 				}
 				self.score = 0;
 				self.counter = 0;
-				return FELD;
+			});},
+			get resize () {return __get__ (this, function (self) {
+				self.getsizes ();
+				self.clearscreen ();
 			});},
 			get run () {return __get__ (this, function (self) {
 				document.getElementById ('next').innerHTML = 'Started';
 				self.pause = false;
+				self.end = false;
 				self.bricks = 0;
 				self.speed = 0.5;
-				self.COLS = 20;
-				self.ROWS = 10;
 				self.keypressed = -(1);
-				self.tetrominoes = list ([list ([list (['.', 'X', 'X']), list (['X', 'X', '.']), list (['.', '.', '.'])]), list ([list (['X', 'X', '.']), list (['.', 'X', 'X']), list (['.', '.', '.'])]), list ([list (['.', '.', '.']), list (['X', 'X', 'X']), list (['.', '.', '.'])]), list ([list (['.', 'X', '.']), list (['.', 'X', '.']), list (['.', 'X', '.'])]), list ([list (['.', '.', '.']), list (['X', 'X', 'X']), list (['.', '.', 'X'])]), list ([list (['.', '.', 'X']), list (['X', 'X', 'X']), list (['.', '.', '.'])]), list ([list (['.', 'X', 'X']), list (['.', 'X', 'X']), list (['.', '.', '.'])]), list ([list (['.', '.', '.']), list (['.', 'X', '.']), list (['X', 'X', 'X'])])]);
-				self.lt = len (self.tetrominoes);
-				self.FELD = self.init_field (self.COLS, self.ROWS, self.FELD);
-				var r = randint (0, self.lt - 1);
+				self.init_field ();
 				self.FigPos = list ([0, int (self.COLS / 2) - 1, self.tetrominoes [randint (0, self.lt - 1)]]);
 				self.new_tetrom = self.tetrominoes [randint (0, self.lt - 1)];
-				self.new_brick = '\n'.join (function () {
+				self.new_brick = '\n'.join ((function () {
 					var __accu0__ = [];
 					var __iterable0__ = self.new_tetrom;
-					for (var __index0__ = 0; __index0__ < __iterable0__.length; __index0__++) {
+					for (var __index0__ = 0; __index0__ < len (__iterable0__); __index0__++) {
 						var b = __iterable0__ [__index0__];
 						__accu0__.append ((b [0] + b [1]) + b [2]);
 					}
 					return __accu0__;
-				} ());
-				document.onkeypress = self.on_keypress;
-				self.putFig (self.FELD, self.FigPos, 'X');
+				}) ());
+				document.onkeydown = self.on_keypress;
+				self.putFig (self.FigPos, 'X');
 				self.loop ();
 			});}
 		});
 		var tetris = Tetris ();
 		__pragma__ ('<use>' +
 			'random' +
-			'time' +
 		'</use>')
 		__pragma__ ('<all>')
 			__all__.Tetris = Tetris;
+			__all__.__name__ = __name__;
 			__all__.randint = randint;
 			__all__.tetris = tetris;
 		__pragma__ ('</all>')
