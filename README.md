@@ -1,4 +1,4 @@
-# Transcrypt-Examples
+# Transcrypt-Examples and Transcrypt Tutorial
 Examples for transcrypt
 
 You need to have Python 3 installed.
