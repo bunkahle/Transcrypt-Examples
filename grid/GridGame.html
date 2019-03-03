@@ -1,0 +1,24 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="__javascript__/gridgame.js"></script>
+	<style>
+       table, td {border: 1px solid black;}
+    </style>
+  </head>
+  <title>Grid Game</title>
+<body>
+
+<h2>Grid Game - Baby switch me on...</h2>
+<P>Try to switch on the light in all table cells by clicking single cells.<br>
+	But all neighboring cells will also be switched on and lights are toggling.<br> You finish the game when you highlight all table cells. </P>
+<p id="moves">Moves: 0</p>
+<div id = "table1">
+	<script>gridgame.gridGame.createTable()</script>
+</div>
+</p>
+<button onclick=gridgame.gridGame.restart()>Restart</button>
+
+</body>
+</html>
