@@ -36,7 +36,7 @@ You can deactivate the virtualenv afterwards by the command
 
 ```(hello) C:\Python36\programs\Transcrypt-Examples\hello>deactivate```
 
-Create a directory like hello with two files names hello.py and hello.html which can be found here:
+Edit the two files names hello.py and hello.html which can be found here:
 
 https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/hello.py
 
