@@ -3,7 +3,7 @@ Standard Basic example
 
 You need to have Python 3 installed.
 
-Install Transcrypt with pip install transcrypt==3.6 or create a virtual environment by
+Install Transcrypt with pip install transcrypt==3.6 or higher and/or create a virtual environment by
 creating a new directory like 
 
 ```mkdir hello```
