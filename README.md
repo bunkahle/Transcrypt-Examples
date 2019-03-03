@@ -38,7 +38,7 @@ If you like to see a kind of tutorial for beginners in Transcrypt go to
 
 0. Standard Basic example with explanation how to set up a virtual environment for compiling Python to Javascript transcripts by Transcrypt:
 
-https://raw.githubusercontent.com/bunkahle/Transcrypt-Examples/master/hello/README.md
+https://github.com/bunkahle/Transcrypt-Examples/blob/master/hello/README.md
 
 1. Alerts, Prompts and Confirmations:
 
