@@ -14,12 +14,28 @@
         <pre id="canvas"></pre>
         <button onclick="tetris_dom.tetris.run()">START</button>
     </td><td>
-        <p>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br></p>
+        <p id="tetris_field">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<br></p>
     </td><td>
-        <p id="title">tested with Firefox - bugs inclusive<br><b>Keys</b>: <b>Cursor keys</b> to move right, left, down and rotate (up),<br>and <b>Q</b> oder <b>ESC</b> for exiting.<br>Written by Andreas Bunkahle 2018<br>Press START to play...</p>
+        <p id="title">tested with Firefox - bugs inclusive<br><b>Keys</b>: <b>Cursor keys</b> to move right, left, down and rotate (up),<br>and <b>Q</b> oder <b>ESC</b> for exiting, <b>P</b> for pausing.<br>Written by Andreas Bunkahle 2018, modified in 2019<br>Press START to play...</p>
         <p id="next"></p>
         <p id="pressed"></p>
-	    <button onclick="tetris_dom.tetris.clearscreen()">CLEAR</button>
+	    <button onclick="tetris_dom.tetris.clearscreen()">CLEAR</button> 
+        ROWS:<select id="SelectX" onchange="tetris_dom.tetris.resize()">
+              <option value="5">5
+              <option value="8">8
+              <option value="10" selected>10
+              <option value="12">12
+              <option value="15">15
+              <option value="20">20
+        </select>
+        COLS:<select id="SelectY" onchange="tetris_dom.tetris.resize()">
+              <option value="5">5
+              <option value="8">8
+              <option value="10">10
+              <option value="12">12
+              <option value="15">15
+              <option value="20" selected>20
+        </select>
     </td></tr></table>
 </body>
 </html>
