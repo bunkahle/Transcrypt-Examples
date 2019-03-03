@@ -1,122 +1,180 @@
 import random
 
+class Tile:
+    def __init__(self, value=0):
+        self.value = value
+
 class Game2048:
-    
-    def __init__(self):
-        self.b = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] # matrix
+    def __init__(self, size):
+        self.grid = [[Tile() for i in range(size)] for j in range(size)]
+        self.gl = size
+        self.b = [[False for i in j] for j in self.grid]
+        self.colorcodes = {0: "white", 2:"AntiqueWhite", 4:"BurlyWood", 8:"BurlyWood", 16:"Cyan", 32:"Gold", 64:"GoldenRod", 128:"HotPink", 256:"Crimson", 512:"DarkRed", 1024:"DeepPink", 2048:"DarkMagenta"}
+        self.start_value = int(document.getElementById("selstart").value)
+        self.addRandomTile()
+        self.addRandomTile()
         for i in range(16):
-            # btn = document.getElementById("butt"+str(i))
             document.getElementById("butt"+str(i)).style.fontSize = "large"
             document.getElementById("butt"+str(i)).style.backgroundColor  = "white"
             document.getElementById("butt"+str(i)).style.height = "100px"
             document.getElementById("butt"+str(i)).style.width = "100px"
             document.getElementById("butt"+str(i)).innerHTML = "   "
-        self.start_value = document.getElementById("selstart").value
-        self.start_value = int(self.start_value)
-        self.new_number()
-        document.onkeypress = self.on_keypress
+        self.makeButtons()
+        document.onkeydown = self.on_keypress
 
-    def shiftp(self, c): 
-        lst = []
-        zeros = 0
-        for i in c:
-            if i == 0:
-                zeros += 1
-            if i>0:
-                lst.append(i)
-        for i in range(zeros):
-            lst.append(0)
-        return lst
+    def __str__(self):
+        ret = ''
+        iS = {}
+        for j in self.grid:
+            for i in range(len(j)):
+                iS[i] = max(iS.get(i), len(str(j[i])))
+        for j in self.grid:
+            for i in range(len(j)):
+                ret = ret + str(j[i]) + ' ' + ' '*(iS[i]-len(str(j[i])))
+            ret = ret + '\n'
+        return ret.replace(' 0', '  ').replace('0 ', '  ')
 
-    def sms(self, l):
-        l = self.shiftp(l)
-        for i in range(len(l)-1):
-            if l[i+1]==l[i]: 
-                l[i], l[i+1] = 2*l[i], 0
-        ret = self.shiftp(l)
+    def addRandomTile(self):
+        availableTiles = self.getAvailableTiles()
+        findTile = self.findTile(random.choice(availableTiles))
+        self.grid[findTile[0]][findTile[1]] = Tile(self.start_value)
+
+    def getAvailableTiles(self):
+        ret = []
+        for i in self.grid:
+            for j in i:
+                if j.value == 0:
+                    ret.append(j)
         return ret
 
-    def rot(self): 
-        "rotate matrix b [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] clockwise"
-        # self.b = list(map(list, zip(*self.b[::-1]))) does not work
-        self.b = [[self.b[3][0],self.b[2][0],self.b[1][0],self.b[0][0]], 
-              [self.b[3][1],self.b[2][1],self.b[1][1],self.b[0][1]],
-              [self.b[3][2],self.b[2][2],self.b[1][2],self.b[0][2]],
-              [self.b[3][3],self.b[2][3],self.b[1][3],self.b[0][3]]]
+    def findTile(self, tile):
+        for i in range(len(self.grid)):
+            for j in range(len(self.grid[i])):
+                if self.grid[i][j] == tile:
+                    return i, j
 
-    def move(self, n):
-        # deep copy of self.b in diff
-        diff = self.b[:]
-        for i in range(n): self.rot()
-        for i in range(4): self.b[i] = self.sms(self.b[i])
-        for i in range(4-n): self.rot()
-        if self.b != diff:
-            return 1
-        else:
-            return 0
+    def reloc(self, i, j):
+        return i*self.gl+j
 
-    def new_number(self):
-        "create a new number in b and display all numbers with their colors on the buttons"
-        # get a random empty element with its tuple coordinates
-        empty = []
-        for r, row in enumerate(self.b):
-            for c, col in enumerate(row):
-                if col == 0:
-                    empty.append((r, c))
-        if len(empty)>0:
-            k = empty[random.randint(0, len(empty)-1)]
-            # assign a random number of 2 or 4 to this element or a given self.start_value
-            self.b[k[0]][k[1]] = random.randint(1,2)*self.start_value
-        j = -1
-        for i in range(16):
-            d = self.b[i//4][i%4]
-            if d == 2048:
-                j = i
-            # display button texts of their contents according to array b and their colors according to their number
-            if d:
-                document.getElementById("butt"+str(i)).innerHTML = str(d)
-            else:
-                document.getElementById("butt"+str(i)).innerHTML = '   '
-            colorcodes = {0: "white", 2:"AntiqueWhite", 4:"BurlyWood", 8:"BurlyWood", 16:"Cyan", 32:"Gold", 64:"GoldenRod",         128:"HotPink", 256:"Crimson", 512:"DarkRed", 1024:"DeepPink", 2048:"DarkMagenta"}
-            document.getElementById("butt"+str(i)).style.backgroundColor  = colorcodes[d]
-        if j >-1:
-            for i in range(16): 
-                document.getElementById("butt"+str(i)).innerHTML  = document.getElementById("butt"+str(i)).innerHTML+" :)"
-            alert("Congratulations! You made it to 2048!")
-            self.b = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    def makeButtons(self):
+        for i in range(len(self.grid)):
+            for j in range(len(self.grid[i])):
+                if self.grid[i][j].value:
+                    document.getElementById("butt"+str(self.reloc(i, j))).style.backgroundColor  = self.colorcodes[self.grid[i][j].value]
+                    document.getElementById("butt"+str(self.reloc(i, j))).innerHTML = str(self.grid[i][j].value)
+                else:
+                    document.getElementById("butt"+str(self.reloc(i, j))).style.backgroundColor  = "white"
+                    document.getElementById("butt"+str(self.reloc(i, j))).innerHTML = "   "
+
+    def move(self, direction):
+        merged = []
+        moved = False
+        lines = rotate(self.grid, direction+1)
+        console.log(lines)
+        for line in lines:
+            console.log(line)
+            while len(line) and line[len(line)-1].value == 0:
+                line.pop(-1)
+            i = len(line)-1
+            while i >= 0:
+                if line[i].value == 0:
+                    moved = True
+                    line.pop(i)
+                i -= 1
+            i = 0
+            while i < len(line)-1:
+                if line[i].value == line[i+1].value and not (line[i] in merged or line[i+1] in merged):
+                    moved = True
+                    line[i] = Tile(line[i].value*2)
+                    merged.append(line[i])
+                    line.pop(i+1)
+                else:
+                    i += 1
+            while len(line) < len(self.grid):
+                line.append(Tile())
+        for line in lines:
+            if not len(lines):
+                line = [Tile() for i in self.grid]
+        self.grid = rotate(lines, 0-(direction+1))
+        if moved:
+            self.addRandomTile()
 
     def on_keypress(self, event):
         "key handling"
-        direction={'Left': 0, 'Down': 1, 'Right': 2, 'Up': 3}
-        # shift the digits according to the move 0 1 2 or 4 and check if it has changed, if yes create a new number
-        self.keypressed = -1
         kc = event.keyCode 
-        cc = event.charCode
-        self.ckeys = {38:3, 39:2, 37:0, 40:1}
-        for key, val in self.ckeys.items():
-            if kc == key:
-                self.keypressed = key
-                break
-        if self.keypressed != -1:
-            if self.move(self.ckeys[self.keypressed]): 
-                self.new_number()
-            # deep copy of self.b in p
-            p = self.b[:]
-            # check out all 4 possible moves and compare if numbers would change
-            for i in range(4):
-                self.move(i)
-                # check if is still possible to move in any direction if any change return
-                if self.b != p:
-                    self.b = p[:]
-                    # console.log(self.b)
-                    return # for a new move
-            # otherwise the game has ended
+        if kc == 37: 
+            self.move(3)
+        elif kc == 38:
+            self.move(2)
+        elif kc == 39:
+            self.move(1)
+        elif kc == 40:
+            self.move(0)
+        self.makeButtons()
+        if self.lost():
             for i in range(16): 
                 document.getElementById("butt"+str(i)).style.backgroundColor  = "red"
                 document.getElementById("butt"+str(i)).innerHTML  = document.getElementById("butt"+str(i)).innerHTML+ " :("
             alert("Aaah! This did not work!")
-    
+        elif self.won():
+            alert("Congratulations! You made it!")
+
+    def lost(self):
+        s = len(self.grid)-1
+        b = True
+        for i in range(len(self.grid)):
+            for j in range(len(self.grid[i])):
+                val = self.grid[i][j].value
+                if val == 0:
+                    b = False
+                if i > 0 and self.grid[i-1][j].value == val:
+                    b = False
+                if j > 0 and self.grid[i][j-1].value == val:
+                    b = False
+                if i < s and self.grid[i+1][j].value == val:
+                    b = False
+                if j < s and self.grid[i][j+1].value == val:
+                    b = False
+        return b
+
+    def won(self):
+        for i in range(len(self.grid)):
+            for j in range(len(self.grid[i])):
+                if self.grid[i][j].value == 2048:
+                    return True
+        return False
+
+    def getValues(self):
+        ret = []
+        for i in self.grid:
+            for j in i:
+                ret.append(j)
+        return ret
+
     def startvalue(self):
         self.start_value = int(document.getElementById("selstart").value)
 
-game2048 = Game2048(None)
+def rotate(l, num):
+    num = num % 4
+    s = len(l)-1
+    l2 = []
+    if num == 0:
+        l2 = l
+    elif num == 1:
+        l2 = [[False for i in j] for j in l]
+        for y in range(len(l)):
+            for x in range(len(l[y])):
+                l2[x][s-y] = l[y][x]
+    elif num == 2:
+        l2 = l
+        l2.reverse()
+        for i in l:
+            i.reverse()
+    elif num == 3:
+        l2 = [[False for i in j] for j in l]
+        for y in range(len(l)):
+            for x in range(len(l[y])):
+                l2[y][x] = l[x][s-y]
+    return l2
+
+game2048 = Game2048(4)
