@@ -5,7 +5,7 @@ Alerts and Prompts
 Preparation of html files to run transcrypted Python code
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In order to running Python code which has been "transcrypted" to Javascript,
+In order to run Python code which has been "transcrypted" to Javascript,
 you need to include a text line starting with <script> into your html file which looks like this: ::
 
 	<head>
