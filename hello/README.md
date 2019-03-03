@@ -1,9 +1,13 @@
-Standard Basic example 
+Standard Basic example
+######################
 
 You need to have Python 3 installed.
 
 Install Transcrypt with pip install transcrypt==3.6 or create a virtual environment by
-creating a new directory like mkdir hello
+creating a new directory like 
+
+```mkdir hello```
+
 and create a new virtual environment by:
 
 virtualenv -p C:\Python36\python.exe hello
