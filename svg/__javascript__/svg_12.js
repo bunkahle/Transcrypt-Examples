@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2022-05-10 20:06:08
+// Transcrypt'ed from Python, 2022-05-10 21:55:37
 function svg_12 () {
    var __symbols__ = ['__py3.8__', '__esv5__'];
     var __all__ = {};
@@ -2340,6 +2340,13 @@ function svg_12 () {
 				self.svg.appendChild (self.r2);
 				self.c1 = self.draw_graphic ('circle', 'cx:150; cy:150; r:100; stroke:black; stroke-width:5; fill:red');
 				self.svg.appendChild (self.c1);
+				self.e1 = self.draw_graphic ('ellipse', 'cx:150; cy:150; rx:50; ry:20; stroke:green; stroke-width:5; fill:yellow');
+				self.svg.appendChild (self.e1);
+				self.l1 = self.draw_graphic ('line', 'x1:150; y1:150; x2:250; y2:200; stroke:blue; stroke-width:5');
+				self.svg.appendChild (self.l1);
+				self.t1 = self.draw_graphic ('text', 'x:100; y:100; fill:white;font-family:Verdana;font-size:20');
+				self.t1.textContent = 'I love SVG';
+				self.svg.appendChild (self.t1);
 				document.body.appendChild (self.svg);
 			});},
 			get draw_graphic () {return __get__ (this, function (self, kind, variablen) {
