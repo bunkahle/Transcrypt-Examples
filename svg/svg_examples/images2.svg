@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+  <defs id="defs6">
+    <filter filterUnits="objectBoundingBox" id="invert" x="0" y="0" height="1" width="1">
+      <feFlood flood-color="rgb(255,255,255)" result="background" />
+      <feBlend mode="normal" in="SourceGraphic" in2="background" />
+      <feComponentTransfer>
+          <feFuncR type="table" tableValues="1 0"/>
+          <feFuncG type="table" tableValues="1 0"/>
+          <feFuncB type="table" tableValues="1 0"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <image filter="url(#invert)" xlink:href='Mars.png' y="50" x="50" height="100" width="100" />
+</svg>

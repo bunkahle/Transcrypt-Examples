@@ -1,0 +1,23 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs id="defs6">
+	    <filter filterUnits="objectBoundingBox" id="invertblur" x="0" y="0" height="1" width="1">
+	      <feFlood flood-color="rgb(255,255,255)" result="background" />
+	      <feBlend mode="normal" in="SourceGraphic" in2="background" />
+	      <feComponentTransfer>
+	          <feFuncR type="table" tableValues="1 0"/>
+	          <feFuncG type="table" tableValues="1 0"/>
+	          <feFuncB type="table" tableValues="1 0"/>
+	      </feComponentTransfer>
+	      <feGaussianBlur stdDeviation=".3"/>
+	    </filter>
+  	</defs>
+    <mask id="Mars">
+        <image filter="url(#invertblur)" xlink:href="Mars.png" x="30" y="27" height="10" width="10"/>
+    </mask>
+    <mask id="Venus">
+        <image filter="url(#invertblur)" xlink:href="Venus.png" x="62" y="64" height="10" width="10"/>
+    </mask>
+    <image xlink:href="zodiac.jpg" width="100" height="100"/>
+    <rect x="0" y="0" width="100" height="100" fill="black" mask="url(#Mars)"/>
+    <rect x="0" y="0" width="100" height="100" fill="black" mask="url(#Venus)"/>
+</svg>

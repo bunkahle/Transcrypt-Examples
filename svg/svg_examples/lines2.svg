@@ -1,0 +1,9 @@
+<svg width="600px" height="400px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  
+    <line x1="10" y1="20" x2="300" y2="20" stroke="red" stroke-width="20" stroke-linecap="butt"/>
+      <text x="320" y="20">stroke-linecap="butt" (default)</text>
+    <line x1="10" y1="70" x2="300" y2="70" stroke="red" stroke-width="20" stroke-linecap="round"/>
+      <text x="320" y="70">stroke-linecap="round"</text>
+    <line x1="10" y1="120" x2="300" y2="120" stroke="red" stroke-width="20" stroke-linecap="square"/>
+      <text x="320" y="120">stroke-linecap="square"</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <rect x="50" y="50" height="100" width="100" stroke="black" fill="yellow">
+        <animateTransform
+            attributeType="XML"
+            attributeName="transform"
+            type="rotate"
+            begin="0s"
+            dur="10s"
+            from="0"
+            to="360"
+            repeatCount="indefinite"
+        />
+    </rect>
+</svg>

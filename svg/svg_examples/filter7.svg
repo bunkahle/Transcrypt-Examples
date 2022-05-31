@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1400px" height="800px" viewBox="0 0 1400 800">
+	<defs>
+  	<filter id="inner-glow">
+	    <feFlood flood-color="red"/>
+	    <feComposite in2="SourceAlpha" operator="out"/>
+	    <feGaussianBlur stdDeviation="3" result="blur"/>
+	    <feComposite operator="atop" in2="SourceGraphic"/>
+	</filter> 
+  </defs>
+  
+  <text filter="url(#inner-glow)" x="30" y="100" font-size="80" font-family="Sans-Serif" font-weight="bold">SVG Filters</text>
+</svg>

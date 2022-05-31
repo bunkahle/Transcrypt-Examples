@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 50 50" class="donut" aria-labelledby="beers-title beers-desc" role="img">
+      <title id="beers-title">Beers in My Cellar</title>
+      <desc id="beers-desc">Donut chart showing 10 total beers. Two beers are Imperial India Pale Ales, four beers are Belgian Quadrupels, and three are Russian Imperial Stouts. The last remaining beer is unlabeled.</desc>
+      <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff" role="presentation"></circle>
+      <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="3" role="presentation"></circle>
+
+      <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ce4b99" stroke-width="3" stroke-dasharray="40 60" stroke-dashoffset="25" aria-labelledby="donut-segment-1-title donut-segment-1-desc">
+        <title id="donut-segment-1-title">Belgian Quadrupels</title>
+        <desc id="donut-segment-1-desc">Pink chart segment spanning 40% of the whole, which is 4 Belgian Quadrupels out of 10 total.</desc>
+      </circle>
+      <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#b1c94e" stroke-width="3" stroke-dasharray="20 80" stroke-dashoffset="85">
+        <title id="donut-segment-2-title">Imperial India Pale Ales</title>
+        <desc id="donut-segment-2-desc">Green chart segment spanning 20% of the whole, which is 2 Imperial India Pale Ales out of 10 total.</desc>
+      </circle>
+      <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#377bbc" stroke-width="3" stroke-dasharray="30 70" stroke-dashoffset="65">
+        <title id="donut-segment-3-title">Russian Imperial Stouts</title>
+        <desc id="donut-segment-3-desc">Blue chart segment spanning 3% of the whole, which is 3 Russian Imperial Stouts out of 10 total.</desc>
+      </circle>
+      <!-- unused 10% -->
+      <g class="chart-text">
+        <text x="13" y="20" class="chart-number">
+          10
+        </text>
+        <text x="13" y="32" class="chart-label">
+          Beers
+        </text>
+      </g>
+</svg>

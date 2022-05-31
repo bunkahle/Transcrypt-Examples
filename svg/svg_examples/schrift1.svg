@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<font id="ente" horiz-adv-x="54" >
+  <font-face
+    font-family="Entebbe"
+    units-per-em="1000"
+    panose-1="0 0 0 0 0 0 0 0 0 0"
+    ascent="935"
+    descent="-292"
+    alphabetic="0" />
+  <missing-glyph horiz-adv-x="800"
+    d="M50 0V800H750V0H50ZM700 50V750H100V50H700Z" />
+  <glyph unicode=" " glyph-name="space" horiz-adv-x="290" />
+  <glyph unicode="!" glyph-name="exclam" horiz-adv-x="223"
+    d="M86 171L83 197V683Q83 719 96 725T117 731Q141 731 145 709L148 683
+    V197Q148 161 135 155T114 149Q90 149 86 171ZM76 4Q61 19 61 40Q61 62 75 76
+    T112 91Q119 91 140 83T162 41Q162 30 159 22T144 2T111 -10Q92 -10 76 4Z" />
+  <glyph unicode="&quot;" glyph-name="quotedbl" horiz-adv-x="354"
+    d="M82 581Q74 577 56 573Q61 583 68 599T78 627L79 630Q51 651 51 682
+    Q51 687 51 690T60 713T101 732Q110 732 132 723T154 676Q154 641 136 622
+    T106 594T82 581ZM232 581Q224 577 206 573Q211 583 218 599T228 627
+    L229 630Q201 651 201 682Q201 687 201 690T210 713T251 732Q260 732 282 723
+    T304 676Q304 641 286 622T256 594T232 581Z" />
+  <glyph unicode="#" glyph-name="numbersign" horiz-adv-x="491"
+    d="M119 238H23L36 288H132L167 432H69L81 482H180L239 720H291L232 482
+    H327L386 720H438L379 482H469L457 432H366L331 288H423L410 238H318
+    L259 0H207L266 238H171L112 0H60L119 238ZM183 288H279L314 432H219L183 288Z" />
+  <!-- ... -->
+  <!-- ... mehr Zeichendefinitionen folgen hier -->
+  <!-- ... -->
+</font>
+</defs>
+
+<text x="20" y="60"
+  style="font-family:Entebbe; font-size:18px; fill:black">
+  !SVG fonts!"#"
+</text>
+</svg>

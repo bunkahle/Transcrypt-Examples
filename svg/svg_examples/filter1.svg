@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900px" height="400px" viewBox="0 0 900 400">
+   <defs>
+      <filter id="basicGaussian">
+         <feGaussianBlur stdDeviation="5"/>
+      </filter>
+   </defs>
+        
+   <image xlink:href="Market.jpg" x="20px" y="20px" width="300px" height="200px" preserveAspectRatio="xMinYMin meet" />
+   <image filter="url(#basicGaussian)" xlink:href="Market.jpg" x="340px" y="20px" width="300px" height="200px" preserveAspectRatio="xMinYMin meet"/>
+</svg>

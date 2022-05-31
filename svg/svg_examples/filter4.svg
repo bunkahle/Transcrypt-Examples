@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900px" height="400px" viewBox="0 0 900 400">
+   <defs>
+     <filter id="focus-blur" >
+	    <feDiffuseLighting result = "diffOut" diffuseConstant = "1" lighting-color="white">
+	       <feSpotLight id="spotlight" x = "500" y = "100" z = "150" pointsAtX = "500" pointsAtY = "100" pointsAtZ = "0" specularExponent ="12" limitingConeAngle="70"/>
+	    </feDiffuseLighting>
+
+	     <feColorMatrix in="diffOut" result="alphaMap" type="luminanceToAlpha"/>
+	     <feComponentTransfer in="alphaMap" result="invertlight">
+	        <feFuncA type="table" tableValues="1 0 0"/>
+	     </feComponentTransfer>
+	     <feGaussianBlur in="invertlight" result="featherspot" stdDeviation="5"/>
+	     <feComposite operator="xor" result="infocus" in2="SourceGraphic" in="featherspot"/>
+	     <feGaussianBlur in="SourceGraphic" result="outfocus" stdDeviation="2"/>
+	     <feComposite operator="over" in="infocus" in2="outfocus"/> 
+	    <feComposite operator="in" in2="SourceGraphic"/>       
+     </filter>
+   </defs>
+        
+   <image xlink:href="Market.jpg" x="20px" y="20px" width="300px" height="200px" preserveAspectRatio="xMinYMin meet" />
+   <image filter="url(#focus-blur)" xlink:href="Market.jpg" x="340px" y="20px" width="300px" height="200px" preserveAspectRatio="xMinYMin meet"/>
+</svg>

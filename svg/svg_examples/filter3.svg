@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900px" height="400px" viewBox="0 0 900 400">
+   <defs>
+     <filter id="posterize" color-interpolation-filters="sRGB">
+     <feComponentTransfer>
+       <feFuncR type="discrete" tableValues="0 0.25 0.75 1.0"/>
+       <feFuncG type="discrete" tableValues="0 0.25 0.75 1.0"/>
+       <feFuncB type="discrete" tableValues="0 0.25 0.75 1.0"/>
+     </feComponentTransfer>
+     </filter> 
+   </defs>
+        
+   <image xlink:href="Andy_Warhol.jpg" x="20px" y="20px" width="300px" height="600px" preserveAspectRatio="xMinYMin meet" />
+   <image filter="url(#posterize)" xlink:href="Andy_Warhol.jpg" x="340px" y="20px" width="300px" height="600px" preserveAspectRatio="xMinYMin meet"/>
+</svg>

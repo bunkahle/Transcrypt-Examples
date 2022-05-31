@@ -1,0 +1,11 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <mask id="myMask">
+        <rect x="0" y="0" width="100" height="100" fill="white"/>
+        <circle cx="25" cy="25" r="20" fill="black"/>
+        <circle cx="75" cy="25" r="20" fill="#333"/>
+        <circle cx="25" cy="75" r="20" fill="#666"/>
+        <circle cx="75" cy="75" r="20" fill="#999"/>
+    </mask>
+    <image xlink:href="ship.jpg" width="100" height="100"/>
+    <rect x="0" y="0" width="100" height="100" fill="green" mask="url(#myMask)"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900px" height="400px" viewBox="0 0 900 400">
+    <defs>
+     <filter id="greyscale">
+     <feColorMatrix type="matrix"
+             values=".2  .2  .2  0 0
+                     .6  .6  .6  0 0
+                     .2  .2  .2  0 0
+                     0 0 0 1 0"/>
+     </filter> 
+   </defs>
+        
+   <image xlink:href="Market.jpg" x="20px" y="20px" width="300px" height="200px" preserveAspectRatio="xMinYMin meet" />
+   <image filter="url(#greyscale)" xlink:href="Market.jpg" x="340px" y="20px" width="300px" height="200px" preserveAspectRatio="xMinYMin meet"/>
+</svg>

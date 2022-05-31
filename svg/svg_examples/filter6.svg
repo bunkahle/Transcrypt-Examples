@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1400px" height="800px" viewBox="0 0 1400 800">
+<defs>
+<filter id="complex-shadow" color-interpolation-filters="sRGB" x="-50%" y="-50%" height="200%" width="200%">
+
+<!-- Take source alpha, offset it by angle/distance and blur it by size -->
+<feOffset id="offset" in="SourceAlpha" dx="11" dy="6" result="SA-offset"/> 
+<feGaussianBlur id="blur" in="SA-offset" stdDeviation="4" result="SA-o-blur"/>
+
+<!-- Apply a contour by using a color curve transform on the alpha and clipping the result to the input -->
+
+<feComponentTransfer in="SA-o-blur" result="SA-o-b-contIN"> 
+  <feFuncA id="contour" type="table" tableValues="0 1 .3 .1 0.05 .1 .3 1 "/> 
+</feComponentTransfer>
+
+<feComposite operator="in" in="SA-o-blur" in2="SA-o-b-contIN" result="SA-o-b-cont"/>
+
+<!-- Adjust the spread by multiplying alpha by a constant factor --> <feComponentTransfer in="SA-o-b-cont" result="SA-o-b-c-sprd"> 
+  <feFuncA id="spread-ctrl" type="linear" slope="2.8"/> 
+</feComponentTransfer>
+
+<!-- Adjust color and opacity by adding fixed offsets and an opacity multiplier --> 
+<feColorMatrix id="recolor" in="SA-o-b-c-sprd" type="matrix" values="0 0 0 0 0.945 0 0 0 0 0.137 0 0 0 0 0.137 0 0 0 0.49 0" result="SA-o-b-c-s-recolor"/>
+
+<!-- Generate a grainy noise input with baseFrequency between approx .5 to 2.0. And add the noise with k1 and k2 multipliers that sum to 1 --> 
+<feTurbulence result="fNoise" type="fractalNoise" numOctaves="6" baseFrequency="1.98"/> 
+<feColorMatrix in="fNoise" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 7 -3" result="clipNoise"/> 
+<feComposite id="noisemix" operator="arithmetic" in="SA-o-b-c-s-recolor" in2="clipNoise" k1="0.67" k2="0.33" result="SA-o-b-c-s-r-mix"/>
+
+<!-- Merge the shadow with the original --> 
+<feMerge> 
+  <feMergeNode in="SA-o-b-c-s-r-mix"/> 
+  <feMergeNode in="SourceGraphic"/> 
+</feMerge> 
+</filter> 
+  </defs>
+  
+  <text filter="url(#complex-shadow)" x="30" y="100" font-size="80" font-family="Sans-Serif" font-weight="bold">SVG Filters</text>
+  
+</svg>

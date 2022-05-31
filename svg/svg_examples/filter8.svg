@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1400px" height="800px" viewBox="0 0 1400 800">
+	<defs>
+  <filter id="drop-shadow">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+    <feOffset dx="5" dy="5" result="offsetblur"/>
+    <feFlood flood-color="red"/>
+    <feComposite in2="offsetblur" operator="in"/>
+    <feMerge>
+      <feMergeNode/>
+      <feMergeNode in="SourceGraphic"/>
+  </feMerge>
+</filter> 
+  </defs>
+  
+  <text filter="url(#drop-shadow)" x="30" y="100" font-size="80">SVG Filters</text>
+  
+</svg>

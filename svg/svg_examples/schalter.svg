@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <switch>
+  	<text systemLanguage="de" x="30" y="30">Deutsch</text>
+    <text systemLanguage="en-UK" x="30" y="30">UK English</text>
+    <text systemLanguage="fr" x="30" y="30">Français</text>
+    <text systemLanguage="ru" x="30" y="30">Русский</text>
+    <text x="30" y="30">English</text> <!-- fallback (if none of the languages match) -->
+  </switch>
+</svg>
